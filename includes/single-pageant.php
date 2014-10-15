@@ -15,8 +15,6 @@ get_header(); ?>
 		
 		<main id="content" <?php yt_section_classes( 'site-content', 'content' );?> role="main" itemprop="mainContentOfPage" itemscope="itemscope" itemtype="http://schema.org/Blog">
 
-            <h3>Competitors</h3>
-		
 		<?php yt_before_loop(); ?>
 		
 		<?php while ( have_posts() ) : the_post(); ?>
@@ -24,11 +22,26 @@ get_header(); ?>
 			<?php yt_loop_start(); ?>
 			
 			<?php get_template_part( 'content', 'single' ); ?>
+
+            <div id="competitors">
+                <ul>
+                <?php
+                $users = get_users( array(
+                    'connected_type' => 'pageant_competitors',
+                    'connected_items' => get_queried_object()
+                ));
+
+                foreach ($users as $user) {
+                    echo '<li><a href="#">' . $user -> user_email . '</a></li>';
+                }
+                ?>
+                </ul>
+            </div>
 			
 			<?php yt_loop_end(); ?>
 
 		<?php endwhile; // end of the loop. ?>
-		
+
 		<?php yt_after_loop(); ?>
 
 		</main><!-- #content -->
