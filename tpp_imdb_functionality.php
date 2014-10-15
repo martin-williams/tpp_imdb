@@ -21,3 +21,12 @@ function create_competitor_relationship () {
     ));
 }
 add_action('init', 'create_competitor_relationship');
+
+function single_pageant_template ($template) {
+    if ('pageants' == get_post_type(get_queried_object_id()) && !$template) {
+        $template = dirname(__FILE__) . '/includes/single-pageant.php';
+    }
+
+    $template = dirname(__FILE__) . '/includes/single-pageant.php';
+}
+add_filter('single_template', 'single_pageant_template');
