@@ -12,3 +12,12 @@ require dirname( __FILE__ ) . '/tpp_imdb_shortcodes.php';
 
 // turn off admin bar
 add_filter('show_admin_bar', '__return_false');
+
+function create_competitor_relationship () {
+    p2p_register_connection_type( array(
+        'name' => 'pageant_competitors',
+        'from' => 'pageants',
+        'to'   => 'user'
+    ));
+}
+add_action('init', 'create_competitor_relationship');
