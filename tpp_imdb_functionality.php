@@ -31,3 +31,14 @@ function single_pageant_template ($template) {
     return $template;
 }
 add_filter('template_include', 'single_pageant_template');
+
+function single_pageant_content_template ($single_template) {
+    global $post;
+
+    if ($post->post_type == 'pageants' && !file_exists(get_stylesheet_directory() . '/content-pageant.php') && file_exists(plugin_dir_path(__FILE__) . 'includes/content-pageant.php')) {
+        $single_template = plugin_dir_path(__FILE__) . 'includes/content-pageant.php';
+    }
+    echo $single_template;
+    return $single_template;
+}
+add_filter('single_template', 'single_pageant_content_template');

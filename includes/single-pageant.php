@@ -21,23 +21,8 @@ get_header(); ?>
 		
 			<?php yt_loop_start(); ?>
 			
-			<?php get_template_part( 'content', 'single' ); ?>
+			<?php get_template_part( 'content', 'pageant' ); ?>
 
-            <div id="competitors">
-                <ul>
-                <?php
-                $users = get_users( array(
-                    'connected_type' => 'pageant_competitors',
-                    'connected_items' => get_queried_object()
-                ));
-
-                foreach ($users as $user) {
-                    echo '<li><a href="#">' . $user -> user_email . '</a></li>';
-                }
-                ?>
-                </ul>
-            </div>
-			
 			<?php yt_loop_end(); ?>
 
 		<?php endwhile; // end of the loop. ?>
@@ -48,7 +33,7 @@ get_header(); ?>
 	
 		<?php yt_primary_end(); ?>
 		
-	</div><!-- #primary -->
+	<!-- #primary -->
 	
 	<?php yt_after_primary(); ?>
 	
