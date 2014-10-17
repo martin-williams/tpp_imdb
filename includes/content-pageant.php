@@ -56,15 +56,12 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <?php echo 'quote' === $format ? $quote_author : '';?>
         <?php echo 'link' === $format ? $share_url_text : '';?>
 
-        <?php if( 'hide' !== yt_get_options( 'blog_post_meta_info_mode' )): ?>
-            <!--
-            <div class="entry-meta margin-bottom-30 hidden-print">
-                <?php if( function_exists( 'yt_post_meta_description' ))
-                    yt_post_meta_description(); ?>
-            </div>
-            -->
-            <!-- .entry-meta -->
-        <?php endif?>
+        <?php
+        $pageant_date = get_post_meta(get_the_ID(), 'pageant_date', true);
+        if ($pageant_date) {
+            echo '<p class="meta-date">' . $pageant_date . '</p>';
+        }
+        ?>
 
         <?php do_action( 'yt_single_post_entry_header_end' );?>
     </header><!-- .entry-header -->
