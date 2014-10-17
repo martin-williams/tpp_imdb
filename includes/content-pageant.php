@@ -57,10 +57,13 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <?php echo 'link' === $format ? $share_url_text : '';?>
 
         <?php if( 'hide' !== yt_get_options( 'blog_post_meta_info_mode' )): ?>
+            <!--
             <div class="entry-meta margin-bottom-30 hidden-print">
                 <?php if( function_exists( 'yt_post_meta_description' ))
                     yt_post_meta_description(); ?>
-            </div><!-- .entry-meta -->
+            </div>
+            -->
+            <!-- .entry-meta -->
         <?php endif?>
 
         <?php do_action( 'yt_single_post_entry_header_end' );?>
@@ -128,6 +131,29 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         ?>
 
         <?php the_content(); ?>
+
+        <?php
+        $users = get_users( array(
+            'connected_type' => 'pageant_competitors',
+            'connected_items' => get_queried_object()
+        ));
+        ?>
+
+        <div id="competitors" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">Pageant Competitors</h4>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <?php
+                    foreach ($users as $user) {
+                        echo '<li><a href="#">' . $user -> display_name . '</a></li>';
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
+
         <?php
         wp_link_pages( array(
             'before' => '<div class="page-links pagination-nav">' . __( 'Pages:', 'yeahthemes' ),
@@ -140,21 +166,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <?php do_action( 'yt_single_post_entry_content_end' );?>
 
     </div><!-- .entry-content -->
-
-    <div id="competitors">
-        <ul>
-            <?php
-            $users = get_users( array(
-                'connected_type' => 'pageant_competitors',
-                'connected_items' => get_queried_object()
-            ));
-
-            foreach ($users as $user) {
-                echo '<li><a href="#">' . $user -> user_email . '</a></li>';
-            }
-            ?>
-        </ul>
-    </div>
 
     <?php do_action( 'yt_before_single_post_entry_footer' );?>
 
@@ -171,7 +182,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
             <?php do_action( 'yt_single_post_entry_footer_end' );?>
         </footer><!-- .entry-meta -->
     <?php endif;?>
-
 
     <?php do_action( 'yt_after_single_post_entry_footer' );?>
 
