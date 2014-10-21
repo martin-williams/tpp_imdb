@@ -33,7 +33,7 @@ get_header(); ?>
 	
 		<?php yt_primary_end(); ?>
 		
-	<!-- #primary -->
+	</div><!-- #primary -->
 	
 	<?php yt_after_primary(); ?>
 	

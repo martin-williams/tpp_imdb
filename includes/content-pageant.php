@@ -56,19 +56,15 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <?php echo 'quote' === $format ? $quote_author : '';?>
         <?php echo 'link' === $format ? $share_url_text : '';?>
 
-        <?php
-        $pageant_date = get_post_meta(get_the_ID(), 'pageant_date', true);
-        if ($pageant_date) {
-            echo '<p class="meta-date">' . $pageant_date . '</p>';
-        }
-        ?>
-
         <?php do_action( 'yt_single_post_entry_header_end' );?>
     </header><!-- .entry-header -->
 
     <?php do_action( 'yt_before_single_post_entry_content' );?>
 
-    <div class="entry-content">
+    <div class="row">
+    <div class="entry-content col-md-12">
+
+        <div class="meta-wrapper col-md-4"> <?php the_meta(); ?> </div>
 
         <?php do_action( 'yt_single_post_entry_content_start' );?>
         <?php
@@ -130,28 +126,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <?php the_content(); ?>
 
         <?php
-        $users = get_users( array(
-            'connected_type' => 'pageant_competitors',
-            'connected_items' => get_queried_object()
-        ));
-        ?>
-
-        <div id="competitors" class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">Pageant Competitors</h4>
-            </div>
-            <div class="panel-body">
-                <ul>
-                    <?php
-                    foreach ($users as $user) {
-                        echo '<li><a href="#">' . $user -> display_name . '</a></li>';
-                    }
-                    ?>
-                </ul>
-            </div>
-        </div>
-
-        <?php
         wp_link_pages( array(
             'before' => '<div class="page-links pagination-nav">' . __( 'Pages:', 'yeahthemes' ),
             'after'  => '</div>',
@@ -163,6 +137,30 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <?php do_action( 'yt_single_post_entry_content_end' );?>
 
     </div><!-- .entry-content -->
+
+    </div><!-- .row -->
+
+    <?php
+    $users = get_users( array(
+        'connected_type' => 'pageant_competitors',
+        'connected_items' => get_queried_object()
+    ));
+    ?>
+
+    <div id="competitors" class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Pageant Competitors</h4>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <?php
+                foreach ($users as $user) {
+                    echo '<li><a href="#">' . $user -> display_name . '</a></li>';
+                }
+                ?>
+            </ul>
+        </div>
+    </div>
 
     <?php do_action( 'yt_before_single_post_entry_footer' );?>
 
