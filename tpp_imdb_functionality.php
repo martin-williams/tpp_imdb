@@ -1,11 +1,11 @@
 <?php 
 /*
 Plugin Name: TPP IMDB-esk functionality
-Plugin URI: http://thepageantplanet.com
+Plugin URI: https://github.com/martin-williams/tpp_imdb
 Description: Functionality for ordering users and pageants in IMDB fashion
 Version: 1.0
-Author: Ingage
-Author URI: http://weingage.com/
+Author: Martin Williams
+Author URI: http://github.com/martin-williams
 */
 
 define( 'TPP_IMDB_PLUGIN_DIR', plugin_dir_path(__FILE__) );
@@ -27,7 +27,21 @@ function create_competitor_relationship () {
         'title' => 'Connected Competitors'
     ));
 }
-add_action('init', 'create_competitor_relationship');
+
+function create_director_relationship () {
+    p2p_register_connection_type( array(
+        'name' => 'pageant_directors',
+        'from' => 'pageants',
+        'to'   => 'profiles',
+        'title' => 'Connected Directors'
+    ));
+}
+
+function create_relationships () {
+    create_competitor_relationship();
+    create_director_relationship();
+}
+add_action('init', 'create_relationships');
 
 function single_pageant_template ($template) {
     $post_types = array ( 'pageants' );
@@ -40,14 +54,3 @@ function single_pageant_template ($template) {
     return $template;
 }
 add_filter('template_include', 'single_pageant_template');
-
-function single_pageant_content_template ($single_template) {
-    global $post;
-
-    if ($post->post_type == 'pageants' && !file_exists(get_stylesheet_directory() . '/content-pageant.php') && file_exists(dirname(__FILE__) . '/includes/content-pageant.php')) {
-        $single_template = dirname(__FILE__) . '/includes/content-pageant.php';
-    }
-    echo '<script>console.log("' . $single_template . '");</script>';
-    return $single_template;
-}
-//add_filter('single_template', 'single_pageant_content_template');

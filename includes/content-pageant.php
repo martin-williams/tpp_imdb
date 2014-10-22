@@ -141,6 +141,28 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     </div><!-- .row -->
 
     <?php
+    $directors = new WP_Query( array(
+        'connected_type' => 'pageant_directors',
+        'connected_items' => get_queried_object()
+    ));
+    ?>
+
+    <div id="directors" class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Pageant Directors</h4>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <?php while ($directors->have_posts() ) : $directors->the_post(); ?>
+                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                <?php endwhile; ?>
+            </ul>
+        </div>
+    </div>
+
+    <?php wp_reset_postdata(); ?>
+
+    <?php
     $competitors = new WP_Query( array(
         'connected_type' => 'pageant_competitors',
         'connected_items' => get_queried_object()
@@ -159,6 +181,8 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
             </ul>
         </div>
     </div>
+
+    <?php wp_reset_postdata(); ?>
 
     <?php do_action( 'yt_before_single_post_entry_footer' );?>
 
