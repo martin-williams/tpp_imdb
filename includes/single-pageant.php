@@ -21,7 +21,11 @@ get_header(); ?>
 		
 			<?php yt_loop_start(); ?>
 			
-			<?php get_template_part( 'content', 'pageant' ); ?>
+			<?php
+            $templates = new TPP_IMDB_Template_Loader;
+            $templates->get_template_part('content', 'pageant');
+            //get_template_part( 'content', 'pageant' );
+            ?>
 
 			<?php yt_loop_end(); ?>
 

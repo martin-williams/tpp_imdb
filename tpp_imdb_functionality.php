@@ -8,7 +8,12 @@ Author: Ingage
 Author URI: http://weingage.com/
 */
 
-require dirname( __FILE__ ) . '/tpp_imdb_shortcodes.php';
+define( 'TPP_IMDB_PLUGIN_DIR', plugin_dir_path(__FILE__) );
+
+if (!class_exists('Gamajo_Template_Loader')) {
+    require TPP_IMDB_PLUGIN_DIR . 'class-gamajo-template-loader.php';
+}
+require TPP_IMDB_PLUGIN_DIR . 'class-tpp-imdb-template-loader.php';
 
 // turn off admin bar
 add_filter('show_admin_bar', '__return_false');
