@@ -18,7 +18,7 @@ function create_competitor_relationship () {
     p2p_register_connection_type( array(
         'name' => 'pageant_competitors',
         'from' => 'pageants',
-        'to'   => 'user', 
+        'to'   => 'profiles',
         'title' => 'Connected Competitors'
     ));
 }

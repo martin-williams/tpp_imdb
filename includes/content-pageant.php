@@ -141,7 +141,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     </div><!-- .row -->
 
     <?php
-    $users = get_users( array(
+    $competitors = new WP_Query( array(
         'connected_type' => 'pageant_competitors',
         'connected_items' => get_queried_object()
     ));
@@ -153,11 +153,9 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         </div>
         <div class="panel-body">
             <ul>
-                <?php
-                foreach ($users as $user) {
-                    echo '<li><a href="#">' . $user -> display_name . '</a></li>';
-                }
-                ?>
+                <?php while ($competitors->have_posts() ) : $competitors->the_post(); ?>
+                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                <?php endwhile; ?>
             </ul>
         </div>
     </div>
