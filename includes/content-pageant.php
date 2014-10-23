@@ -52,6 +52,17 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <?php do_action( 'yt_single_post_entry_header_start' );?>
 
         <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
+        <?php
+        $fb_url = get_post_meta(get_the_ID(), 'Facebook', true);
+        $twitter_url = get_post_meta(get_the_ID(), 'Twitter', true);
+        ?>
+
+        <?php if ($fb_url || $twitter_url) : ?>
+        <ul class="pageant-social-links">
+            <?php if ($fb_url) echo '<li><a href="' . $fb_url . '"><i class="fa fa-facebook-square"></i></a></li>'; ?>
+            <?php if ($twitter_url) echo '<li><a href="' . $twitter_url . '"><i class="fa fa-twitter-square"></i></a></li>'; ?>
+        </ul>
+        <?php endif; ?>
 
         <?php echo 'quote' === $format ? $quote_author : '';?>
         <?php echo 'link' === $format ? $share_url_text : '';?>

@@ -7,6 +7,10 @@
 
 .pageants .entry-title { margin-bottom: 20px; }
 
+.pageant-social-links { list-style: none; }
+.pageant-social-links li { display: inline-block; }
+.pageant-social-links li .fa { font-size: 30px; }
+
 .meta-wrapper { padding-top: 15px; padding-bottom: 15px; border: 1px solid rgba(0,0,0,0.1); float: right !important; margin: 0 0 15px 15px; }
 .entry-content .meta-wrapper ul { list-style: none; margin: 0; }
 .meta-wrapper li { margin: 10px 0; }
