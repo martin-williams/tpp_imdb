@@ -1,9 +1,9 @@
 #snippet-box { display: none; }
 
-#competitors { clear: both; }
-#competitors .panel-heading { margin-bottom: 0; }
-#competitors ul { list-style: none; }
-#competitors li { border: 1px solid rgba(100,100,100,0.05); height: 50px; line-height: 50px; margin: 5px 0; padding: 0 10px; }
+#directors, #competitors { clear: both; }
+#directors .panel-heading, #competitors .panel-heading { margin-bottom: 0; }
+#directors ul, #competitors ul { list-style: none; }
+#directors li, #competitors li { border: 1px solid rgba(100,100,100,0.05); height: 50px; line-height: 50px; margin: 5px 0; padding: 0 10px; }
 
 .pageants .entry-title { margin-bottom: 20px; }
 
