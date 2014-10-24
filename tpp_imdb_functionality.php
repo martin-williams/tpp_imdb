@@ -37,9 +37,19 @@ function create_director_relationship () {
     ));
 }
 
+function create_post_relationship () {
+    p2p_register_connection_type( array(
+        'name' => 'recent_news',
+        'from' => 'post',
+        'to'   => 'pageants',
+        'title' => 'Featured Pageants'
+    ));
+}
+
 function create_relationships () {
     create_competitor_relationship();
     create_director_relationship();
+    create_post_relationship();
 }
 add_action('init', 'create_relationships');
 
