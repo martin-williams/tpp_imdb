@@ -72,10 +72,49 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <?php do_action( 'yt_before_single_post_entry_content' );?>
 
+    <?php
+    $my_fields = array("Address of next pageant", "Next pageant date", "Year of first pageant");
+    $custom_fields = get_post_custom();
+    ?>
+
     <div class="row">
     <div class="entry-content col-md-12">
 
-        <div class="meta-wrapper col-md-4"> <?php the_meta(); ?> </div>
+        <div class="meta-wrapper col-md-4">
+            <ul class="post-meta">
+                <?php
+                $terms = wp_get_post_terms( get_the_ID(), 'pageant-types');
+                if (!empty($terms[0]))
+                    echo '<li><span class="post-meta-key">Pageant Type</span>' . $terms[0]->name . '</li>';
+                ?>
+
+                <?php
+                foreach ( $custom_fields as $key => $value ) {
+                    if (in_array($key, $my_fields)) {
+                        echo '<li><span class="post-meta-key">' . $key . '</span>' . $value[0] . '</li>';
+                    }
+                }
+                ?>
+
+                <?php
+                $news = new WP_Query( array(
+                    'connected_type' => 'recent_news',
+                    'connected_items' => get_queried_object()
+                ));
+                ?>
+
+                <li>
+                    <span class="post-meta-key">Recent News:</span>
+                    <ul>
+                    <?php while ($news->have_posts() ) : $news->the_post(); ?>
+                        <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                    <?php endwhile; ?>
+                    </ul>
+                </li>
+
+                <?php wp_reset_postdata(); ?>
+            </ul>
+        </div>
 
         <?php do_action( 'yt_single_post_entry_content_start' );?>
         <?php
