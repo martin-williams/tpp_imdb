@@ -64,3 +64,15 @@ function single_pageant_template ($template) {
     return $template;
 }
 add_filter('template_include', 'single_pageant_template');
+
+function single_profile_template ($template) {
+    $post_types = array ( 'profiles' );
+
+    if (is_singular( $post_types ) && !file_exists( get_stylesheet_directory() . '/single-profile.php' )) {
+        $template = plugin_dir_path(__FILE__) . 'includes/single-profile.php';
+        wp_enqueue_style('tpp-imdb-styles');
+    }
+
+    return $template;
+}
+add_filter('template_include', 'single_profile_template');

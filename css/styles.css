@@ -5,7 +5,10 @@
 #directors ul, #competitors ul { list-style: none; }
 #directors li, #competitors li { border: 1px solid rgba(100,100,100,0.05); height: 50px; line-height: 50px; margin: 5px 0; padding: 0 10px; }
 
+.profiles .entry-header img { margin-right: 20px; float: left; }
+
 .pageants .entry-title { margin-bottom: 20px; }
+.profiles .entry-title { margin: 0; }
 
 .pageant-social-links { list-style: none; }
 .pageant-social-links li { display: inline-block; }
