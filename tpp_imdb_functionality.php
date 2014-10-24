@@ -42,7 +42,7 @@ function create_post_relationship () {
         'name' => 'recent_news',
         'from' => 'post',
         'to'   => 'pageants',
-        'title' => 'Featured Pageants'
+        'title' => 'Recent News'
     ));
 }
 
