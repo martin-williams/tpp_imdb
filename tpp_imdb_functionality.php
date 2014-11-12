@@ -22,7 +22,7 @@ wp_register_style( 'tpp-imdb-styles', plugins_url( '/css/styles.css', __FILE__ )
 function create_competitor_relationship () {
     p2p_register_connection_type( array(
         'name' => 'pageant_competitors',
-        'from' => 'pageants',
+        'from' => 'pageant-years',
         'to'   => 'profiles',
         'title' => 'Connected Competitors'
     ));
@@ -31,7 +31,7 @@ function create_competitor_relationship () {
 function create_director_relationship () {
     p2p_register_connection_type( array(
         'name' => 'pageant_directors',
-        'from' => 'pageants',
+        'from' => 'pageant-years',
         'to'   => 'profiles',
         'title' => 'Connected Directors'
     ));
@@ -41,7 +41,7 @@ function create_post_relationship () {
     p2p_register_connection_type( array(
         'name' => 'recent_news',
         'from' => 'post',
-        'to'   => 'pageants',
+        'to'   => 'pageant-years',
         'title' => 'Recent News'
     ));
 }
