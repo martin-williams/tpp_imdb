@@ -73,7 +73,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <?php do_action( 'yt_before_single_post_entry_content' );?>
 
     <?php
-    $my_fields = array("Address of next pageant", "Next pageant date", "Year of first pageant");
+    $my_fields = array("Location", "Date");
     $custom_fields = get_post_custom();
     ?>
 
@@ -95,6 +95,14 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                     }
                 }
                 ?>
+
+                <?php
+                $competitors = new WP_Query( array(
+                    'connected_type' => 'pageant_competitors',
+                    'connected_items' => get_queried_object()
+                ));
+                ?>
+                <li><span class="post-meta-key">Number of Competitors</span><?php echo $competitors->post_count; ?></li>
 
                 <?php
                 $news = new WP_Query( array(
@@ -211,13 +219,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     </div>
 
     <?php wp_reset_postdata(); ?>
-
-    <?php
-    $competitors = new WP_Query( array(
-        'connected_type' => 'pageant_competitors',
-        'connected_items' => get_queried_object()
-    ));
-    ?>
 
     <div id="competitors" class="panel panel-default">
         <div class="panel-heading">

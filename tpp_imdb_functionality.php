@@ -46,15 +46,25 @@ function create_post_relationship () {
     ));
 }
 
+function create_system_relationship () {
+    p2p_register_connection_type( array(
+        'name' => 'system',
+        'from' => 'pageants',
+        'to'   => 'pageant-years',
+        'title' => 'Pageant System'
+    ));
+}
+
 function create_relationships () {
     create_competitor_relationship();
     create_director_relationship();
     create_post_relationship();
+    create_system_relationship();
 }
 add_action('init', 'create_relationships');
 
 function single_pageant_template ($template) {
-    $post_types = array ( 'pageants' );
+    $post_types = array ( 'pageants', 'pageant-years' );
 
     if (is_singular( $post_types ) && !file_exists( get_stylesheet_directory() . '/single-pageant.php' )) {
         $template = plugin_dir_path(__FILE__) . 'includes/single-pageant.php';
