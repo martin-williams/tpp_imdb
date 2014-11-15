@@ -37,6 +37,15 @@ function create_director_relationship () {
     ));
 }
 
+function create_winner_relationship () {
+    p2p_register_connection_type( array(
+        'name'  => 'winner',
+        'from'  => 'pageant-years',
+        'to'    => 'profiles',
+        'title' => 'Pageant Winner'
+    ));
+}
+
 function create_post_relationship () {
     p2p_register_connection_type( array(
         'name' => 'recent_news',
