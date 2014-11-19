@@ -57,19 +57,20 @@ function create_system_relationship () {
 
 function create_winner_to_profile_relationship () {
     p2p_register_connection_type( array(
-        'name'  => 'winner-profile',
+        'name'  => 'winners',
         'from'  => 'profiles',
         'to'    => 'winners',
+        'reciprocal' => true,
         'title' => 'Winners'
     ));
 }
 
 function create_winner_to_pageant_relationship () {
     p2p_register_connection_type( array(
-        'name'  => 'pageant-winner',
+        'name'  => 'awards',
         'from'  => 'winners',
         'to'    => 'pageant-years',
-        'title' => 'Pageant Winners'
+        'title' => 'Pageant Awards'
     ));
 }
 

@@ -16,6 +16,8 @@ get_header(); ?>
 		<main id="content" <?php yt_section_classes( 'site-content', 'content' );?> role="main" itemprop="mainContentOfPage" itemscope="itemscope" itemtype="http://schema.org/Blog">
 
 		<?php yt_before_loop(); ?>
+
+        <?php p2p_type('awards')->each_connected($wp_query, array(), 'awards'); ?>
 		
 		<?php while ( have_posts() ) : the_post(); ?>
 		

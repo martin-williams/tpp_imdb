@@ -47,11 +47,32 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <?php do_action( 'yt_before_single_post_entry_header' );?>
 
-    <header class="entry-header">
+    <header class="entry-header tppdb">
 
         <?php do_action( 'yt_single_post_entry_header_start' );?>
 
-        <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
+        <h1 class="entry-title"><?php echo $entry_title; ?></h1>
+        <h3>
+        <?php
+        $years = get_terms( 'years' );
+        if (!empty($years) && !is_wp_error($years)) {
+            echo '<span>';
+            foreach ($years as $year) {
+                echo $year->name;
+            }
+            echo '</span>';
+        }
+        $types = get_terms( 'pageant-types');
+        if (!empty($types) && !is_wp_error($types)) {
+            echo '<span>';
+            foreach ($types as $type) {
+                echo $type->name;
+            }
+            echo '</span>';
+        }
+        ?>
+        </h3>
+
         <?php
         $fb_url = get_post_meta(get_the_ID(), 'Facebook', true);
         $twitter_url = get_post_meta(get_the_ID(), 'Twitter', true);
@@ -197,6 +218,33 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     </div><!-- .entry-content -->
 
     </div><!-- .row -->
+
+    <div id="winners" class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Pageant Winners</h4>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <?php
+                p2p_type('winners')->each_connected($post->awards, array(), 'winners');
+
+                foreach($post->awards as $post) : setup_postdata($post);
+                ?>
+                <li>
+                    <?php the_title(); ?>&nbsp;
+                    <?php
+                    foreach($post->winners as $post) : setup_postdata($post);
+                    ?>
+                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    <?php endforeach; ?>
+                </li>
+                <?php
+                endforeach;
+                wp_reset_postdata();
+                ?>
+            </ul>
+        </div>
+    </div>
 
     <?php
     $directors = new WP_Query( array(

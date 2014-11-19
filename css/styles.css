@@ -7,7 +7,7 @@
 
 .profiles .entry-header img { margin-right: 20px; float: left; }
 
-.pageants .entry-title { margin-bottom: 20px; }
+.tppdb h1, .tppdb h3 { margin: 0; }
 .profiles .entry-title { margin: 0; }
 
 .pageant-social-links { list-style: none; }
