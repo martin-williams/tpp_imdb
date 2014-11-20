@@ -219,32 +219,28 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     </div><!-- .row -->
 
+    <?php
+    $winners = new WP_Query( array(
+        'connected_type' => 'winner',
+        'connected_items' => get_queried_object()
+    ));
+    ?>
+
+    <?php if (!empty($winners) && !is_wp_error($winners)) : ?>
     <div id="winners" class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">Pageant Winners</h4>
         </div>
         <div class="panel-body">
             <ul>
-                <?php
-                p2p_type('winners')->each_connected($post->awards, array(), 'winners');
-
-                foreach($post->awards as $post) : setup_postdata($post);
-                ?>
-                <li>
-                    <?php the_title(); ?>&nbsp;
-                    <?php
-                    foreach($post->winners as $post) : setup_postdata($post);
-                    ?>
-                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                    <?php endforeach; ?>
-                </li>
-                <?php
-                endforeach;
-                wp_reset_postdata();
-                ?>
+                <?php while ($winners->have_posts() ) : $winners->the_post(); ?>
+                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                <?php endwhile; ?>
             </ul>
         </div>
     </div>
+    <?php endif; ?>
+    <?php wp_reset_postdata(); ?>
 
     <?php
     $directors = new WP_Query( array(

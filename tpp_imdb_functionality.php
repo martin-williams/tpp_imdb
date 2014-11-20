@@ -55,22 +55,12 @@ function create_system_relationship () {
     ));
 }
 
-function create_winner_to_profile_relationship () {
+function create_winner_relationship () {
     p2p_register_connection_type( array(
-        'name'  => 'winners',
-        'from'  => 'profiles',
-        'to'    => 'winners',
-        'reciprocal' => true,
-        'title' => 'Winners'
-    ));
-}
-
-function create_winner_to_pageant_relationship () {
-    p2p_register_connection_type( array(
-        'name'  => 'awards',
-        'from'  => 'winners',
-        'to'    => 'pageant-years',
-        'title' => 'Pageant Awards'
+        'name'  => 'winner',
+        'from'  => 'pageant-years',
+        'to'    => 'profiles',
+        'title' => 'Pageant Winner'
     ));
 }
 
@@ -79,8 +69,7 @@ function create_relationships () {
     create_director_relationship();
     create_post_relationship();
     create_system_relationship();
-    create_winner_to_profile_relationship();
-    create_winner_to_pageant_relationship();
+    create_winner_relationship();
 }
 add_action('init', 'create_relationships');
 

@@ -17,8 +17,6 @@ get_header(); ?>
 
 		<?php yt_before_loop(); ?>
 
-        <?php p2p_type('awards')->each_connected($wp_query, array(), 'awards'); ?>
-		
 		<?php while ( have_posts() ) : the_post(); ?>
 		
 			<?php yt_loop_start(); ?>
