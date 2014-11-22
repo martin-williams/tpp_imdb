@@ -279,6 +279,26 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <?php wp_reset_postdata(); ?>
 
+    <div id="reviews" class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Reviews</h4>
+        </div>
+        <div class="panel-body">
+            <ol class="commentlist">
+                <?php
+                $reviews = get_comments(array(
+                    'post_id' => get_the_ID()
+                ));
+
+                wp_list_comments(array(
+                    'per_page' => -1,
+                    'reverse_top_level' => false
+                ), $reviews);
+                ?>
+            </ol>
+        </div>
+    </div>
+
     <?php do_action( 'yt_before_single_post_entry_footer' );?>
 
     <?php

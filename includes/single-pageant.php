@@ -17,14 +17,20 @@ get_header(); ?>
 
 		<?php yt_before_loop(); ?>
 
+        <?php p2p_type('system')->each_connected($wp_query, array(), 'system'); ?>
+
 		<?php while ( have_posts() ) : the_post(); ?>
 		
 			<?php yt_loop_start(); ?>
 			
 			<?php
             $templates = new TPP_IMDB_Template_Loader;
-            $templates->get_template_part('content', 'pageant');
-            //get_template_part( 'content', 'pageant' );
+            $postType = get_post_type();
+            if ($postType == 'pageant-years') {
+                $templates->get_template_part('content', 'pageant');
+            } else if ($postType == 'pageants') {
+                $templates->get_template_part('content', 'system');
+            }
             ?>
 
 			<?php yt_loop_end(); ?>
