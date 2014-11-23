@@ -74,6 +74,39 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
 <div class="row">
     <div class="entry-content col-md-12">
+
+        <div class="meta-wrapper col-md-4">
+            <ul class="post-meta">
+                <?php
+                $types = wp_get_post_terms( get_the_ID(), 'pageant-types' );
+                if (!empty($types)) :
+                ?>
+                <li>
+                    <span class="post-meta-key">Pageant Types Offered</span>
+                    <?php
+                    foreach ($types as $type) {
+                        echo $type->name;
+                    }
+                    ?>
+                </li>
+                <?php
+                endif;
+
+                $stages = wp_get_post_terms( get_the_ID(), 'pageant-stages' );
+                if (!empty($stages)) :
+                ?>
+                <li>
+                    <span class="post-meta-key">Stages Offered</span>
+                    <?php
+                    foreach ($stages as $stage) {
+                        echo $stage->name;
+                    }
+                    ?>
+                </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+
         <?php do_action( 'yt_single_post_entry_content_start' );?>
         <?php
         /*Standard*/
