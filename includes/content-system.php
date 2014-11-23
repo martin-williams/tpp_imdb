@@ -104,6 +104,46 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                     ?>
                 </li>
                 <?php endif; ?>
+
+                <?php
+                $my_fields = array("Address of next pageant", "Next pageant date", "Year of first pageant");
+                $custom_fields = get_post_custom();
+
+                foreach ( $custom_fields as $key=>$value ) {
+                    if (in_array($key, $my_fields)) : ?>
+                        <li>
+                            <span class="post-meta-key"><?php echo $key; ?></span><?php echo $value[0]; ?>
+                        </li>
+                <?php
+                endif;
+                }
+                ?>
+
+                <?php
+                $scoring = get_post_meta( get_the_ID(), 'scoring');
+                if (!empty($scoring)) :
+                ?>
+                <li>
+                    <span class="post-meta-key">Scoring</span>
+                    <?php foreach ($scoring as $score) {
+                        echo $score;
+                    }
+                    ?>
+                </li>
+                <?php endif; ?>
+
+                <?php
+                $funFacts = get_post_meta( get_the_ID(), 'Fun Fact' );
+                if (!empty($funFacts)) :
+                ?>
+                <li>
+                    <span class="post-meta-key">Fun Facts</span>
+                    <?php foreach ($funFacts as $fact) {
+                        echo $fact;
+                    }
+                    ?>
+                </li>
+                <?php endif; ?>
             </ul>
         </div>
 
