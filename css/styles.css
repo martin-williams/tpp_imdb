@@ -1,0 +1,48 @@
+#snippet-box { display: none; }
+
+#directors, #competitors { clear: both; }
+.panel-heading { margin-bottom: 0; }
+.panel .panel-body {padding: 15px 0;}
+.panel-body ul { list-style: none; }
+.panel-body li { border: 1px solid rgba(100,100,100,0.05); height: 50px; line-height: 50px; margin: 5px 0; padding: 0 10px; }
+
+.profiles .entry-header img { margin-right: 20px; float: left; }
+
+.tppdb h1, .tppdb h3 { margin: 0; }
+.profiles .entry-title { margin: 0; }
+
+.pageant-social-links { list-style: none; }
+.pageant-social-links li { display: inline-block; }
+.pageant-social-links li .fa { font-size: 30px; }
+
+.meta-wrapper { padding-top: 15px; padding-bottom: 15px; border: 1px solid rgba(0,0,0,0.1); float: right !important; margin: 0 0 15px 15px; }
+.entry-content .meta-wrapper ul { list-style: none; margin: 0; }
+.meta-wrapper li { margin: 10px 0; }
+.meta-wrapper li:first-child { margin-top: 0; }
+.meta-wrapper li:last-child { margin-bottom: 0; }
+.post-meta-key { display: block; font-weight: bold; }
+
+.panel.panel-default {border: none; -webkit-box-shadow: none; box-shadow: none;}
+.panel-default > .panel-heading { border: none;}
+
+.panel-body ul {list-style: none;}
+
+.info-body ul li {padding: 0; margin: 0; border: none; height: auto; line-height: 1.5em;}
+
+.tppdb-header-image { margin-bottom: 20px;min-height: 200px; position: relative; background-color: #222; background-position: bottom center; background-size:cover; background-repeat: no-repeat;
+	-webkit-box-shadow: inset 0px 0px 18px 16px rgba(50, 50, 50, 0.70);
+	-moz-box-shadow:    inset 0px 0px 18px 16px rgba(50, 50, 50, 0.70);
+	box-shadow:         inset 0px 0px 18px 16px rgba(50, 50, 50, 0.70);
+}
+.tppdb-header-image h1 {color: #fff; position: absolute; bottom: 0; left: 30px; padding-bottom: 20px; text-shadow: 0 0 5px rgba(0,0,0,.75);}
+
+
+
+#reviews ol.commentlist {
+	list-style: none;
+}
+
+#reviews ol.commentlist li {list-style: none;}
+#reviews .comment-body {line-height: 1.5em; padding-top: 10px;}
+#reviews .comment-body .comment-meta {height: auto;padding: 10px 0; padding-top: 20px;}
+#reviews .comment-body p {line-height: 1.5em;}
