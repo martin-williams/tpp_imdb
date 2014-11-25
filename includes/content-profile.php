@@ -84,6 +84,33 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 </header><!-- .entry-header -->
 
 <?php
+$pageants_won = new WP_Query( array(
+    'connected_type' => 'winner',
+    'connected_items' => get_queried_object()
+));
+
+if ($pageants_won->have_posts()) :
+?>
+
+<div id="pageants-won" class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">Pageants Won</h4>
+    </div>
+    <div class="panel-body">
+        <ul>
+            <?php while ($pageants_won->have_posts() ) : $pageants_won->the_post(); ?>
+                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+            <?php endwhile; ?>
+        </ul>
+    </div>
+</div>
+
+<?php
+wp_reset_postdata();
+endif;
+?>
+
+<?php
 $directors = new WP_Query( array(
     'connected_type' => 'pageant_directors',
     'connected_items' => get_queried_object()
@@ -121,7 +148,7 @@ if ($competitors->have_posts()) :
 
 <div id="competitors" class="panel panel-default">
     <div class="panel-heading">
-        <h4 class="panel-title">Competitor</h4>
+        <h4 class="panel-title">Competed in:</h4>
     </div>
     <div class="panel-body">
         <ul>
@@ -136,6 +163,33 @@ if ($competitors->have_posts()) :
 wp_reset_postdata();
 endif;
 ?>
+<?php
+$news = new WP_Query( array(
+    'connected_type' => 'recent_news_profiles',
+    'connected_items' => get_queried_object()
+));
+
+if ($news->have_posts()) :
+?>
+
+<div id="competitors" class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">News</h4>
+    </div>
+    <div class="panel-body">
+        <ul>
+            <?php while ($news->have_posts() ) : $news->the_post(); ?>
+                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+            <?php endwhile; ?>
+        </ul>
+    </div>
+</div>
+
+<?php
+wp_reset_postdata();
+endif;
+?>
+
 
 <?php
 

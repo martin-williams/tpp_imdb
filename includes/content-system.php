@@ -49,23 +49,26 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
 <header class="entry-header tppdb">
 
-    <?php do_action( 'yt_single_post_entry_header_start' );?>
 
-    <h1 class="entry-title"><?php echo $entry_title; ?></h1>
+
+
+    <?php 
+
+    $header_image = get_post_meta(get_the_ID(), 'wpcf-header-image', true);
+    
+    do_action( 'yt_single_post_entry_header_start' );?>
+
+    <div class="tppdb-header-image" style="background-image: url(<?php echo $header_image;?>);">
+
+        <h1 class="entry-title"><?php echo $entry_title; ?></h1>
+    </div>
     <?php
-    $fb_url = get_post_meta(get_the_ID(), 'Facebook', true);
-    $twitter_url = get_post_meta(get_the_ID(), 'Twitter', true);
+    $fb_url = get_post_meta(get_the_ID(), 'wpcf-facebook-link', true);
+    $twitter_url = get_post_meta(get_the_ID(), 'wpcf-twitter-link', true);
+    $website = get_post_meta(get_the_ID(), 'wpcf-website', true);
+
     ?>
 
-    <?php if ($fb_url || $twitter_url) : ?>
-        <ul class="pageant-social-links">
-            <?php if ($fb_url) echo '<li><a href="' . $fb_url . '"><i class="fa fa-facebook-square"></i></a></li>'; ?>
-            <?php if ($twitter_url) echo '<li><a href="' . $twitter_url . '"><i class="fa fa-twitter-square"></i></a></li>'; ?>
-        </ul>
-    <?php endif; ?>
-
-    <?php echo 'quote' === $format ? $quote_author : '';?>
-    <?php echo 'link' === $format ? $share_url_text : '';?>
 
     <?php do_action( 'yt_single_post_entry_header_end' );?>
 </header><!-- .entry-header -->
@@ -77,15 +80,28 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
         <div class="meta-wrapper col-md-4">
             <ul class="post-meta">
+
+                <?php if ($fb_url || $twitter_url) : ?>
+                    <ul class="pageant-social-links">
+                        <?php if ($fb_url) echo '<li><a href="' . $fb_url . '"><i class="fa fa-facebook-square"></i></a></li>'; ?>
+                        <?php if ($twitter_url) echo '<li><a href="' . $twitter_url . '"><i class="fa fa-twitter-square"></i></a></li>'; ?>
+                    </ul>
+                <?php endif; ?>
                 <?php
                 $types = wp_get_post_terms( get_the_ID(), 'pageant-types' );
                 if (!empty($types)) :
                 ?>
                 <li>
-                    <span class="post-meta-key">Pageant Types Offered</span>
+                    <span class="post-meta-key">Competition Categories</span>
                     <?php
+                    $count = 0;
+
                     foreach ($types as $type) {
+                        if($count > 0){
+                            echo ", ";
+                        }
                         echo $type->name;
+                        $count++;
                     }
                     ?>
                 </li>
@@ -105,7 +121,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 </li>
                 <?php endif; ?>
 
-                <?php
+                <?php /*
                 $my_fields = array("Address of next pageant", "Next pageant date", "Year of first pageant");
                 $custom_fields = get_post_custom();
 
@@ -117,7 +133,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 <?php
                 endif;
                 }
-                ?>
+                */ ?>
 
                 <?php
                 $scoring = get_post_meta( get_the_ID(), 'scoring');
@@ -126,31 +142,18 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 <li>
                     <span class="post-meta-key">Scoring</span>
                     <?php foreach ($scoring as $score) {
-                        echo $score;
+                        echo $score . '<br />';
                     }
                     ?>
                 </li>
                 <?php endif; ?>
 
-                <?php
-                $funFacts = get_post_meta( get_the_ID(), 'Fun Fact' );
-                if (!empty($funFacts)) :
-                ?>
-                <li>
-                    <span class="post-meta-key">Fun Facts</span>
-                    <?php foreach ($funFacts as $fact) {
-                        echo $fact;
-                    }
-                    ?>
-                </li>
-                <?php endif; ?>
+                
             </ul>
         </div>
 
         <?php do_action( 'yt_single_post_entry_content_start' );?>
         <?php
-        /*Standard*/
-        if( in_array( $format, array( 'standard', 'quote', 'link' ) ) ){
 
             if ( 'show' == $feature_image && has_post_thumbnail() && ! post_password_required() ) : ?>
                 <div class="entry-thumbnail margin-bottom-30">
@@ -164,44 +167,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 </div>
             <?php endif;
 
-
-        }
-        elseif( 'image' === $format ){
-            if ( ! post_password_required() && yt_get_the_post_format_image() ) : ?>
-                <div class="entry-media margin-bottom-30">
-                    <?php echo yt_get_the_post_format_image(); ?>
-                </div>
-            <?php endif;
-        }
-        /*Audio*/
-        elseif( 'audio' === $format ){
-            if ( has_post_thumbnail() && ! post_password_required() ) : ?>
-                <div class="entry-thumbnail<?php echo !yt_get_the_post_format_audio() ? ' margin-bottom-30' : ''; ?>">
-                    <?php the_post_thumbnail(); ?>
-                </div>
-            <?php endif;
-            if ( yt_get_the_post_format_audio() && !post_password_required() ) : ?>
-                <div class="entry-format-media <?php echo has_post_thumbnail() && get_the_post_thumbnail() && ! post_password_required() ? 'with-cover ' : ''; ?>margin-bottom-30">
-                    <?php echo yt_get_the_post_format_audio(); ?>
-                </div>
-            <?php endif;
-
-            /*Gallery*/
-        }elseif( 'gallery' === $format ){
-            if ( yt_get_the_post_format_gallery() && !post_password_required() ) : ?>
-                <div class="entry-format-media margin-bottom-30">
-                    <?php echo yt_get_the_post_format_gallery(); ?>
-                </div>
-            <?php endif;
-
-            /*Video*/
-        }elseif( 'video' === $format ){
-            if ( yt_get_the_post_format_video() && !post_password_required() ) : ?>
-                <div class="entry-format-media margin-bottom-30">
-                    <?php echo yt_get_the_post_format_video(); ?>
-                </div>
-            <?php endif;
-        }
         ?>
 
         <?php the_content(); ?>
@@ -221,26 +186,91 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
 </div><!-- .row -->
 
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">Pageant Information</h4>
+    </div>
+    <div class="panel-body info-body">
+        <div class="col-md-6">
+            <div class="connect">
+                <h6 class="post-meta-key">Connect</h6>
+          
+                    <?php if ($fb_url || $twitter_url || $website) : ?>
+                    <ul class="connect-links">
+                        <?php if ($fb_url) echo '<li>Facebook: <a href="' . $fb_url . '">'.$fb_url.'</a></li>'; ?>
+                        <?php if ($twitter_url) echo '<li>Twitter: <a href="' . $twitter_url . '">'.$twitter_url.'</a></li>'; ?>
+                        <?php if ($website) echo '<li>Website: <a href="' . $website . '">'.$website.'</a></li>'; ?>
+                    </ul>
+                <?php endif; ?>
+            </div>
+            
+          <?php
+            $funFacts = get_post_meta( get_the_ID(), 'Fun Fact' );
+            if (!empty($funFacts)) :
+            ?>
+            <div class="fun-facts">
+                <h6 class="post-meta-key">Fun Facts</h6>
+                <ul class="fact-items">
+                <?php foreach ($funFacts as $fact) {
+                    echo '<li>'.$fact.'</li>';
+                }
+                ?>
+                </ul>
+            </div>
+            <?php endif; ?>
+        </div>
+        <div class="col-md-6">
+
+            <?php
+            $directors = new WP_Query( array(
+                'connected_type' => 'pageant_directors',
+                'connected_items' => get_queried_object()
+            ));
+            ?>
+             <div class="current-director">
+                <h6 class="post-meta-key">Current Director</h6>
+          
+            <?php while ($directors->have_posts() ) : $directors->the_post(); ?>
+            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+            <?php 
+            break; ?>
+
+            </div>
+            <?php wp_reset_postdata(); ?>
+        </div>
+
+        
+    </div>
+</div>
+           
 <div id="competitors" class="panel panel-default">
     <div class="panel-heading">
-        <h4 class="panel-title">Competitors by Year</h4>
+        <h4 class="panel-title"><?php the_title();?> Pageants by Year</h4>
     </div>
     <div class="panel-body">
         <ul>
             <?php
-            p2p_type('pageant_competitors')->each_connected($post->system, array(), 'pageant_competitors');
+            p2p_type('winner')->each_connected($post->system, array(), 'winner');
 
             foreach($post->system as $post) : setup_postdata($post);
             ?>
             <li>
-                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                <ul>
+                <div class="col-md-6">
+                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                </div>
+                <div class="col-md-6" style="text-align: right;">
                     <?php
-                    foreach($post->pageant_competitors as $post) : setup_postdata($post);
+                    foreach($post->winner as $post) :
+                        setup_postdata($post);
                     ?>
-                    <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-                    <?php endforeach; ?>
-                </ul>
+                    Winner: <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    <?php
+                    break;
+                    endforeach;
+                    wp_reset_postdata();
+                    ?>
+                </div>
             </li>
             <?php
             endforeach;
@@ -250,35 +280,34 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     </div>
 </div>
 
-<div id="reviews" class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">Reviews by Year</h4>
-    </div>
-    <div class="panel-body">
-        <ul>
-            <?php foreach($post->system as $post) : setup_postdata($post); ?>
-            <li>
-                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                <ol class="commentlist">
-                    <?php
-                    $reviews = get_comments(array(
-                        'post_id' => get_the_ID()
-                    ));
 
-                    wp_list_comments(array(
-                        'per_page' => -1,
-                        'reverse_top_level' => false
-                    ), $reviews);
-                    ?>
-                </ol>
-            </li>
-            <?php
-            endforeach;
-            wp_reset_postdata();
-            ?>
-        </ul>
+    <?php
+        $news = new WP_Query( array(
+            'connected_type' => 'recent_news_pageants',
+            'connected_items' => get_queried_object()
+        ));
+
+        if($news->have_posts()):
+    ?>
+
+
+    <div id="competitors" class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Pageant News</h4>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <?php while ($news->have_posts() ) : $news->the_post(); ?>
+                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                <?php endwhile; ?>
+            </ul>
+        </div>
     </div>
-</div>
+
+    <?php 
+
+    endif;
+    wp_reset_postdata(); ?>
 
 <?php do_action( 'yt_before_single_post_entry_footer' );?>
 

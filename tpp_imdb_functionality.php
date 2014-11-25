@@ -31,18 +31,27 @@ function create_competitor_relationship () {
 function create_director_relationship () {
     p2p_register_connection_type( array(
         'name' => 'pageant_directors',
-        'from' => 'pageant-years',
+        'from' => 'pageant',
         'to'   => 'profiles',
-        'title' => 'Connected Directors'
+        'title' => 'Acting Director'
     ));
 }
 
-function create_post_relationship () {
+function create_post_pageant_relationship () {
     p2p_register_connection_type( array(
-        'name' => 'recent_news',
+        'name' => 'recent_news_pageants',
         'from' => 'post',
         'to'   => 'pageant-years',
-        'title' => 'Recent News'
+        'title' => 'Recent Pageant News'
+    ));
+}
+
+function create_post_profile_relationship () {
+    p2p_register_connection_type( array(
+        'name' => 'recent_news_profiles',
+        'from' => 'post',
+        'to' => 'profiles',
+        'title' => 'Recent Profile News'
     ));
 }
 
@@ -67,7 +76,8 @@ function create_winner_relationship () {
 function create_relationships () {
     create_competitor_relationship();
     create_director_relationship();
-    create_post_relationship();
+    create_post_pageant_relationship();
+    create_post_profile_relationship();
     create_system_relationship();
     create_winner_relationship();
 }

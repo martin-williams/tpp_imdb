@@ -49,31 +49,39 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <header class="entry-header tppdb">
 
-        <?php do_action( 'yt_single_post_entry_header_start' );?>
+        <?php 
+
+    $header_image = get_post_meta(get_the_ID(), 'wpcf-header-image', true);
+
+        do_action( 'yt_single_post_entry_header_start' );?>
+
+    <div class="tppdb-header-image" style="background-image: url(<?php echo $header_image;?>);">
 
         <h1 class="entry-title"><?php echo $entry_title; ?></h1>
+
+        </div>
         <h3>
         <?php
-        $years = get_terms( 'years' );
-        if (!empty($years) && !is_wp_error($years)) {
-            echo '<span>';
-            foreach ($years as $year) {
-                echo $year->name;
-            }
-            echo '</span>';
-        }
-        $types = get_terms( 'pageant-types');
-        if (!empty($types) && !is_wp_error($types)) {
-            echo '<span>';
-            foreach ($types as $type) {
-                echo $type->name;
-            }
-            echo '</span>';
-        }
+        // $years = get_terms( 'years' );
+        // if (!empty($years) && !is_wp_error($years)) {
+        //     echo '<span>';
+        //     foreach ($years as $year) {
+        //         echo $year->name;
+        //     }
+        //     echo '</span>';
+        // }
+        // $types = get_terms( 'pageant-types');
+        // if (!empty($types) && !is_wp_error($types)) {
+        //     echo '<span>';
+        //     foreach ($types as $type) {
+        //         echo $type->name;
+        //     }
+        //     echo '</span>';
+        // }
         ?>
         </h3>
 
-        <?php
+        <?php /*
         $fb_url = get_post_meta(get_the_ID(), 'Facebook', true);
         $twitter_url = get_post_meta(get_the_ID(), 'Twitter', true);
         ?>
@@ -83,7 +91,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
             <?php if ($fb_url) echo '<li><a href="' . $fb_url . '"><i class="fa fa-facebook-square"></i></a></li>'; ?>
             <?php if ($twitter_url) echo '<li><a href="' . $twitter_url . '"><i class="fa fa-twitter-square"></i></a></li>'; ?>
         </ul>
-        <?php endif; ?>
+        <?php endif; */?>
 
         <?php echo 'quote' === $format ? $quote_author : '';?>
         <?php echo 'link' === $format ? $share_url_text : '';?>
@@ -110,45 +118,33 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 ?>
 
                 <?php
-                foreach ( $custom_fields as $key => $value ) {
-                    if (in_array($key, $my_fields)) {
-                        echo '<li><span class="post-meta-key">' . $key . '</span>' . $value[0] . '</li>';
-                    }
+                $date = get_post_meta($post->ID, "wpcf-pageant-date", true);
+                if ( $date ) {
+                        echo '<li><span class="post-meta-key">Date</span>' . date("l, F jS Y", $date) . '</li>';
                 }
                 ?>
 
                 <?php
-                $competitors = new WP_Query( array(
-                    'connected_type' => 'pageant_competitors',
-                    'connected_items' => get_queried_object()
-                ));
+                $venue = get_post_meta($post->ID, "wpcf-pageant-venue", true);
+                if ( $venue ) {
+                        echo '<li><span class="post-meta-key">Venue</span>' . $venue . '</li>';
+                }
                 ?>
-                <li><span class="post-meta-key">Number of Competitors</span><?php echo $competitors->post_count; ?></li>
 
                 <?php
-                $news = new WP_Query( array(
-                    'connected_type' => 'recent_news',
-                    'connected_items' => get_queried_object()
-                ));
-                ?>
-
-                <li>
-                    <span class="post-meta-key">Recent News:</span>
-                    <ul>
-                    <?php while ($news->have_posts() ) : $news->the_post(); ?>
-                        <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-                    <?php endwhile; ?>
-                    </ul>
-                </li>
-
-                <?php wp_reset_postdata(); ?>
+                // $competitors = new WP_Query( array(
+                //     'connected_type' => 'pageant_competitors',
+                //     'connected_items' => get_queried_object()
+                // ));
+                /*
+                <li><span class="post-meta-key">Competitors</span><?php echo $competitors->post_count; ?></li>
+                */?>
+          
             </ul>
         </div>
 
         <?php do_action( 'yt_single_post_entry_content_start' );?>
         <?php
-        /*Standard*/
-        if( in_array( $format, array( 'standard', 'quote', 'link' ) ) ){
 
             if ( 'show' == $feature_image && has_post_thumbnail() && ! post_password_required() ) : ?>
                 <div class="entry-thumbnail margin-bottom-30">
@@ -162,44 +158,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 </div>
             <?php endif;
 
-
-        }
-        elseif( 'image' === $format ){
-            if ( ! post_password_required() && yt_get_the_post_format_image() ) : ?>
-                <div class="entry-media margin-bottom-30">
-                    <?php echo yt_get_the_post_format_image(); ?>
-                </div>
-            <?php endif;
-        }
-        /*Audio*/
-        elseif( 'audio' === $format ){
-            if ( has_post_thumbnail() && ! post_password_required() ) : ?>
-                <div class="entry-thumbnail<?php echo !yt_get_the_post_format_audio() ? ' margin-bottom-30' : ''; ?>">
-                    <?php the_post_thumbnail(); ?>
-                </div>
-            <?php endif;
-            if ( yt_get_the_post_format_audio() && !post_password_required() ) : ?>
-                <div class="entry-format-media <?php echo has_post_thumbnail() && get_the_post_thumbnail() && ! post_password_required() ? 'with-cover ' : ''; ?>margin-bottom-30">
-                    <?php echo yt_get_the_post_format_audio(); ?>
-                </div>
-            <?php endif;
-
-            /*Gallery*/
-        }elseif( 'gallery' === $format ){
-            if ( yt_get_the_post_format_gallery() && !post_password_required() ) : ?>
-                <div class="entry-format-media margin-bottom-30">
-                    <?php echo yt_get_the_post_format_gallery(); ?>
-                </div>
-            <?php endif;
-
-            /*Video*/
-        }elseif( 'video' === $format ){
-            if ( yt_get_the_post_format_video() && !post_password_required() ) : ?>
-                <div class="entry-format-media margin-bottom-30">
-                    <?php echo yt_get_the_post_format_video(); ?>
-                </div>
-            <?php endif;
-        }
         ?>
 
         <?php the_content(); ?>
@@ -229,55 +187,49 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <?php if (!empty($winners) && !is_wp_error($winners)) : ?>
     <div id="winners" class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="panel-title">Pageant Winners</h4>
+            <h4 class="panel-title">Winner</h4>
         </div>
         <div class="panel-body">
             <ul>
                 <?php while ($winners->have_posts() ) : $winners->the_post(); ?>
-                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                <li><a href="<?php the_permalink(); ?>">
+                <div class="col-md-2" style="max-height: 50px;overflow: hidden; padding-top: 5px; margin-bottom: 5px;"><?php the_post_thumbnail('thumb');?></div>
+                <div class="col-md-10"><?php the_title(); ?></div></a></li>
                 <?php endwhile; ?>
             </ul>
         </div>
     </div>
     <?php endif; ?>
-    <?php wp_reset_postdata(); ?>
+    <?php wp_reset_postdata(); 
 
-    <?php
-    $directors = new WP_Query( array(
-        'connected_type' => 'pageant_directors',
-        'connected_items' => get_queried_object()
-    ));
+ $competitors = new WP_Query( array(
+                    'connected_type' => 'pageant_competitors',
+                    'connected_items' => get_queried_object()
+                ));
     ?>
 
-    <div id="directors" class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">Pageant Directors</h4>
-        </div>
-        <div class="panel-body">
-            <ul>
-                <?php while ($directors->have_posts() ) : $directors->the_post(); ?>
-                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-                <?php endwhile; ?>
-            </ul>
-        </div>
-    </div>
 
-    <?php wp_reset_postdata(); ?>
 
     <div id="competitors" class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="panel-title">Pageant Competitors</h4>
+            <h4 class="panel-title">Competitors</h4>
         </div>
         <div class="panel-body">
             <ul>
                 <?php while ($competitors->have_posts() ) : $competitors->the_post(); ?>
-                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+               <li><a href="<?php the_permalink(); ?>">
+                <div class="col-md-2" style="max-height: 50px;overflow: hidden; padding-top: 5px; margin-bottom: 5px;"><?php the_post_thumbnail('thumb');?></div>
+                <div class="col-md-10"><?php the_title(); ?></div></a></li>
                 <?php endwhile; ?>
+            </ul>
             </ul>
         </div>
     </div>
 
     <?php wp_reset_postdata(); ?>
+
+
+
 
     <div id="reviews" class="panel panel-default">
         <div class="panel-heading">
