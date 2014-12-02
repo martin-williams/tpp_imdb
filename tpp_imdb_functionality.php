@@ -31,7 +31,7 @@ function create_competitor_relationship () {
 function create_director_relationship () {
     p2p_register_connection_type( array(
         'name' => 'pageant_directors',
-        'from' => 'pageants',
+        'from' => 'pageant',
         'to'   => 'profiles',
         'title' => 'Acting Director'
     ));
@@ -41,7 +41,7 @@ function create_post_pageant_relationship () {
     p2p_register_connection_type( array(
         'name' => 'recent_news_pageants',
         'from' => 'post',
-        'to'   => 'pageants',
+        'to'   => 'pageant-years',
         'title' => 'Recent Pageant News'
     ));
 }
@@ -50,7 +50,7 @@ function create_post_profile_relationship () {
     p2p_register_connection_type( array(
         'name' => 'recent_news_profiles',
         'from' => 'post',
-        'to'   => 'profiles',
+        'to' => 'profiles',
         'title' => 'Recent Profile News'
     ));
 }
@@ -69,8 +69,7 @@ function create_winner_relationship () {
         'name'  => 'winner',
         'from'  => 'pageant-years',
         'to'    => 'profiles',
-        'title' => 'Pageant Winner',
-        'cardinality' => 'many-to-one'
+        'title' => 'Pageant Winner'
     ));
 }
 

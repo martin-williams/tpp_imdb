@@ -113,8 +113,16 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
             <ul class="post-meta">
                 <?php
                 $terms = wp_get_post_terms( get_the_ID(), 'pageant-types');
-                if (!empty($terms[0]))
-                    echo '<li><span class="post-meta-key">Pageant Type</span>' . $terms[0]->name . '</li>';
+                if (!empty($terms)) :
+                ?>
+                    <li>
+                        <span class="post-meta-key">Pageant Type</span>
+                        <?php foreach ($terms as $type) : $link = get_term_link($type); ?>
+                            <a href="<?php echo esc_url($link); ?>"><?php echo $type->name; ?></a>
+                        <?php endforeach; ?>
+                    </li>
+                <?php
+                endif;
                 ?>
 
                 <?php
@@ -235,19 +243,20 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <div class="panel-heading">
             <h4 class="panel-title">Reviews</h4>
         </div>
-        <div class="panel-body">
-            <ol class="commentlist">
-                <?php
-                $reviews = get_comments(array(
-                    'post_id' => get_the_ID()
-                ));
+        <ol class="commentlist">
+            <?php
+            $reviews = get_comments(array(
+                'post_id' => get_the_ID()
+            ));
 
-                wp_list_comments(array(
-                    'per_page' => -1,
-                    'reverse_top_level' => false
-                ), $reviews);
-                ?>
-            </ol>
+            wp_list_comments(array(
+                'per_page' => -1,
+                'reverse_top_level' => false
+            ), $reviews);
+            ?>
+        </ol>
+        <div class="panel-body">
+            <?php comment_form(); ?>
         </div>
     </div>
 

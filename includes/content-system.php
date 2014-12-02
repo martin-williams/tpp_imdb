@@ -233,8 +233,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
           
             <?php while ($directors->have_posts() ) : $directors->the_post(); ?>
             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-            <?php 
-            break; ?>
+            <?php endwhile; ?>
 
             </div>
             <?php wp_reset_postdata(); ?>
