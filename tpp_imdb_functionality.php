@@ -15,73 +15,23 @@ if (!class_exists('Gamajo_Template_Loader')) {
 }
 require TPP_IMDB_PLUGIN_DIR . 'class-tpp-imdb-template-loader.php';
 
+
+// Include our files
+require_once(TPP_IMDB_PLUGIN_DIR . 'lib/wp-permastructure/wp-permastructure.php');
+
+require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-posttypes.php');
+require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-taxonomies.php');
+require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-relationships.php');
+
+if(is_admin()) {
+    require_once(TPP_IMDB_PLUGIN_DIR . 'lib/meta-box-class/my-meta-box-class.php');
+    require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-pageant-meta-boxes.php');
+    require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-profile-meta-boxes.php');
+}
+
 // turn off admin bar
 add_filter('show_admin_bar', '__return_false');
 wp_register_style( 'tpp-imdb-styles', plugins_url( '/css/styles.css', __FILE__ ));
-
-function create_competitor_relationship () {
-    p2p_register_connection_type( array(
-        'name' => 'pageant_competitors',
-        'from' => 'pageant-years',
-        'to'   => 'profiles',
-        'title' => 'Connected Competitors'
-    ));
-}
-
-function create_director_relationship () {
-    p2p_register_connection_type( array(
-        'name' => 'pageant_directors',
-        'from' => 'pageant',
-        'to'   => 'profiles',
-        'title' => 'Acting Director'
-    ));
-}
-
-function create_post_pageant_relationship () {
-    p2p_register_connection_type( array(
-        'name' => 'recent_news_pageants',
-        'from' => 'post',
-        'to'   => 'pageant-years',
-        'title' => 'Recent Pageant News'
-    ));
-}
-
-function create_post_profile_relationship () {
-    p2p_register_connection_type( array(
-        'name' => 'recent_news_profiles',
-        'from' => 'post',
-        'to' => 'profiles',
-        'title' => 'Recent Profile News'
-    ));
-}
-
-function create_system_relationship () {
-    p2p_register_connection_type( array(
-        'name' => 'system',
-        'from' => 'pageants',
-        'to'   => 'pageant-years',
-        'title' => 'Pageant System'
-    ));
-}
-
-function create_winner_relationship () {
-    p2p_register_connection_type( array(
-        'name'  => 'winner',
-        'from'  => 'pageant-years',
-        'to'    => 'profiles',
-        'title' => 'Pageant Winner'
-    ));
-}
-
-function create_relationships () {
-    create_competitor_relationship();
-    create_director_relationship();
-    create_post_pageant_relationship();
-    create_post_profile_relationship();
-    create_system_relationship();
-    create_winner_relationship();
-}
-add_action('init', 'create_relationships');
 
 function single_pageant_template ($template) {
     $post_types = array ( 'pageants', 'pageant-years' );

@@ -250,9 +250,9 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <div class="panel-body">
         <ul>
             <?php
-            p2p_type('winner')->each_connected($post->system, array(), 'winner');
+            p2p_type('winner')->each_connected($post->organization, array(), 'winner');
 
-            foreach($post->system as $post) : setup_postdata($post);
+            foreach($post->organization as $post) : setup_postdata($post);
             ?>
             <li>
                 <div class="col-md-6">

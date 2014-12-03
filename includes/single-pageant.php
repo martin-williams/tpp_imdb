@@ -17,7 +17,7 @@ get_header(); ?>
 
 		<?php yt_before_loop(); ?>
 
-        <?php p2p_type('system')->each_connected($wp_query, array(), 'system'); ?>
+        <?php //  p2p_type('organization')->each_connected($wp_query, array(), 'organization'); ?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 		
