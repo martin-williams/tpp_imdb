@@ -7,15 +7,9 @@ if( false === $format )
 $formats_meta = yt_get_post_formats_meta( get_the_ID());
 
 /**
- *Quote format
- */
-$quote_author = !empty( $formats_meta['_format_quote_source_name'] )  ? '<cite class="entry-format-meta margin-bottom-30">' . $formats_meta['_format_quote_source_name'] . '</cite>' : '';
-$quote_author = !empty( $formats_meta['_format_quote_source_url'] ) ? sprintf( '<cite class="entry-format-meta margin-bottom-30"><a href="%s">%s</a></cite>', $formats_meta['_format_quote_source_url'], $formats_meta['_format_quote_source_name'] ) : $quote_author;
-
-/**
  *Link format
  */
-$share_url = !empty( $formats_meta['_format_link_url'] ) ? $formats_meta['_format_link_url'] : get_permalink( get_the_ID() );
+$share_url = get_permalink( get_the_ID() );
 
 //print_r($formats_meta);
 $share_url_text = !empty( $formats_meta['_format_link_url'] )
@@ -28,11 +22,6 @@ $share_url_text = !empty( $formats_meta['_format_link_url'] )
  *Extra class for entry title
  */
 $entry_title_class = ' margin-bottom-30';
-if( 'quote' === $format  && $quote_author
-    || 'link' === $format  && $share_url_text
-){
-    $entry_title_class = '';
-}
 
 
 $entry_title = get_the_title( get_the_ID() );
@@ -54,11 +43,15 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <?php the_content(); ?>
 
     <?php
-    $dob = get_post_meta(get_the_ID(), 'Date of Birth', true);
-    $fb_url = get_post_meta(get_the_ID(), 'Facebook', true);
-    $twitter_url = get_post_meta(get_the_ID(), 'Twitter', true);
-    $insta_url = get_post_meta(get_the_ID(), 'Instagram', true);
-    $website_url = get_post_meta(get_the_ID(), 'Website', true);
+    $dob = get_post_meta(get_the_ID(), 'tpp_dob', true);
+    $city = get_post_meta(get_the_ID(), 'tpp_city', true);
+    $state = get_post_meta(get_the_ID(), 'tpp_state', true);
+    $country = get_post_meta(get_the_ID(), 'tpp_country', true);
+
+    $fb_url = get_post_meta(get_the_ID(), 'tpp_facebook', true);
+    $twitter_url = get_post_meta(get_the_ID(), 'tpp_twitter', true);
+    $insta_url = get_post_meta(get_the_ID(), 'tpp_instagram', true);
+    $website_url = get_post_meta(get_the_ID(), 'tpp_website', true);
     ?>
 
     <?php if ($dob) : ?>

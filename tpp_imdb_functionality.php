@@ -25,6 +25,7 @@ require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-relationships.php');
 
 if(is_admin()) {
     require_once(TPP_IMDB_PLUGIN_DIR . 'lib/meta-box-class/my-meta-box-class.php');
+    require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-system-meta-boxes.php');
     require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-pageant-meta-boxes.php');
     require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-profile-meta-boxes.php');
 }
@@ -46,7 +47,7 @@ function single_pageant_template ($template) {
 add_filter('template_include', 'single_pageant_template');
 
 function single_profile_template ($template) {
-    $post_types = array ( 'profiles' );
+    $post_types = array ( 'tpp_profiles' );
 
     if (is_singular( $post_types ) && !file_exists( get_stylesheet_directory() . '/single-profile.php' )) {
         $template = plugin_dir_path(__FILE__) . 'includes/single-profile.php';

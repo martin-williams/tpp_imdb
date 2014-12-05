@@ -32,13 +32,19 @@ function create_director_relationship () {
         'name' => 'pageant_directors',
         'from' => 'pageants',
         'to'   => 'tpp_profiles',
-        'title' => 'Acting Director'
+        'title' => 'Acting Director',
+        'fields' => array(
+            'count' => array(
+                'title' => 'Since',
+                'type' => 'text',
+            )
+        )
     ));
 }
 
 function create_post_pageant_relationship () {
     p2p_register_connection_type( array(
-        'name' => 'recent_news_pageants',
+        'name' => 'news_to_pageant',
         'from' => 'post',
         'to'   => 'pageant-years',
         'title' => 'Recent Pageant News'
@@ -47,7 +53,7 @@ function create_post_pageant_relationship () {
 
 function create_post_profile_relationship () {
     p2p_register_connection_type( array(
-        'name' => 'recent_news_profiles',
+        'name' => 'news_to_profile',
         'from' => 'post',
         'to' => 'tpp_profiles',
         'title' => 'Recent Profile News'

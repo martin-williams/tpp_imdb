@@ -51,7 +51,8 @@ function tppdb_create_profile_type() {
       // 'rewrite' => array('slug' => 'profiles')
       'rewrite' => array(
         'permastruct' => '/profiles/%post_id%/'
-      )
+      ), 
+      'supports' => array('title', 'editor', 'thumbnail')
     )
   );
 }

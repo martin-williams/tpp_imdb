@@ -1,5 +1,8 @@
 <?php
-
+/////
+// HOW TO USE:
+// https://github.com/bainternet/My-Meta-Box/blob/master/class-usage-demo.php
+/////
 
 
 add_action( 'admin_init', 'tppdb_pageant_meta_box' );
@@ -11,10 +14,10 @@ function tppdb_pageant_meta_box() {
   /* 
    * configure your meta box
    */
-  $pageants_config = array(
-    'id'             => 'tppdb_pageant_meta_box',          // meta box id, unique per meta box
+  $pageants_general_config = array(
+    'id'             => 'tppdb_pageant_general',          // meta box id, unique per meta box
     'title'          => 'Pageant Information',          // meta box title
-    'pages'          => array('pageants'),      // post types, accept custom post types as well, default is array('post'); optional
+    'pages'          => array('pageant-years'),      // post types, accept custom post types as well, default is array('post'); optional
     'context'        => 'normal',            // where the meta box appear: normal (default), advanced, side; optional
     'priority'       => 'high',            // order of meta box: high (default), low; optional
     'fields'         => array(),            // list of meta fields (can be added by field arrays)
@@ -26,13 +29,47 @@ function tppdb_pageant_meta_box() {
   /*
    * Initiate your meta box
    */
-  $pageant_meta_box =  new AT_Meta_Box($pageants_config);
+  $pageant_general =  new AT_Meta_Box($pageants_general_config);
 
-  $pageant_meta_box->addText($prefix.'text_field_id',array('name'=> 'My Text '));
-  $pageant_meta_box->addText($prefix.'text_field_id2',array('name'=> 'My Text '));
+  $pageant_general->addDate($prefix.'pageant_date',array('name'=> 'Pageant Date '));
+  
+  $pageant_general->addText($prefix.'pageant_venue',array('name'=> 'Pageant Venue '));
 
 
-  $pageant_meta_box->Finish();
+  $pageant_general->Finish();
+
+
+
+  /* 
+   * Contact Meta box for contact information
+   * This is somewhat FUTURE functionality. It won't be shown initially
+   */
+  $pageants_contact_config = array(
+    'id'             => 'tppdb_pageant_contact',          // meta box id, unique per meta box
+    'title'          => 'Office Contact Information',          // meta box title
+    'pages'          => array('pageant-years'),      // post types, accept custom post types as well, default is array('post'); optional
+    'context'        => 'normal',            // where the meta box appear: normal (default), advanced, side; optional
+    'priority'       => 'high',            // order of meta box: high (default), low; optional
+    'fields'         => array(),            // list of meta fields (can be added by field arrays)
+    'local_images'   => false,          // Use local or hosted images (meta box images for add/remove)
+    'use_with_theme' => false          //change path if used with theme set to true, false for a plugin or anything else for a custom path(default false).
+  );
+  
+  
+  /*
+   * Initiate your meta box
+   */
+  $pageant_contact =  new AT_Meta_Box($pageants_contact_config);
+
+
+  $pageant_contact->addText($prefix.'email_address',array('name'=> 'Email Address '));
+  
+  $pageant_contact->addText($prefix.'email_contact',array('name'=> 'Email Contact '));
+
+  $pageant_contact->addText($prefix.'website',array('name'=> 'Website '));
+
+
+  $pageant_contact->Finish();
 
 
 }

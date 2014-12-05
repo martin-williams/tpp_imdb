@@ -112,11 +112,11 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <div class="meta-wrapper col-md-4">
             <ul class="post-meta">
                 <?php
-                $terms = wp_get_post_terms( get_the_ID(), 'pageant-types');
+                $terms = wp_get_post_terms( get_the_ID(), 'age-divisions');
                 if (!empty($terms)) :
                 ?>
                     <li>
-                        <span class="post-meta-key">Pageant Type</span>
+                        <span class="post-meta-key">Competition Categories</span>
                         <?php foreach ($terms as $type) : $link = get_term_link($type); ?>
                             <a href="<?php echo esc_url($link); ?>"><?php echo $type->name; ?></a>
                         <?php endforeach; ?>
@@ -170,14 +170,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
         <?php the_content(); ?>
 
-        <?php
-        wp_link_pages( array(
-            'before' => '<div class="page-links pagination-nav">' . __( 'Pages:', 'yeahthemes' ),
-            'after'  => '</div>',
-            'link_before' => '<span class="page-numbers">',
-            'link_after' => '</span>',
-        ) );
-        ?>
 
         <?php do_action( 'yt_single_post_entry_content_end' );?>
 
@@ -195,7 +187,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <?php if (!empty($winners) && !is_wp_error($winners)) : ?>
     <div id="winners" class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="panel-title">Winner</h4>
+            <h4 class="panel-title">Winnerz</h4>
         </div>
         <div class="panel-body">
             <ul>
@@ -210,10 +202,10 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <?php endif; ?>
     <?php wp_reset_postdata(); 
 
- $competitors = new WP_Query( array(
-                    'connected_type' => 'pageant_competitors',
-                    'connected_items' => get_queried_object()
-                ));
+        $competitors = new WP_Query( array(
+            'connected_type' => 'pageant_competitors',
+            'connected_items' => get_queried_object()
+        ));
     ?>
 
 
@@ -262,20 +254,8 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <?php do_action( 'yt_before_single_post_entry_footer' );?>
 
-    <?php
 
-    $tag_list = get_the_tag_list( '', '' );
-    if ( $tag_list ) :
-
-        ?>
-
-        <footer class="entry-meta hidden-print">
-            <?php do_action( 'yt_single_post_entry_footer_start' );?>
-
-            <?php do_action( 'yt_single_post_entry_footer_end' );?>
-        </footer><!-- .entry-meta -->
-    <?php endif;?>
-
+   
     <?php do_action( 'yt_after_single_post_entry_footer' );?>
 
 </article><!-- #post-<?php the_ID(); ?>## -->
