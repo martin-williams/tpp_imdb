@@ -57,3 +57,5 @@ function single_profile_template ($template) {
     return $template;
 }
 add_filter('template_include', 'single_profile_template');
+
+add_filter( 'attachments_default_instance', '__return_false' ); // disable the default instance

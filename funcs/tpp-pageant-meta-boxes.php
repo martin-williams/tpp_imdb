@@ -73,3 +73,39 @@ function tppdb_pageant_meta_box() {
 
 
 }
+
+function gallery_attachments ($attachments) {
+    $fields = array (
+        array (
+            'name'      =>  'title',
+            'type'      =>  'text',
+            'label'     =>  __( 'Title', 'attachments' ),
+            'default'   =>  'title'
+        ),
+        array (
+            'name'      =>  'caption',
+            'type'      =>  'textarea',
+            'label'     =>  __( 'Caption', 'attachments' ),
+            'default'   =>  'caption'
+        )
+    );
+
+    $args = array (
+        'label'     =>  'Gallery Attachments',
+        'post_type' =>  array( 'pageant-years' ),
+        'position'  =>  'normal',
+        'priority'  =>  'high',
+        'filetype'  =>  null,
+        'note'      =>  'Attach gallery files here!',
+        'append'    =>  true,
+        'button_text'   =>  __( 'Attach Files', 'attachments' ),
+        'modal_text'    =>  __( 'Attach', 'attachments' ),
+        'router'        =>  'browse',
+        'post_parent'   =>  false,
+        'fields'        =>  $fields
+    );
+
+    $attachments->register( 'gallery_attachments', $args );
+}
+
+add_action( 'attachments_register', 'gallery_attachments' );
