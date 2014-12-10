@@ -52,7 +52,14 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     $twitter_url = get_post_meta(get_the_ID(), 'tpp_twitter', true);
     $insta_url = get_post_meta(get_the_ID(), 'tpp_instagram', true);
     $website_url = get_post_meta(get_the_ID(), 'tpp_website', true);
+
+    $facts = get_post_meta(get_the_ID(), 'tppdb_interesting-facts', true);
     ?>
+
+    <?php if ($facts) : ?>
+    <h5>Interesting Facts</h5>
+    <p><?php echo $facts; ?></p>
+    <?php endif; ?>
 
     <?php if ($dob) : ?>
     <p><span class="post-meta-key">Date of Birth</span><?php echo $dob; ?></p>

@@ -11,6 +11,10 @@
 .tppdb h1, .tppdb h3 { margin: 0; }
 .profiles .entry-title { margin: 0; }
 
+.tpp_profiles .entry-header img { float: left; margin: 0 10px 10px 0; }
+.site-content article.tpp_profiles .entry-title { clear: none; }
+.tpp_profiles .entry-header h5 { margin-bottom: 0; }
+
 .pageant-social-links { list-style: none; }
 .pageant-social-links li { display: inline-block; }
 .pageant-social-links li .fa { font-size: 30px; }
