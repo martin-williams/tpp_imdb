@@ -259,7 +259,8 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
             wp_list_comments(array(
                 'per_page' => -1,
-                'reverse_top_level' => false
+                'reverse_top_level' => false,
+                'callback' => 'tppdb_comment'
             ), $reviews);
             ?>
         </ol>

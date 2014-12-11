@@ -33,6 +33,7 @@ function tppdb_create_pageant_type() {
       'public' => true,
       'has_archive' => false,
       'rewrite' => array('slug' => 'pageant'),
+      'supports' => array('title', 'editor', 'comments')
      // 'show_in_menu' => 'edit.php?post_type=pageants',
      //  'menu_position' => "0"
     )
