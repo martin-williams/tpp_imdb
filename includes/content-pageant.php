@@ -217,9 +217,9 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <div class="panel-body">
             <ul>
                 <?php while ($competitors->have_posts() ) : $competitors->the_post(); ?>
-               <li><a href="<?php the_permalink(); ?>">
-                <div class="col-md-2" style="max-height: 50px;overflow: hidden; padding-top: 5px; margin-bottom: 5px;"><?php the_post_thumbnail('thumb');?></div>
-                <div class="col-md-10"><?php the_title(); ?></div></a></li>
+               <li class="col-md-6"><a href="<?php the_permalink(); ?>">
+                <div class="col-md-4" style="max-height: 50px;overflow: hidden; padding-top: 5px; margin-bottom: 5px;"><?php the_post_thumbnail('thumb');?></div>
+                <div class="col-md-8"><?php the_title(); ?></div></a></li>
                 <?php endwhile; ?>
             </ul>
             </ul>
@@ -228,8 +228,24 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <?php wp_reset_postdata(); ?>
 
-
-
+    <?php
+    $attachments = new Attachments( 'gallery_attachments' );
+    if ($attachments->exist()) :
+    ?>
+    <div id="pageant-gallery" class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Gallery</h4>
+        </div>
+        <ul>
+            <?php while( $attachment = $attachments->get() ) : ?>
+            <li>
+                <?php echo $attachments->image('thumbnail'); ?>
+                <!--<pre><?php print_r( $attachment ); ?></pre>-->
+            </li>
+            <?php endwhile; ?>
+        </ul>
+    </div>
+    <?php endif; ?>
 
     <div id="reviews" class="panel panel-default">
         <div class="panel-heading">

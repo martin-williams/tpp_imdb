@@ -42,21 +42,39 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <?php the_content(); ?>
 
-    <?php
-    $dob = get_post_meta(get_the_ID(), 'tpp_dob', true);
-    $city = get_post_meta(get_the_ID(), 'tpp_city', true);
-    $state = get_post_meta(get_the_ID(), 'tpp_state', true);
-    $country = get_post_meta(get_the_ID(), 'tpp_country', true);
+    <div class="clearfix"></div>
 
-    $fb_url = get_post_meta(get_the_ID(), 'tpp_facebook', true);
-    $twitter_url = get_post_meta(get_the_ID(), 'tpp_twitter', true);
-    $insta_url = get_post_meta(get_the_ID(), 'tpp_instagram', true);
-    $website_url = get_post_meta(get_the_ID(), 'tpp_website', true);
+    <?php
+    $dob = get_post_meta(get_the_ID(), 'tppdb_dob', true);
+    $city = get_post_meta(get_the_ID(), 'tppdb_city', true);
+    $state = get_post_meta(get_the_ID(), 'tppdb_state', true);
+    $country = get_post_meta(get_the_ID(), 'tppdb_country', true);
+
+    $fb_url = get_post_meta(get_the_ID(), 'tppdb_facebook', true);
+    $twitter_url = get_post_meta(get_the_ID(), 'tppdb_twitter', true);
+    $insta_url = get_post_meta(get_the_ID(), 'tppdb_instagram', true);
+    $website_url = get_post_meta(get_the_ID(), 'tppdb_website', true);
+
+    $height = get_post_meta(get_the_ID(), 'tppdb_height', true);
+    $weight = get_post_meta(get_the_ID(), 'tppdb_weight', true);
+    $sign = get_post_meta(get_the_ID(), 'tppdb_zodiac-sign', true);
+    $platform = get_post_meta(get_the_ID(), 'tppdb_pageant-platform', true);
+    $talent = get_post_meta(get_the_ID(), 'tppdb_talent', true);
+    $major = get_post_meta(get_the_ID(), 'tppdb_college-major', true);
+
+    $facts = get_post_meta(get_the_ID(), 'tppdb_interesting-facts', true);
     ?>
 
+    <p>
     <?php if ($dob) : ?>
-    <p><span class="post-meta-key">Date of Birth</span><?php echo $dob; ?></p>
+        <span class="post-meta-key">Date of Birth</span>
+        <?php echo $dob; ?>
+        <?php if ($city || $state || $country) echo '<br />'; ?>
+        <?php if ($city) echo $city; ?>
+        <?php if ($state) echo $state; ?>
+        <?php if ($country) echo $country; ?>
     <?php endif; ?>
+    </p>
 
     <?php if ($fb_url || $twitter_url || $insta_url) : ?>
     <ul class="pageant-social-links">
@@ -72,6 +90,20 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <p><a href="<?php echo $website_url; ?>"><?php echo $website_url; ?></a></p>
 
+    <?php endif; ?>
+
+    <ul>
+    <?php if ($height) echo '<li>Height: ' . $height . '</li>'; ?>
+    <?php if ($weight) echo '<li>Weight: ' . $weight . '</li>'; ?>
+    <?php if ($sign) echo '<li>Zodiac Sign: ' . $sign . '</li>'; ?>
+    <?php if ($platform) echo '<li>Pageant Platform: ' . $platform . '</li>'; ?>
+    <?php if ($talent) echo '<li>Talent: ' . $talent . '</li>'; ?>
+    <?php if ($major) echo '<li>College Major: ' . $major . '</li>'; ?>
+    </ul>
+
+    <?php if ($facts) : ?>
+        <h5>Interesting Facts</h5>
+        <p><?php echo $facts; ?></p>
     <?php endif; ?>
 
 </header><!-- .entry-header -->

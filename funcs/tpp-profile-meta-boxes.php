@@ -106,6 +106,58 @@ function tppdb_profile_meta_boxes() {
 
   $profile_contact->Finish();
 
+    /*
+     * Interesting Facts meta box
+     */
+    $profiles_interesting_facts_config = array (
+        'id' => 'tppdb_profile_interesting',
+        'title' => 'Profile Interesting Facts',
+        'pages' => array ('tpp_profiles'),
+        'context' => 'normal',
+        'priority' => 'high',
+        'fields' => array(),
+        'local_images' => false,
+        'use_with_theme' => false
+    );
+
+    /*
+     * Initialize meta box
+     */
+    $profile_interesting = new AT_Meta_Box($profiles_interesting_facts_config);
+
+    $profile_interesting->addTextarea($prefix.'interesting-facts',array('name'=>'Interesting Facts'));
+
+    $profile_interesting->Finish();
+
+    /*
+     * Personal info meta box
+     */
+
+    $profiles_personal_info_config = array (
+        'id'                =>  'tppdb_profile_personal',
+        'title'             =>  'Profile Personal Information',
+        'pages'          =>  array ('tpp_profiles'),
+        'context'        => 'normal',
+        'priority'         =>   'high',
+        'fields'            =>  array(),
+        'local_images'  =>  false,
+        'use_with_theme'    =>  false
+    );
+
+    /*
+     * Initiate your meta box
+     */
+    $profile_personal = new AT_Meta_Box($profiles_personal_info_config);
+
+    $profile_personal->addText($prefix.'height',array('name'=>'Height'));
+    $profile_personal->addText($prefix.'weight',array('name'=>'Weight'));
+    $profile_personal->addText($prefix.'zodiac-sign',array('name'=>'Zodiac Sign'));
+    $profile_personal->addText($prefix.'pageant-platform',array('name'=>'Pageant Platform'));
+    $profile_personal->addText($prefix.'talent',array('name'=>'Talent'));
+    $profile_personal->addText($prefix.'college-major',array('name'=>'College Major'));
+    $profile_personal->addText($prefix.'birthplace',array('name'=>'Birthplace'));
+
+    $profile_personal->Finish();
 }
 
 
