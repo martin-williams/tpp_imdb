@@ -265,7 +265,17 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
             ?>
         </ol>
         <div class="panel-body">
-            <?php comment_form(); ?>
+            <?php
+            $args = array(
+                'title_reply' => __( 'Write a Review' ),
+                'cancel_reply_link' => __( 'Cancel Review' ),
+                'label_submit' => __( 'Post Review' ),
+
+                'comment_field' => '<p class="comment-form-comment col-xs-12"><label for="comment">' . _x( 'Review', 'noun' ) . '<span class="required">*</span></label><textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true">' . '</textarea></p>'
+            );
+
+            comment_form($args);
+            ?>
         </div>
     </div>
 
