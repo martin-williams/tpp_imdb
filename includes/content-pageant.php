@@ -192,9 +192,9 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <div class="panel-body">
             <ul>
                 <?php while ($winners->have_posts() ) : $winners->the_post(); ?>
-                <li><a href="<?php the_permalink(); ?>">
-                <div class="col-md-2" style="max-height: 50px;overflow: hidden; padding-top: 5px; margin-bottom: 5px;"><?php the_post_thumbnail('thumb');?></div>
-                <div class="col-md-10"><?php the_title(); ?></div></a></li>
+                <li class="profile-link"><a href="<?php the_permalink(); ?>">
+                <div class="col-md-2" style="padding-top: 5px; margin-bottom: 5px;"><?php the_post_thumbnail('thumb');?></div>
+                <div class="col-md-10" style="font-size: 1.2em;"><?php the_title(); ?></div></a></li>
                 <?php endwhile; ?>
             </ul>
         </div>
@@ -217,9 +217,9 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <div class="panel-body">
             <ul>
                 <?php while ($competitors->have_posts() ) : $competitors->the_post(); ?>
-               <li class="col-md-6"><a href="<?php the_permalink(); ?>">
-                <div class="col-md-4" style="max-height: 50px;overflow: hidden; padding-top: 5px; margin-bottom: 5px;"><?php the_post_thumbnail('thumb');?></div>
-                <div class="col-md-8"><?php the_title(); ?></div></a></li>
+               <li class="col-md-6 profile-link"><a href="<?php the_permalink(); ?>">
+                <div class="col-md-4" style="padding-top: 5px; margin-bottom: 5px;"><?php the_post_thumbnail('thumb');?></div>
+                <div class="col-md-8" style="font-size: 1.2em;"><?php the_title(); ?></div></a></li>
                 <?php endwhile; ?>
             </ul>
             </ul>
@@ -229,6 +229,10 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <?php wp_reset_postdata(); ?>
 
     <?php
+    wp_enqueue_script('magnific-popup-js', plugins_url( '/lib/magnific-popup/jquery.magnific-popup.min.js', dirname(__FILE__) ), array( 'jquery' ));
+    wp_enqueue_script('tppdb-gallery', plugins_url( '/js/tppdb-gallery.js', dirname(__FILE__) ), array( 'jquery', 'magnific-popup-js' ));
+    wp_enqueue_style('magnific-popup-css', plugins_url( '/lib/magnific-popup/magnific-popup.css', dirname(__FILE__) ));
+
     $attachments = new Attachments( 'gallery_attachments' );
     if ($attachments->exist()) :
     ?>
@@ -236,14 +240,13 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <div class="panel-heading">
             <h4 class="panel-title">Gallery</h4>
         </div>
-        <ul>
+        <div class="panel-body">
             <?php while( $attachment = $attachments->get() ) : ?>
-            <li>
-                <?php echo $attachments->image('thumbnail'); ?>
-                <!--<pre><?php print_r( $attachment ); ?></pre>-->
-            </li>
+            <div class="col-xs-3">
+                <a class="tppdb-gallery-link" href="<?php echo $attachments->url(); ?>"><?php echo $attachments->image(); ?></a>
+            </div>
             <?php endwhile; ?>
-        </ul>
+        </div>
     </div>
     <?php endif; ?>
 
