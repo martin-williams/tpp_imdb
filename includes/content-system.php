@@ -274,6 +274,37 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 </ul>
             </div>
             <?php endif; ?>
+
+            <?php
+
+            $pageants = new WP_Query( array(
+                'connected_type' => 'organization',
+                'connected_items' => get_queried_object(),
+                'nopaging' => true,
+            ));
+
+            $up_votes = 0;
+            $down_votes = 0;
+
+            if($pageants->have_posts()) :
+
+                while($pageants->have_posts()): $pageants->the_post();
+                    if (get_post_meta(get_the_ID(), '_thumbs_rating_up', true)) {
+                    $up_votes = $up_votes + get_post_meta(get_the_ID(), '_thumbs_rating_up', true);
+                    }
+
+                    if (get_post_meta(get_the_ID(), '_thumbs_rating_down', true)) {
+                    $down_votes = $down_votes + get_post_meta(get_the_ID(), '_thumbs_rating_down', true);
+                    }
+                endwhile;
+            endif;
+
+            ?>
+            <div class="hit-or-miss">
+                <p>Hit votes: <?php echo $up_votes; ?></p>
+                <p>Miss votes: <?php echo $down_votes; ?></p>
+            </div>
+
         </div>
 
         
@@ -290,16 +321,12 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
             <?php
 
-            $pageants = new WP_Query( array(
-              'connected_type' => 'organization',
-              'connected_items' => get_queried_object(),
-              'nopaging' => true,
-            ));
+
 
             if($pageants->have_posts()) :
     
                 while($pageants->have_posts()): $pageants->the_post();            
-            
+
                     p2p_type('winner')->each_connected($pageants, array(), 'winner');
 
             ?>
