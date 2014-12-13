@@ -54,12 +54,35 @@ function pageant_search_submit () {
     );
 
     $pageants = new WP_Query($args);
-    $html = "";
+    $html = "<h3>Search Results:</h3>";
     while ($pageants->have_posts()) : $pageants->the_post();
-        $html .= '<div id="post-' . get_the_ID() . '" ' . get_post_class() . '>
-            <h2><a href="' . get_permalink() . '" rel="bookmark">' . get_the_title() . '</a></h2>
-            <div class="entry-content">' . get_the_content() . '</div>
-        </div>';
+        $post_stages = wp_get_post_terms( get_the_ID(), 'stages');
+        $post_ages = wp_get_post_terms( get_the_ID(), 'age-divisions');
+
+        $html .= '<div id="post-' . get_the_ID() . '" ' . get_post_class() . '>';
+        $html .= '<h4><a href="' . get_permalink() . '" rel="bookmark">' . get_the_title() . '</a></h4>';
+        if (sizeof($post_stages) > 0) {
+            $html .= '<p>Pageant stages: ';
+
+            foreach($post_stages as $stage) {
+                $html .= '<a href="' . esc_url(get_term_link($stage)) . '">' . $stage->name . '</a>&nbsp;';
+            }
+
+            $html .= '</p>';
+        }
+
+        if (sizeof($post_ages) > 0)  {
+            $html .= '<p>Age divisions: ';
+
+            foreach($post_ages as $age) {
+                $html .= '<a href="' . esc_url(get_term_link($age)) . '">' . $age->name . '</a>&nbsp;';
+            }
+
+            $html .= '</p>';
+        }
+
+        $html .= '<div class="entry-content">' . get_the_content() . '</div>';
+        $html .= '</div>';
     endwhile;
 
     wp_reset_query();
