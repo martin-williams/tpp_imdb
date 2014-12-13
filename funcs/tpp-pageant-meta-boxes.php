@@ -35,6 +35,8 @@ function tppdb_pageant_meta_box() {
   
   $pageant_general->addText($prefix.'pageant_venue',array('name'=> 'Pageant Venue '));
 
+  $pageant_general->addWysiwyg($prefix.'pageant_fun_facts',array('name'=> 'Fun Facts '));
+
 
   $pageant_general->Finish();
 

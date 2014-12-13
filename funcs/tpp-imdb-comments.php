@@ -25,13 +25,13 @@ if ( 'pingback' == $comment->comment_type || 'trackback' == $comment->comment_ty
     <?php echo (isset($comment->comment_number) ? '<span class="comment-number">' . $comment->comment_number . '</span>' : ''); ?>
 
     <article id="div-comment-<?php comment_ID(); ?>" class="comment-body" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment">
-        <footer class="comment-meta">
-            <div class="comment-author vcard" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+        <footer class="comment-meta row">
+            <div class="comment-author vcard col-md-8" itemprop="creator" itemscope itemtype="http://schema.org/Person">
                 <?php if ( 0 != $args['avatar_size'] ) echo get_avatar( $comment, $args['avatar_size'] ); ?>
 						<?php printf( '<cite class="fn" itemprop="name">%s</cite>', get_comment_author_link() ); ?>
             </div><!-- .comment-author -->
 
-            <div class="comment-metadata">
+            <div class="comment-metadata col-md-4">
                 <time datetime="<?php comment_time( 'c' ); ?>" itemprop="dateCreated">
                     <?php printf( _x( '%1$s at %2$s', '1: date, 2: time', 'yeahthemes' ), get_comment_date( 'M j, Y' ), get_comment_time() ); ?>
                 </time>
@@ -48,21 +48,21 @@ if ( 'pingback' == $comment->comment_type || 'trackback' == $comment->comment_ty
         <div class="comment-content" itemprop="commentText">
             <?php comment_text(); ?>
         </div><!-- .comment-content -->
-
+<?php /*
         <div class="comment-reply-edit">
             <?php
 
-            do_action('yt_comment_reply_edit_start', $comment);
+            // do_action('yt_comment_reply_edit_start', $comment);
 
-            comment_reply_link( array_merge( $args, array( 'reply_text' => apply_filters('yt_icon_reply_comment', '<i class="fa fa-reply"></i>') . ' ' . __('Reply', 'yeahthemes'), 'add_below' => 'div-comment', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) );
+            // comment_reply_link( array_merge( $args, array( 'reply_text' => apply_filters('yt_icon_reply_comment', '<i class="fa fa-reply"></i>') . ' ' . __('Reply', 'yeahthemes'), 'add_below' => 'div-comment', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) );
 
-            edit_comment_link(  __( 'Edit', 'yeahthemes' ) );
+            // edit_comment_link(  __( 'Edit', 'yeahthemes' ) );
 
-            do_action('yt_comment_reply_edit_end', $comment);
+            // do_action('yt_comment_reply_edit_end', $comment);
 
             ?>
         </div><!-- .reply -->
-
+*/ ?>
 
     </article><!-- .comment-body -->
 

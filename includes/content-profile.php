@@ -92,7 +92,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <?php endif; ?>
 
-    <ul>
+    <ul class="additional-info">
     <?php if ($height) echo '<li>Height: ' . $height . '</li>'; ?>
     <?php if ($weight) echo '<li>Weight: ' . $weight . '</li>'; ?>
     <?php if ($sign) echo '<li>Zodiac Sign: ' . $sign . '</li>'; ?>

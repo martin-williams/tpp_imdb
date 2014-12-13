@@ -125,7 +125,7 @@ function tppdb_profile_meta_boxes() {
      */
     $profile_interesting = new AT_Meta_Box($profiles_interesting_facts_config);
 
-    $profile_interesting->addTextarea($prefix.'interesting-facts',array('name'=>'Interesting Facts'));
+    $profile_interesting->addWysiwyg($prefix.'interesting-facts',array('name'=>'Interesting Facts'));
 
     $profile_interesting->Finish();
 

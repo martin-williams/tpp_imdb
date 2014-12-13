@@ -60,38 +60,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <h1 class="entry-title"><?php echo $entry_title; ?></h1>
 
         </div>
-        <h3>
-        <?php
-        // $years = get_terms( 'years' );
-        // if (!empty($years) && !is_wp_error($years)) {
-        //     echo '<span>';
-        //     foreach ($years as $year) {
-        //         echo $year->name;
-        //     }
-        //     echo '</span>';
-        // }
-        // $types = get_terms( 'pageant-types');
-        // if (!empty($types) && !is_wp_error($types)) {
-        //     echo '<span>';
-        //     foreach ($types as $type) {
-        //         echo $type->name;
-        //     }
-        //     echo '</span>';
-        // }
-        ?>
-        </h3>
-
-        <?php /*
-        $fb_url = get_post_meta(get_the_ID(), 'Facebook', true);
-        $twitter_url = get_post_meta(get_the_ID(), 'Twitter', true);
-        ?>
-
-        <?php if ($fb_url || $twitter_url) : ?>
-        <ul class="pageant-social-links">
-            <?php if ($fb_url) echo '<li><a href="' . $fb_url . '"><i class="fa fa-facebook-square"></i></a></li>'; ?>
-            <?php if ($twitter_url) echo '<li><a href="' . $twitter_url . '"><i class="fa fa-twitter-square"></i></a></li>'; ?>
-        </ul>
-        <?php endif; */?>
 
         <?php echo 'quote' === $format ? $quote_author : '';?>
         <?php echo 'link' === $format ? $share_url_text : '';?>
@@ -139,14 +107,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 }
                 ?>
 
-                <?php
-                // $competitors = new WP_Query( array(
-                //     'connected_type' => 'pageant_competitors',
-                //     'connected_items' => get_queried_object()
-                // ));
-                /*
-                <li><span class="post-meta-key">Competitors</span><?php echo $competitors->post_count; ?></li>
-                */?>
           
             </ul>
         </div>
@@ -169,7 +129,19 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         ?>
 
         <?php the_content(); ?>
+        <hr />
+        <?php
 
+         $facts = get_post_meta(get_the_ID(), 'tppdb_pageant_fun_facts', true);
+
+            if ($facts != "") :
+            ?>
+            <div class="fun-facts">
+                <h6 class="post-meta-key">Fun Facts</h6>
+                <?php echo $facts;?>
+            </div>
+            <hr />
+        <?php endif;?>
 
         <?php do_action( 'yt_single_post_entry_content_end' );?>
 
@@ -187,7 +159,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <?php if (!empty($winners) && !is_wp_error($winners)) : ?>
     <div id="winners" class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="panel-title">Winnerz</h4>
+            <h4 class="panel-title">Winners</h4>
         </div>
         <div class="panel-body">
             <ul>

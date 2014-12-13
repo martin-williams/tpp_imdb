@@ -32,6 +32,9 @@ function tppdb_system_meta_box() {
   
   $system_general->addText($prefix.'twitter',array('name'=> 'Twitter '));
 
+  $system_general->addWysiwyg($prefix.'facts',array('name'=> 'Fun Facts '));
+
+
 
   $system_general->Finish();
 

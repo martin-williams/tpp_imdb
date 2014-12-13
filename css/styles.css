@@ -52,3 +52,9 @@
 #reviews .comment-body {line-height: 1.5em; padding-top: 10px;}
 #reviews .comment-body .comment-meta {height: auto;padding: 10px 0; padding-top: 20px;}
 #reviews .comment-body p {line-height: 1.5em;}
+
+.single-pageant-years .thumbs-rating-container {clear: both; width: 100%;}
+.single-pageants .thumbs-rating-container.total-aggregate span.thumbs-rating-up, .single-pageants .thumbs-rating-container.total-aggregate span.thumbs-rating-down {clear: both; width: 100%;}
+
+
+.additional-info, .additional-info li {list-style: none;}

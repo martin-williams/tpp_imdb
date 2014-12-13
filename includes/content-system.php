@@ -83,6 +83,64 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
              <h1  class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
 
             <?php the_content(); ?>
+
+            <hr />
+           <?php
+            $funFacts = get_post_meta( get_the_ID(), 'Fun Fact' );
+            $facts = get_post_meta(get_the_ID(), 'tppdb_facts', true);
+
+            if ($facts != "") :
+            ?>
+            <div class="fun-facts">
+                <h6 class="post-meta-key">Fun Facts</h6>
+                <?php echo $facts;?>
+            </div>
+            <hr />
+
+            <?php endif; ?>
+
+            <?php
+
+            $pageants = new WP_Query( array(
+                'connected_type' => 'organization',
+                'connected_items' => get_queried_object(),
+                'nopaging' => true,
+            ));
+
+            $up_votes = 0;
+            $down_votes = 0;
+
+            $totalPageants = 0; 
+            if($pageants->have_posts()) :
+                $totalPageants = $pageants->found_posts;
+                while($pageants->have_posts()): $pageants->the_post();
+                    if (get_post_meta(get_the_ID(), '_thumbs_rating_up', true)) {
+                    $up_votes = $up_votes + get_post_meta(get_the_ID(), '_thumbs_rating_up', true);
+                    }
+
+                    if (get_post_meta(get_the_ID(), '_thumbs_rating_down', true)) {
+                    $down_votes = $down_votes + get_post_meta(get_the_ID(), '_thumbs_rating_down', true);
+                    }
+                endwhile;
+            endif;
+
+            ?>
+            <div class="overall-hitmiss">
+                <h6 class="post-meta-key">Pageant Rating</h6>
+
+                <div class="thumbs-rating-container total-aggregate">
+                    <?php if($up_votes >= $down_votes){ ?> 
+                        <span class="thumbs-rating-up" data-text="HIT"> (<?php echo $up_votes;?>)</span>
+                    <?php } else { ?>
+                         <span class="thumbs-rating-down" data-text="MISS"> (<?php echo $down_votes;?>)</span>
+                    <?php } ?>
+                </div>
+                <div class="hit-or-miss">
+                    Total Pageants: <?php echo $totalPageants;?> | Hit votes: <?php echo $up_votes; ?> | Miss votes: <?php echo $down_votes; ?>
+                </div>
+            </div>
+
+
         </div>
         <div class="meta-wrapper col-md-4">
                     <ul class="post-meta">
@@ -239,77 +297,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
 </div><!-- .row -->
 
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">Pageant Information</h4>
-    </div>
-    <div class="panel-body info-body">
-        <div class="col-md-6">
-            <div class="connect">
-                <h6 class="post-meta-key">Connect</h6>
-          
-                    <?php if ($fb_url || $twitter_url || $website) : ?>
-                    <ul class="connect-links">
-                        <?php if ($website) echo '<li>Website: <a href="' . $website . '">'.$website.'</a></li>'; ?>
-                    </ul>
-                <?php endif; ?>
-            </div>
-            
-         
-        </div>
-        <div class="col-md-6">
-
-       <?php
-            $funFacts = get_post_meta( get_the_ID(), 'Fun Fact' );
-            if (!empty($funFacts)) :
-            ?>
-            <div class="fun-facts">
-                <h6 class="post-meta-key">Fun Facts</h6>
-                <ul class="fact-items">
-                <?php foreach ($funFacts as $fact) {
-                    echo '<li>'.$fact.'</li>';
-                }
-                ?>
-                </ul>
-            </div>
-            <?php endif; ?>
-
-            <?php
-
-            $pageants = new WP_Query( array(
-                'connected_type' => 'organization',
-                'connected_items' => get_queried_object(),
-                'nopaging' => true,
-            ));
-
-            $up_votes = 0;
-            $down_votes = 0;
-
-            if($pageants->have_posts()) :
-
-                while($pageants->have_posts()): $pageants->the_post();
-                    if (get_post_meta(get_the_ID(), '_thumbs_rating_up', true)) {
-                    $up_votes = $up_votes + get_post_meta(get_the_ID(), '_thumbs_rating_up', true);
-                    }
-
-                    if (get_post_meta(get_the_ID(), '_thumbs_rating_down', true)) {
-                    $down_votes = $down_votes + get_post_meta(get_the_ID(), '_thumbs_rating_down', true);
-                    }
-                endwhile;
-            endif;
-
-            ?>
-            <div class="hit-or-miss">
-                <p>Hit votes: <?php echo $up_votes; ?></p>
-                <p>Miss votes: <?php echo $down_votes; ?></p>
-            </div>
-
-        </div>
-
-        
-    </div>
-</div>
            
 <div id="competitors" class="panel panel-default">
     <div class="panel-heading">
