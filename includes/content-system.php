@@ -46,22 +46,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <?php 
 
-    // $header_image = get_post_meta(get_the_ID(), 'wpcf-header-image', true);
-    
     do_action( 'yt_single_post_entry_header_start' );?>
-
-    <?php /*
-    <div class="tppdb-header-image" style="background-image: url(<?php echo $header_image;?>);">
-
-        <h1 class="entry-title"><?php echo $entry_title; ?></h1>
-    </div> */
-
-    
-    // p2p_type('winner')->each_connected($wp_query, array(), 'winner');?>
-
-
-
-
 
     <?php
     $fb_url = get_post_meta(get_the_ID(), 'tpp_facebook', true);

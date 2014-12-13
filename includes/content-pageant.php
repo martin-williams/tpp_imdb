@@ -51,15 +51,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
         <?php 
 
-    $header_image = get_post_meta(get_the_ID(), 'wpcf-header-image', true);
-
         do_action( 'yt_single_post_entry_header_start' );?>
-
-    <div class="tppdb-header-image" style="background-image: url(<?php echo $header_image;?>);">
-
-        <h1 class="entry-title"><?php echo $entry_title; ?></h1>
-
-        </div>
 
         <?php echo 'quote' === $format ? $quote_author : '';?>
         <?php echo 'link' === $format ? $share_url_text : '';?>
@@ -76,9 +68,48 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <div class="row">
     <div class="entry-content col-md-12">
+        <div class="col-md-7">
+            <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
+            <?php the_content(); ?>
+
+            <hr />
+            <?php
+            $facts = get_post_meta(get_the_ID(), 'tppdb_pageant_fun_facts', true);
+
+            if ($facts != "") :
+            ?>
+
+                <div class="fun-facts">
+                    <h6 class="post-meta-key">Fun Facts</h6>
+                    <?php echo $facts; ?>
+                </div>
+                <hr />
+
+            <?php endif; ?>
+        </div>
 
         <div class="meta-wrapper col-md-4">
             <ul class="post-meta">
+                <?php
+                $winners = new WP_Query( array(
+                    'connected_type' => 'winner',
+                    'connected_items' => get_queried_object()
+                ));
+                ?>
+
+                <?php if (!empty($winners) && !is_wp_error($winners)) : ?>
+                    <?php while ($winners->have_posts() ) : $winners->the_post(); ?>
+                        <li>
+                            <?php the_post_thumbnail(array(215,320));?>
+                            <span class="post-meta-key">Pageant Winner</span>
+                            <a href="<?php the_permalink(); ?>">
+                                <?php the_title(); ?>
+                            </a>
+                        </li>
+                    <?php endwhile; ?>
+                <?php endif; ?>
+                <?php wp_reset_postdata(); ?>
+
                 <?php
                 $terms = wp_get_post_terms( get_the_ID(), 'age-divisions');
                 if (!empty($terms)) :
@@ -128,21 +159,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
         ?>
 
-        <?php the_content(); ?>
-        <hr />
-        <?php
-
-         $facts = get_post_meta(get_the_ID(), 'tppdb_pageant_fun_facts', true);
-
-            if ($facts != "") :
-            ?>
-            <div class="fun-facts">
-                <h6 class="post-meta-key">Fun Facts</h6>
-                <?php echo $facts;?>
-            </div>
-            <hr />
-        <?php endif;?>
-
         <?php do_action( 'yt_single_post_entry_content_end' );?>
 
     </div><!-- .entry-content -->
@@ -150,30 +166,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     </div><!-- .row -->
 
     <?php
-    $winners = new WP_Query( array(
-        'connected_type' => 'winner',
-        'connected_items' => get_queried_object()
-    ));
-    ?>
-
-    <?php if (!empty($winners) && !is_wp_error($winners)) : ?>
-    <div id="winners" class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">Winners</h4>
-        </div>
-        <div class="panel-body">
-            <ul>
-                <?php while ($winners->have_posts() ) : $winners->the_post(); ?>
-                <li class="profile-link"><a href="<?php the_permalink(); ?>">
-                <div class="col-md-2" style="padding-top: 5px; margin-bottom: 5px;"><?php the_post_thumbnail('thumb');?></div>
-                <div class="col-md-10" style="font-size: 1.2em;"><?php the_title(); ?></div></a></li>
-                <?php endwhile; ?>
-            </ul>
-        </div>
-    </div>
-    <?php endif; ?>
-    <?php wp_reset_postdata(); 
-
         $competitors = new WP_Query( array(
             'connected_type' => 'pageant_competitors',
             'connected_items' => get_queried_object()
