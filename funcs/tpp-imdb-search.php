@@ -8,14 +8,27 @@ function pageant_search_func ($atts) {
     );
 
     $form = '<form role="form" id="pageant-search" action="' . admin_url('admin-ajax.php') . '">';
-    $form .= '<p>Show pageants containing:</p>';
+    $form .= '<fieldset class="stages">';
+    $form .= '<legend>Stages</legend>';
 
-    $terms = get_terms('stages');
-    foreach ($terms as $term) {
+    $stages = get_terms('stages');
+    foreach ($stages as $stage) {
         $form .= '<div class="checkbox">';
-        $form .= '<label><input type="checkbox" name="' . $term->slug . '" />' . $term->name . '</label>';
+        $form .= '<label><input type="checkbox" name="' . $stage->slug . '" />' . $stage->name . '</label>';
         $form .= '</div>';
     }
+    $form .= '</fieldset>';
+
+    $form .= '<fieldset class="ages">';
+    $form .= '<legend>Age Divisions</legend>';
+
+    $ages = get_terms('age-divisions');
+    foreach ($ages as $age) {
+        $form .= '<div class="checkbox">';
+        $form .= '<label><input type="checkbox" name="' . $age->slug . '" />' . $age->name . '</label>';
+        $form .= '</div>';
+    }
+    $form .= '</fieldset>';
 
     $form .= '<input type="submit" value="Search" />';
     $form .= '</form>';
@@ -26,11 +39,18 @@ function pageant_search_func ($atts) {
 add_shortcode( 'pageant_search', 'pageant_search_func' );
 
 function pageant_search_submit () {
-    $terms = explode(',', $_POST['data']);
+    $terms = explode('&', $_POST['data']);
+
+    $stages_arr = explode('=', $terms[0]);
+    $ages_arr = explode('=', $terms[1]);
+
+    $stages = explode(',', $stages_arr[1]);
+    $ages = explode(',', $ages_arr[1]);
 
     $args = array(
         'post_type' => 'pageants',
-        'stages' => $terms
+        'stages' => $stages,
+        'age-divisions' => $ages
     );
 
     $pageants = new WP_Query($args);
