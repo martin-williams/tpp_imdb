@@ -1,6 +1,12 @@
 (function ($) {
+    var $resultContainer = $('.search-results');
     $('#pageant-search').on('submit', function (evt) {
         evt.preventDefault();
+
+        $('#searchCollapse').collapse('hide');
+        $('#resultsCollapse').collapse('show');
+
+        $resultContainer.html('<h4>Finding your pageant...</h4>');
 
         var data = {
             stages: [],
@@ -25,7 +31,7 @@
                 'data': 'stages=' + data.stages.toString() + '&ages=' + data.ages.toString()
             },
             function (res) {
-                $('.search-results').html(res);
+                $resultContainer.html(res);
             }
         )
     })
