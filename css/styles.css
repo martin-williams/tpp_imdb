@@ -1,10 +1,10 @@
-.panel-heading a:after {
+.panel-heading a[data-toggle=collapse]:after {
 	font-family: "FontAwesome";
 	content: "\f054";
 	float: right;
 }
 
-.panel-heading a.collapsed:after {
+.panel-heading a[data-toggle=collapse].collapsed:after {
 	content: "\f078";
 }
 

@@ -21,7 +21,7 @@ function pageant_search_func () {
 
     $form .= '<div class="panel-body">';
 
-    $form .= '<fieldset class="stages">';
+    $form .= '<fieldset class="stages col-md-6" style="clear: none;">';
     $form .= '<legend>Phases of Competition</legend>';
 
     $stages = get_terms('stages');
@@ -32,7 +32,7 @@ function pageant_search_func () {
     }
     $form .= '</fieldset>';
 
-    $form .= '<fieldset class="ages">';
+    $form .= '<fieldset class="ages col-md-6" style="clear: none;">';
     $form .= '<legend>Age Divisions</legend>';
 
     $ages = get_terms('age-divisions');
@@ -87,10 +87,13 @@ function pageant_search_submit () {
         $post_stages = wp_get_post_terms( get_the_ID(), 'stages');
         $post_ages = wp_get_post_terms( get_the_ID(), 'age-divisions');
 
-        $html = '<div id="post-' . get_the_ID() . '" ' . get_post_class() . '>';
+        $html = '<div id="post-' . get_the_ID() . '" class="panel panel-default">';
+        $html .= '<div class="panel-body">';
         $html .= '<h4><a href="' . get_permalink() . '" rel="bookmark">' . get_the_title() . '</a></h4>';
+        $html .= '<div class="row">';
+        $html .= '<div class="col-md-4">';
         if (sizeof($post_stages) > 0) {
-            $html .= '<p>Phases of Competition: ';
+            $html .= '<p>Phases of Competition:<br /> ';
 
             foreach($post_stages as $index=>$stage) {
                 if ($index != 0) {
@@ -103,7 +106,7 @@ function pageant_search_submit () {
         }
 
         if (sizeof($post_ages) > 0)  {
-            $html .= '<p>Age divisions: ';
+            $html .= '<p>Age divisions:<br /> ';
 
             foreach($post_ages as $index=>$age) {
                 if ($index != 0) {
@@ -115,7 +118,13 @@ function pageant_search_submit () {
             $html .= '</p>';
         }
 
-        $html .= '<div class="entry-content">' . get_the_content() . '</div>';
+        $html .= '</div>';
+        $html .= '<div class="col-md-8">';
+
+        $html .= '<div class="entry-content">' . get_the_excerpt() . '</div>';
+        $html .= '</div>';
+        $html .= '</div>';
+        $html .= '</div>';
         $html .= '</div>';
     endwhile;
 
