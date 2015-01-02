@@ -8,6 +8,9 @@
 	content: "\f078";
 }
 
+.search-results .panel.panel-default { border: 1px solid; }
+.search-results > p { margin-top: 15px; }
+
 #snippet-box { display: none; }
 
 #directors, #competitors { clear: both; }

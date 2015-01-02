@@ -21,6 +21,15 @@ function pageant_search_func () {
 
     $form .= '<div class="panel-body">';
 
+    $form .= '<div class="form-group">';
+    $form .= '<label for="type">Search for:</label>';
+    $form .= '<select class="form-control" id="type">';
+    $form .= '<option>Pageants</option>';
+    $form .= '<option>Competitors</option>';
+    $form .= '<option>Coaches</option>';
+    $form .= '</select>';
+    $form .= '</div>';
+
     $form .= '<fieldset class="stages col-md-6" style="clear: none;">';
     $form .= '<legend>Phases of Competition</legend>';
 
@@ -83,15 +92,16 @@ function pageant_search_submit () {
     );
 
     $pageants = new WP_Query($args);
+    $html = '';
     while ($pageants->have_posts()) : $pageants->the_post();
         $post_stages = wp_get_post_terms( get_the_ID(), 'stages');
         $post_ages = wp_get_post_terms( get_the_ID(), 'age-divisions');
 
-        $html = '<div id="post-' . get_the_ID() . '" class="panel panel-default">';
+        $html .= '<div id="post-' . get_the_ID() . '" class="panel panel-default">';
         $html .= '<div class="panel-body">';
         $html .= '<h4><a href="' . get_permalink() . '" rel="bookmark">' . get_the_title() . '</a></h4>';
         $html .= '<div class="row">';
-        $html .= '<div class="col-md-4">';
+        $html .= '<div class="col-xs-4">';
         if (sizeof($post_stages) > 0) {
             $html .= '<p>Phases of Competition:<br /> ';
 
@@ -119,7 +129,7 @@ function pageant_search_submit () {
         }
 
         $html .= '</div>';
-        $html .= '<div class="col-md-8">';
+        $html .= '<div class="col-xs-8">';
 
         $html .= '<div class="entry-content">' . get_the_excerpt() . '</div>';
         $html .= '</div>';
@@ -127,6 +137,8 @@ function pageant_search_submit () {
         $html .= '</div>';
         $html .= '</div>';
     endwhile;
+
+    $html .= '<p>Is your pageant not listed? <a href="#">Click to submit your pageant to our database.</a></p>';
 
     wp_reset_query();
     
