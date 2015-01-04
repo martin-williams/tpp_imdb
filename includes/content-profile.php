@@ -65,16 +65,10 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     $facts = get_post_meta(get_the_ID(), 'tppdb_interesting-facts', true);
     ?>
 
-    <p>
-    <?php if ($dob) : ?>
-        <span class="post-meta-key">Date of Birth</span>
-        <?php echo $dob; ?>
-        <?php if ($city || $state || $country) echo '<br />'; ?>
-        <?php if ($city) echo $city; ?>
-        <?php if ($state) echo $state; ?>
-        <?php if ($country) echo $country; ?>
+    <?php if ($facts) : ?>
+        <h5>Interesting Facts</h5>
+        <p><?php echo $facts; ?></p>
     <?php endif; ?>
-    </p>
 
     <?php if ($fb_url || $twitter_url || $insta_url) : ?>
     <ul class="pageant-social-links">
@@ -93,18 +87,26 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <?php endif; ?>
 
     <ul class="additional-info">
-    <?php if ($height) echo '<li>Height: ' . $height . '</li>'; ?>
-    <?php if ($weight) echo '<li>Weight: ' . $weight . '</li>'; ?>
-    <?php if ($sign) echo '<li>Zodiac Sign: ' . $sign . '</li>'; ?>
-    <?php if ($platform) echo '<li>Pageant Platform: ' . $platform . '</li>'; ?>
-    <?php if ($talent) echo '<li>Talent: ' . $talent . '</li>'; ?>
-    <?php if ($major) echo '<li>College Major: ' . $major . '</li>'; ?>
-    </ul>
+    <?php
+    if ($dob) {
+        echo '<li><strong>Date of Birth: </strong>' . $dob . '</li>';
+    }
+    if ($city || $state || $country) {
+        echo '<li><strong>Hometown: </strong>';
+        if ($city) echo $city;
+        if ($state) echo $state;
+        if ($country) echo $country;
+        echo '</li>';
+    }
+    ?>
 
-    <?php if ($facts) : ?>
-        <h5>Interesting Facts</h5>
-        <p><?php echo $facts; ?></p>
-    <?php endif; ?>
+    <?php if ($height) echo '<li><strong>Height:</strong> ' . $height . '</li>'; ?>
+    <?php if ($weight) echo '<li><strong>Weight:</strong> ' . $weight . '</li>'; ?>
+    <?php if ($sign) echo '<li><strong>Zodiac Sign:</strong> ' . $sign . '</li>'; ?>
+    <?php if ($platform) echo '<li><strong>Pageant Platform:</strong> ' . $platform . '</li>'; ?>
+    <?php if ($talent) echo '<li><strong>Talent:</strong> ' . $talent . '</li>'; ?>
+    <?php if ($major) echo '<li><strong>College Major:</strong> ' . $major . '</li>'; ?>
+    </ul
 
 </header><!-- .entry-header -->
 

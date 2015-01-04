@@ -49,7 +49,7 @@ function tppdb_create_profile_type() {
       ),
       'public' => true,
       'has_archive' => true,
-      // 'rewrite' => array('slug' => 'profiles')
+      'rewrite' => array('slug' => 'profiles'),
 //      'rewrite' => array(
 //        'permastruct' => '/profiles/%post_id%/'
 //      ),
