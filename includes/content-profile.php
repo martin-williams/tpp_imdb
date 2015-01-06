@@ -93,8 +93,8 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     }
     if ($city || $state || $country) {
         echo '<li><strong>Hometown: </strong>';
-        if ($city) echo $city;
-        if ($state) echo $state;
+        if ($city) echo $city . ', ';
+        if ($state) echo $state . ', ';
         if ($country) echo $country;
         echo '</li>';
     }

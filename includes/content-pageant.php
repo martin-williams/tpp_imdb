@@ -68,78 +68,84 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <div class="row">
     <div class="entry-content col-md-12">
-        <div class="col-md-7">
-            <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
-            <?php the_content(); ?>
+        <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
+        <div class="row">
+            <div class="col-md-7">
+                <?php the_content(); ?>
 
-            <hr />
-            <?php
-            $facts = get_post_meta(get_the_ID(), 'tppdb_pageant_fun_facts', true);
-
-            if ($facts != "") :
-            ?>
-
-                <div class="fun-facts">
-                    <h6 class="post-meta-key">Fun Facts</h6>
-                    <?php echo $facts; ?>
-                </div>
                 <hr />
 
-            <?php endif; ?>
-        </div>
-
-        <div class="meta-wrapper col-md-4">
-            <ul class="post-meta">
+                <a class="btn btn-primary" href="#reviews">Read Reviews on <?php echo $entry_title; ?></a>
                 <?php
-                $winners = new WP_Query( array(
-                    'connected_type' => 'winner',
-                    'connected_items' => get_queried_object()
-                ));
+                $facts = get_post_meta(get_the_ID(), 'tppdb_pageant_fun_facts', true);
+
+                if ($facts != "") :
                 ?>
 
-                <?php if (!empty($winners) && !is_wp_error($winners)) : ?>
-                    <?php while ($winners->have_posts() ) : $winners->the_post(); ?>
-                        <li>
-                            <?php the_post_thumbnail(array(215,320));?>
-                            <span class="post-meta-key">Pageant Winner</span>
-                            <a href="<?php the_permalink(); ?>">
-                                <?php the_title(); ?>
-                            </a>
-                        </li>
-                    <?php endwhile; ?>
+                    <div class="fun-facts">
+                        <h6 class="post-meta-key">Interesting Facts</h6>
+                        <?php echo $facts; ?>
+                    </div>
+                    <hr />
+
                 <?php endif; ?>
-                <?php wp_reset_postdata(); ?>
+            </div>
 
-                <?php
-                $terms = wp_get_post_terms( get_the_ID(), 'age-divisions');
-                if (!empty($terms)) :
-                ?>
-                    <li>
-                        <span class="post-meta-key">Competition Categories</span>
-                        <?php foreach ($terms as $type) : $link = get_term_link($type); ?>
-                            <a href="<?php echo esc_url($link); ?>"><?php echo $type->name; ?></a>
-                        <?php endforeach; ?>
-                    </li>
-                <?php
-                endif;
-                ?>
+            <div class="meta-wrapper col-md-4">
+                <ul class="post-meta">
+                    <?php
+                    $winners = new WP_Query( array(
+                        'connected_type' => 'winner',
+                        'connected_items' => get_queried_object()
+                    ));
+                    ?>
 
-                <?php
-                $date = get_post_meta($post->ID, "wpcf-pageant-date", true);
-                if ( $date ) {
-                        echo '<li><span class="post-meta-key">Date</span>' . date("l, F jS Y", $date) . '</li>';
-                }
-                ?>
+                    <?php if (!empty($winners) && !is_wp_error($winners)) : ?>
+                        <?php while ($winners->have_posts() ) : $winners->the_post(); ?>
+                            <li>
+                                <?php the_post_thumbnail(array(215,320));?>
+                                <span class="post-meta-key">Pageant Winner</span>
+                                <a href="<?php the_permalink(); ?>">
+                                    <?php the_title(); ?>
+                                </a>
+                            </li>
+                        <?php endwhile; ?>
+                    <?php endif; ?>
+                    <?php wp_reset_postdata(); ?>
 
-                <?php
-                $venue = get_post_meta($post->ID, "wpcf-pageant-venue", true);
-                if ( $venue ) {
-                        echo '<li><span class="post-meta-key">Venue</span>' . $venue . '</li>';
-                }
-                ?>
+                    <?php
+                    $terms = wp_get_post_terms( get_the_ID(), 'age-divisions');
+                    if (!empty($terms)) :
+                    ?>
+                        <li>
+                            <span class="post-meta-key">Age Divisions</span>
+                            <ul>
+                            <?php foreach ($terms as $type) : $link = get_term_link($type); ?>
+                                <li><a href="<?php echo esc_url($link); ?>"><?php echo $type->name; ?></a></li>
+                            <?php endforeach; ?>
+                            </ul>
+                        </li>
+                    <?php
+                    endif;
+                    ?>
 
-          
-            </ul>
+                    <?php
+                    $date = get_post_meta($post->ID, "wpcf-pageant-date", true);
+                    if ( $date ) {
+                            echo '<li><span class="post-meta-key">Date</span>' . date("l, F jS Y", $date) . '</li>';
+                    }
+                    ?>
+
+                    <?php
+                    $venue = get_post_meta($post->ID, "wpcf-pageant-venue", true);
+                    if ( $venue ) {
+                            echo '<li><span class="post-meta-key">Venue</span>' . $venue . '</li>';
+                    }
+                    ?>
+
+
+                </ul>
+            </div>
         </div>
 
         <?php do_action( 'yt_single_post_entry_content_start' );?>
@@ -204,10 +210,10 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <div class="panel-heading">
             <h4 class="panel-title">Gallery</h4>
         </div>
-        <div class="panel-body">
+        <div class="panel-body tppdb-gallery">
             <?php while( $attachment = $attachments->get() ) : ?>
             <div class="col-xs-3">
-                <a class="tppdb-gallery-link" href="<?php echo $attachments->url(); ?>"><?php echo $attachments->image(); ?></a>
+                <a href="<?php echo $attachments->url(); ?>"><?php echo $attachments->image(); ?></a>
             </div>
             <?php endwhile; ?>
         </div>

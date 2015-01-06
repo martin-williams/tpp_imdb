@@ -1,6 +1,12 @@
 (function ($) {
-    $('.tppdb-gallery-link').magnificPopup({
+    $('.tppdb-gallery').magnificPopup({
+        delegate: 'a',
         type: 'image',
-        closeOnContentClick: true
+        tLoading: 'Loading image #%curr%...',
+        gallery: {
+            enabled: true,
+            navigateByImgClick: true,
+            preload: [0,1]
+        }
     });
 })(jQuery);
