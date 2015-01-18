@@ -55,12 +55,9 @@
 }
 .tppdb-header-image h1 {color: #fff; position: absolute; bottom: 0; left: 30px; padding-bottom: 20px; text-shadow: 0 0 5px rgba(0,0,0,.75);}
 
+#reviewBtn { width: 100%; font-size: 1.2em; padding: 10px 12px; }
 
-
-#reviews ol.commentlist {
-	list-style: none;
-}
-
+#reviews ol.commentlist { list-style: none; }
 #reviews ol.commentlist li {list-style: none;}
 #reviews .comment-body {line-height: 1.5em; padding-top: 10px;}
 #reviews .comment-body .comment-meta {height: auto;padding: 10px 0; padding-top: 20px;}
@@ -71,3 +68,7 @@
 
 
 .additional-info, .additional-info li {list-style: none;}
+
+@media (max-width: 767px) {
+	.meta-wrapper { padding-top: 0; padding-bottom: 0; border: none; }
+}

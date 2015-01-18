@@ -75,7 +75,9 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
                 <hr />
 
-                <a class="btn btn-primary" href="#reviews">Read Reviews on <?php echo $entry_title; ?></a>
+                <a id="reviewBtn" class="btn btn-primary" href="#reviews">Read Reviews on <?php echo $entry_title; ?></a>
+
+                <hr class="visible-xs" />
             </div>
 
             <div class="meta-wrapper col-sm-4 col-sm-offset-1">
@@ -180,6 +182,8 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     </div><!-- .entry-content -->
 
     </div><!-- .row -->
+
+    <hr />
 
     <?php
         $competitors = new WP_Query( array(
