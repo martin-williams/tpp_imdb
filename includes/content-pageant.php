@@ -49,7 +49,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <header class="entry-header tppdb">
 
-        <?php 
+        <?php
 
         do_action( 'yt_single_post_entry_header_start' );?>
 
@@ -112,6 +112,29 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                         <?php endwhile; ?>
                     <?php endif; ?>
                     <?php wp_reset_postdata(); ?>
+
+                    <?php
+                    // get link to parent system
+                    $system = new WP_Query( array(
+                        'connected_type' => 'organization',
+                        'connected_items' => get_queried_object()
+                    ));
+
+                    if (!empty($system) && !is_wp_error($system)) :
+
+                    while ($system->have_posts() ) : $system->the_post();
+                    ?>
+
+                    <li>
+                        <span class="post-meta-key">Pageant Organization</span>
+                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    </li>
+
+                    <?php
+                    endwhile;
+                    endif;
+                    wp_reset_postdata();
+                    ?>
 
                     <?php
                     $terms = wp_get_post_terms( get_the_ID(), 'age-divisions');
@@ -255,7 +278,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <?php do_action( 'yt_before_single_post_entry_footer' );?>
 
 
-   
+
     <?php do_action( 'yt_after_single_post_entry_footer' );?>
 
 </article><!-- #post-<?php the_ID(); ?>## -->
