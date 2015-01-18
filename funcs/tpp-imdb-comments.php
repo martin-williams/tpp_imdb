@@ -48,21 +48,20 @@ if ( 'pingback' == $comment->comment_type || 'trackback' == $comment->comment_ty
         <div class="comment-content" itemprop="commentText">
             <?php comment_text(); ?>
         </div><!-- .comment-content -->
-<?php /*
+
         <div class="comment-reply-edit">
             <?php
 
-            // do_action('yt_comment_reply_edit_start', $comment);
+             do_action('yt_comment_reply_edit_start', $comment);
 
-            // comment_reply_link( array_merge( $args, array( 'reply_text' => apply_filters('yt_icon_reply_comment', '<i class="fa fa-reply"></i>') . ' ' . __('Reply', 'yeahthemes'), 'add_below' => 'div-comment', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) );
+             comment_reply_link( array_merge( $args, array( 'reply_text' => apply_filters('yt_icon_reply_comment', '<i class="fa fa-reply"></i>') . ' ' . __('Reply', 'yeahthemes'), 'add_below' => 'div-comment', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) );
 
-            // edit_comment_link(  __( 'Edit', 'yeahthemes' ) );
+             edit_comment_link(  __( 'Edit', 'yeahthemes' ) );
 
-            // do_action('yt_comment_reply_edit_end', $comment);
+             do_action('yt_comment_reply_edit_end', $comment);
 
             ?>
         </div><!-- .reply -->
-*/ ?>
 
     </article><!-- .comment-body -->
 
