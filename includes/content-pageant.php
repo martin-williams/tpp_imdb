@@ -76,19 +76,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 <hr />
 
                 <a class="btn btn-primary" href="#reviews">Read Reviews on <?php echo $entry_title; ?></a>
-                <?php
-                $facts = get_post_meta(get_the_ID(), 'tppdb_pageant_fun_facts', true);
-
-                if ($facts != "") :
-                ?>
-
-                    <div class="fun-facts">
-                        <h6 class="post-meta-key">Interesting Facts</h6>
-                        <?php echo $facts; ?>
-                    </div>
-                    <hr />
-
-                <?php endif; ?>
             </div>
 
             <div class="meta-wrapper col-md-4">

@@ -25,6 +25,8 @@ require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-relationships.php');
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-comments.php');
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-search.php');
 
+require TPP_IMDB_PLUGIN_DIR . 'funcs/tppdb-meta-functions.php';
+
 if(is_admin()) {
     require_once(TPP_IMDB_PLUGIN_DIR . 'admin/tppdb_admin_pages.php');
     require_once(TPP_IMDB_PLUGIN_DIR . 'lib/meta-box-class/my-meta-box-class.php');
@@ -62,3 +64,13 @@ function single_profile_template ($template) {
 add_filter('template_include', 'single_profile_template');
 
 add_filter( 'attachments_default_instance', '__return_false' ); // disable the default instance
+
+function tppdb_pageant_content_hook ($content) {
+    if (is_singular( array('pageant-years', 'pageant'))) {
+        remove_filter( 'the_content', 'thumbs_rating_print');
+        $content .= tppdb_getPageantFacts();
+        $content .= thumbs_rating_getlink();
+    }
+    return $content;
+}
+add_filter( 'the_content', 'tppdb_pageant_content_hook', 9);
