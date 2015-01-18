@@ -67,10 +67,10 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     ?>
 
     <div class="row">
-    <div class="entry-content col-md-12">
+    <div class="entry-content col-sm-12">
         <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-sm-7">
                 <?php the_content(); ?>
 
                 <hr />
@@ -78,7 +78,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 <a class="btn btn-primary" href="#reviews">Read Reviews on <?php echo $entry_title; ?></a>
             </div>
 
-            <div class="meta-wrapper col-md-4">
+            <div class="meta-wrapper col-sm-4 col-sm-offset-1">
                 <ul class="post-meta">
                     <?php
                     $winners = new WP_Query( array(
