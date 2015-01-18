@@ -26,6 +26,7 @@ require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-comments.php');
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-search.php');
 
 if(is_admin()) {
+    require_once(TPP_IMDB_PLUGIN_DIR . 'admin/tppdb_admin_pages.php');
     require_once(TPP_IMDB_PLUGIN_DIR . 'lib/meta-box-class/my-meta-box-class.php');
     require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-system-meta-boxes.php');
     require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-pageant-meta-boxes.php');

@@ -32,6 +32,7 @@ function create_director_relationship () {
         'name' => 'pageant_directors',
         'from' => 'pageants',
         'to'   => 'tpp_profiles',
+        'sortable' => 'any',
         'title' => 'Acting Director',
         'fields' => array(
             'count' => array(

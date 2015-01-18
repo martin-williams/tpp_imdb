@@ -75,13 +75,22 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                     <hr/>
                     <?php
                     $funFacts = get_post_meta(get_the_ID(), 'Fun Fact');
-                    $facts = get_post_meta(get_the_ID(), 'tppdb_facts', true);
+                    $facts = get_post_meta(get_the_ID(), 'tppdb_re_facts', true);
 
                     if ($facts != "") :
                         ?>
                         <div class="fun-facts">
                             <h6 class="post-meta-key">Fun Facts</h6>
-                            <?php echo $facts;?>
+                            <ul class="facts">
+                            <?php
+                                foreach($facts as $fact) :
+
+                                    echo "<li>$fact[tppdb_fun_facts]</li>";
+
+                                endforeach;
+
+                            ?>
+                            </ul>
                         </div>
                         <hr/>
 

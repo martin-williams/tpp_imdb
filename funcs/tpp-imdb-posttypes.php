@@ -19,6 +19,8 @@ function tppdb_create_pageants_type() {
       ),
       'public' => true,
       'has_archive' => true,
+      'show_in_menu' => 'tppdb_home'
+
     )
   );
 }
@@ -33,8 +35,8 @@ function tppdb_create_pageant_type() {
       'public' => true,
       'has_archive' => false,
       'rewrite' => array('slug' => 'pageant'),
-      'supports' => array('title', 'editor', 'comments')
-     // 'show_in_menu' => 'edit.php?post_type=pageants',
+      'supports' => array('title', 'editor', 'comments'),
+      'show_in_menu' => 'tppdb_home'
      //  'menu_position' => "0"
     )
   );
@@ -50,6 +52,8 @@ function tppdb_create_profile_type() {
       'public' => true,
       'has_archive' => true,
       'rewrite' => array('slug' => 'profiles'),
+      'show_in_menu' => 'tppdb_home',
+
 //      'rewrite' => array(
 //        'permastruct' => '/profiles/%post_id%/'
 //      ),
