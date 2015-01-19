@@ -66,7 +66,7 @@ add_filter('template_include', 'single_profile_template');
 add_filter( 'attachments_default_instance', '__return_false' ); // disable the default instance
 
 function tppdb_pageant_content_hook ($content) {
-    if (is_singular( array('pageant-years', 'pageant'))) {
+    if (is_singular( array('pageant-years', 'pageant', 'pageants')) && !types_render_field("enable-hit-or-miss-option", array("output" => "raw"))) {
         remove_filter( 'the_content', 'thumbs_rating_print');
         $content .= tppdb_getPageantFacts();
         $content .= thumbs_rating_getlink();

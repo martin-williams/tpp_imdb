@@ -73,28 +73,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                     <?php the_content(); ?>
 
                     <hr/>
-                    <?php
-                    $funFacts = get_post_meta(get_the_ID(), 'Fun Fact');
-                    $facts = get_post_meta(get_the_ID(), 'tppdb_re_facts', true);
-
-                    if ($facts != "") :
-                        ?>
-                        <div class="fun-facts">
-                            <h6 class="post-meta-key">Fun Facts</h6>
-                            <ul class="facts">
-                            <?php
-                                foreach($facts as $fact) :
-
-                                    echo "<li>$fact[tppdb_fun_facts]</li>";
-
-                                endforeach;
-
-                            ?>
-                            </ul>
-                        </div>
-                        <hr/>
-
-                    <?php endif; ?>
 
                     <?php
 
@@ -255,6 +233,8 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                     </ul>
                 </div>
             </div>
+
+            <hr />
 
             <?php do_action('yt_single_post_entry_content_start'); ?>
             <?php
