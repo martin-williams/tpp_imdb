@@ -125,7 +125,17 @@ function tppdb_profile_meta_boxes() {
      */
     $profile_interesting = new AT_Meta_Box($profiles_interesting_facts_config);
 
-    $profile_interesting->addWysiwyg($prefix.'interesting-facts',array('name'=>'Interesting Facts'));
+
+    $repeater_fields_pi[] = $profile_interesting->addText($prefix.'int_facts',array('name'=> 'Fact: '),true);
+
+
+    $profile_interesting->addRepeaterBlock($prefix.'interesting_facts',array(
+      'inline'   => true, 
+      'name'     => 'Interesting Facts',
+      'fields'   => $repeater_fields_pi, 
+      'sortable' => true
+    ));
+
 
     $profile_interesting->Finish();
 

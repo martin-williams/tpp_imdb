@@ -54,9 +54,9 @@ function tppdb_create_profile_type() {
       'rewrite' => array('slug' => 'profiles'),
       'show_in_menu' => 'tppdb_home',
 
-//      'rewrite' => array(
-//        'permastruct' => '/profiles/%post_id%/'
-//      ),
+     // 'rewrite' => array(
+     //   'permastruct' => '/profile/%post_id%/'
+     // ),
       'supports' => array('title', 'editor', 'thumbnail')
     )
   );

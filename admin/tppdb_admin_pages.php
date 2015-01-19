@@ -35,9 +35,6 @@ function tppdb_home_func(){
 
 	        <p>This page currently has no function. Check back soon!</p>
 
-
-
-
         </div><!-- wrap -->
 
         <?php

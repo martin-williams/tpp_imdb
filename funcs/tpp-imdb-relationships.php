@@ -23,7 +23,7 @@ function create_competitor_relationship () {
         'name' => 'pageant_competitors',
         'from' => 'pageant-years',
         'to'   => 'tpp_profiles',
-        'title' => 'Connected Competitors'
+        'title' => array( 'from' => 'Competitors', 'to' => 'Competed In' )
     ));
 }
 
@@ -33,7 +33,7 @@ function create_director_relationship () {
         'from' => 'pageants',
         'to'   => 'tpp_profiles',
         'sortable' => 'any',
-        'title' => 'Acting Director',
+        'title' => array( 'from' => 'Director', 'to' => 'Directed' ),
         'fields' => array(
             'count' => array(
                 'title' => 'Since',
@@ -48,7 +48,7 @@ function create_post_pageant_relationship () {
         'name' => 'news_to_pageant',
         'from' => 'post',
         'to'   => 'pageant-years',
-        'title' => 'Recent Pageant News'
+        'title' => array( 'from' => 'Pageants Mentioned', 'to' => 'Connected News' ),
     ));
 }
 
@@ -57,7 +57,7 @@ function create_post_profile_relationship () {
         'name' => 'news_to_profile',
         'from' => 'post',
         'to' => 'tpp_profiles',
-        'title' => 'Recent Profile News'
+        'title' => array( 'from' => 'Profiles Mentioned', 'to' => 'Connected News' ),
     ));
 }
 
@@ -66,7 +66,7 @@ function create_system_relationship () {
         'name' => 'organization',
         'from' => 'pageants',
         'to'   => 'pageant-years',
-        'title' => 'Pageant System'
+        'title' => array( 'from' => 'Pageants', 'to' => 'Pageant (System)' ),
     ));
 }
 
@@ -75,7 +75,7 @@ function create_winner_relationship () {
         'name'  => 'winner',
         'from'  => 'pageant-years',
         'to'    => 'tpp_profiles',
-        'title' => 'Pageant Winner'
+        'title' => array( 'from' => 'Winning Competitors', 'to' => 'Pageants Won' ),
     ));
 }
 

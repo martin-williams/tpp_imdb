@@ -4,8 +4,8 @@ Plugin Name: TPP IMDB-esk functionality
 Plugin URI: https://github.com/martin-williams/tpp_imdb
 Description: Functionality for ordering users and pageants in IMDB fashion
 Version: 1.0
-Author: Martin Williams
-Author URI: http://github.com/martin-williams
+Author: Ingage
+Author URI: http://weingage.com
 */
 
 define( 'TPP_IMDB_PLUGIN_DIR', plugin_dir_path(__FILE__) );
@@ -17,7 +17,7 @@ require TPP_IMDB_PLUGIN_DIR . 'class-tpp-imdb-template-loader.php';
 
 
 // Include our files
-require_once(TPP_IMDB_PLUGIN_DIR . 'lib/wp-permastructure/wp-permastructure.php');
+// require_once(TPP_IMDB_PLUGIN_DIR . 'lib/wp-permastructure/wp-permastructure.php');
 
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-posttypes.php');
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-taxonomies.php');

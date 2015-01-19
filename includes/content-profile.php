@@ -62,19 +62,33 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     $talent = get_post_meta(get_the_ID(), 'tppdb_talent', true);
     $major = get_post_meta(get_the_ID(), 'tppdb_college-major', true);
 
-    $facts = get_post_meta(get_the_ID(), 'tppdb_interesting-facts', true);
+    $facts = get_post_meta(get_the_ID(), 'tppdb_interesting_facts', true);
     ?>
 
-    <?php if ($facts) : ?>
-        <h5>Interesting Facts</h5>
-        <p><?php echo $facts; ?></p>
-    <?php endif; ?>
+        <?php if ($facts != "") :
+                        ?>
+        <div class="fun-facts">
+            <h6 class="post-meta-key">Fun Facts</h6>
+            <ul class="facts">
+            <?php
+                foreach($facts as $fact) :
+
+                    echo "<li>$fact[tppdb_int_facts]</li>";
+
+                endforeach;
+
+            ?>
+            </ul>
+        </div>
+        <hr/>
+
+    <?php endif;  ?>
 
     <?php if ($fb_url || $twitter_url || $insta_url) : ?>
     <ul class="pageant-social-links">
-        <?php if ($fb_url) echo '<li><a href="' . $fb_url . '"><i class="fa fa-facebook-square"></i></a></li>'; ?>
-        <?php if ($twitter_url) echo '<li><a href="' . $twitter_url . '"><i class="fa fa-twitter-square"></i></a></li>'; ?>
-        <?php if ($insta_url) echo '<li><a href="' . $insta_url . '"><i class="fa fa-instagram"></i></a></li>'; ?>
+        <?php if ($fb_url) echo '<li><a href="' . $fb_url . '" target="_blank" rel="nofollow"><i class="fa fa-facebook-square"></i></a></li>'; ?>
+        <?php if ($twitter_url) echo '<li><a href="' . $twitter_url . '" target="_blank" rel="nofollow"><i class="fa fa-twitter-square"></i></a></li>'; ?>
+        <?php if ($insta_url) echo '<li><a href="' . $insta_url . '" target="_blank" rel="nofollow"><i class="fa fa-instagram"></i></a></li>'; ?>
     </ul>
     <?php
     endif;
@@ -82,7 +96,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     if ($website_url) :
     ?>
 
-    <p><a href="<?php echo $website_url; ?>"><?php echo $website_url; ?></a></p>
+    <p><a href="<?php echo $website_url; ?>" target="_blank" rel="nofollow"><?php echo $website_url; ?></a></p>
 
     <?php endif; ?>
 
@@ -106,7 +120,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <?php if ($platform) echo '<li><strong>Pageant Platform:</strong> ' . $platform . '</li>'; ?>
     <?php if ($talent) echo '<li><strong>Talent:</strong> ' . $talent . '</li>'; ?>
     <?php if ($major) echo '<li><strong>College Major:</strong> ' . $major . '</li>'; ?>
-    </ul
+    </ul>
 
 </header><!-- .entry-header -->
 
