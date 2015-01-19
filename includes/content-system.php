@@ -64,11 +64,11 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <?php do_action('yt_before_single_post_entry_content'); ?>
 
     <div class="row">
-        <div class="entry-content col-md-12">
+        <div class="entry-content col-sm-12">
             <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
 
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-sm-7">
 
                     <?php the_content(); ?>
 
@@ -138,9 +138,9 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                         </div>
                     </div>
 
-
+                    <hr class="visible-xs" />
                 </div>
-                <div class="meta-wrapper col-md-4">
+                <div class="meta-wrapper col-sm-4 col-sm-offset-1">
                     <ul class="post-meta">
 
                         <?php
