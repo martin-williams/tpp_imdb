@@ -190,6 +190,31 @@ if ($competitors->have_posts()) :
 wp_reset_postdata();
 endif;
 ?>
+
+<?php
+wp_enqueue_script('magnific-popup-js', plugins_url('/lib/magnific-popup/jquery.magnific-popup.min.js', dirname(__FILE__) ), array( 'jquery' ));
+wp_enqueue_script('tppdb-gallery', plugins_url( '/js/tppdb-gallery.js', dirname(__FILE__) ), array( 'jquery', 'magnific-popup-js' ));
+wp_enqueue_style('magnific-popup-css', plugins_url( '/lib/magnific-popup/magnific-popup.css', dirname(__FILE__) ));
+
+$attachments = new Attachments( 'profile_gallery_attachments' );
+if ($attachments->exist()) :
+?>
+    <div id="profile-gallery" class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Gallery</h4>
+        </div>
+        <div class="panel-body tppdb-gallery">
+            <?php while( $attachment = $attachments->get() ) : ?>
+            <div class="col-xs-6 col-sm-3">
+                <a href="<?php echo $attachments->url(); ?>">
+                    <?php echo $attachments->image(); ?>
+                </a>
+            </div>
+            <?php endwhile; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
 <?php
 $news = new WP_Query( array(
     'connected_type' => 'recent_news_profiles',

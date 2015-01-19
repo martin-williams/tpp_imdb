@@ -160,4 +160,37 @@ function tppdb_profile_meta_boxes() {
     $profile_personal->Finish();
 }
 
+function profile_gallery_attachments ($attachments) {
+  $fields = array (
+      array (
+          'name'      => 'title',
+          'type'      => 'text',
+          'label'     => __( 'Title', 'attachments' ),
+          'default'   => 'title'
+      ),
+      array (
+          'name'      => 'caption',
+          'type'      => 'textarea',
+          'label'     => __( 'Caption', 'attachments' ),
+          'default'   => 'caption'
+      )
+  );
 
+  $args = array (
+      'label'     => 'Gallery Attachments',
+      'post_type' => array( 'tpp_profiles' ),
+      'position'  => 'normal',
+      'priority'  => 'high',
+      'filetype'  => null,
+      'note'      => 'Attach gallery files here!',
+      'append'    => true,
+      'button_text'   =>  __( 'Attach Files', 'attachments' ),
+      'modal_text'    =>  __( 'Attach', 'attachments' ),
+      'router'        =>  'browse',
+      'post_parent'   =>  false,
+      'fields'        =>  $fields
+  );
+
+  $attachments->register( 'profile_gallery_attachments', $args );
+}
+add_action( 'attachments_register', 'profile_gallery_attachments' );
