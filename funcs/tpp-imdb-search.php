@@ -33,7 +33,7 @@ function pageant_search_func () {
     $form .= '<fieldset class="stages col-md-6" style="clear: none;">';
     $form .= '<legend>Phases of Competition</legend>';
 
-    $stages = get_terms('stages');
+    $stages = get_terms('stages', array('hide_empty' => false));
     foreach ($stages as $stage) {
         $form .= '<div class="checkbox">';
         $form .= '<label><input type="checkbox" name="' . $stage->slug . '" />' . $stage->name . '</label>';
@@ -44,7 +44,7 @@ function pageant_search_func () {
     $form .= '<fieldset class="ages col-md-6" style="clear: none;">';
     $form .= '<legend>Age Divisions</legend>';
 
-    $ages = get_terms('age-divisions');
+    $ages = get_terms('age-divisions', array('hide_empty' => false));
     foreach ($ages as $age) {
         $form .= '<div class="checkbox">';
         $form .= '<label><input type="checkbox" name="' . $age->slug . '" />' . $age->name . '</label>';
