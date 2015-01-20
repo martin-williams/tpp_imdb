@@ -68,8 +68,13 @@ add_filter( 'attachments_default_instance', '__return_false' ); // disable the d
 function tppdb_pageant_content_hook ($content) {
     if (is_singular( array('pageant-years', 'pageant', 'pageants')) && !types_render_field("enable-hit-or-miss-option", array("output" => "raw"))) {
         remove_filter( 'the_content', 'thumbs_rating_print');
+        $content = '<div id="bio-wrapper">' . $content . '</div>';
+        $content .= '<button type="button" id="expanderBtn" class="btn btn-default">Read More</button>';
         $content .= tppdb_getPageantFacts();
-        $content .= thumbs_rating_getlink();
+
+        if (!is_singular( 'pageants' )) {
+            $content .= thumbs_rating_getlink();
+        }
     }
     return $content;
 }
