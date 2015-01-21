@@ -9,7 +9,7 @@ function tppdb_create_taxonomies() {
 	tppdb_create_organizations_tax();
 	tppdb_create_years_tax();
 	tppdb_create_roles_tax();
-
+	tppdb_create_expertise_tax();
 }
 
 function tppdb_create_age_divisions_tax() {
@@ -60,6 +60,16 @@ function tppdb_create_roles_tax() {
 			'label' => __( 'Roles' ),
 			'rewrite' => array( 'slug' => 'roles' ),
 			'hierarchical' => false,
+		)
+	);
+}
+
+function tppdb_create_expertise_tax() {
+	register_taxonomy( 'areas-of-expertise', array('tpp_profiles'),
+		array(
+			'label' => __( 'Areas of Expertise' ),
+			'rewrite' => array( 'slug' => 'expertise' ),
+			'hierarchical' => false
 		)
 	);
 }

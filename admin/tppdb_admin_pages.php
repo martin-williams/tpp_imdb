@@ -12,7 +12,8 @@ function tppdb_main_menu_page(){
     /* Systems */
 	add_submenu_page( 'tppdb_home', "", '<span style="display:block; margin:1px 0 1px -5px; padding:0; height:1px; line-height:1px;background:#eee;"></span>', "manage_options", "#");
 
-        add_submenu_page( 'tppdb_home', 'Profile Roles', 'Profile Roles', 'manage_options', 'edit-tags.php?taxonomy=roles&post_type=tpp_profiles', '' );
+    add_submenu_page( 'tppdb_home', 'Profile Roles', 'Profile Roles', 'manage_options', 'edit-tags.php?taxonomy=roles&post_type=tpp_profiles', '' );
+    add_submenu_page( 'tppdb_home', 'Areas of Expertise', 'Areas of Expertise', 'manage_options', 'edit-tags.php?taxonomy=areas-of-expertise&post_type=tpp_profiles', '' );
     add_submenu_page( 'tppdb_home', 'Pageant Years', 'Pageant Years', 'manage_options', 'edit-tags.php?taxonomy=pageant-year&post_type=pageant-years', '' );
 
     add_submenu_page( 'tppdb_home', 'Organizations', 'Organizations', 'manage_options', 'edit-tags.php?taxonomy=organizations&post_type=pageants', '' );

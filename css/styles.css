@@ -73,6 +73,12 @@
 
 .additional-info, .additional-info li {list-style: none;}
 
+.stages .checkbox { width: 33.33%; float: left; margin: 5px 0; }
+.expertise .checkbox { width: 25%; float: left; margin: 5px 0; }
+.ages .checkbox { float: left; margin: 5px 23px; }
+.ages .checkbox:first-of-type { margin-left: 0; }
+.ages .checkbox:last-child { margin-right: 0; }
+
 @media (max-width: 767px) {
 	.meta-wrapper { padding-top: 0; padding-bottom: 0; border: none; }
 }
