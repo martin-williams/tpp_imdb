@@ -222,11 +222,11 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
                             <li>
                                 <span class="post-meta-key">Pageant Director</span>
-
+                                <ul>
                                 <?php while ($directors->have_posts()) : $directors->the_post(); ?>
-                                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                    <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
                                 <?php endwhile; ?>
-
+                                </ul>
                             </li>
                         <?php
                         endif;
@@ -273,31 +273,52 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
             <p style="margin: 0;">Read Reviews, see who competed and more...</p>
         </div>
         <div class="panel-body">
-            <ul>
-
                 <?php
-
-
-
                 if ($pageants->have_posts()) :
 
                     while ($pageants->have_posts()): $pageants->the_post();
-
+                        $content = get_the_excerpt();
+                        $post_stages = wp_get_post_terms(get_the_ID(), 'stages');
+                        $post_ages = wp_get_post_terms(get_the_ID(), 'age-divisions');
                         p2p_type('winner')->each_connected($pageants, array(), 'winner');
 
                         ?>
-                        <li>
-                            <div class="col-md-6">
-                                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        <div id="post-<?php the_title(); ?>">
+                            <h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
+                            <div class="col-xs-4">
+                                <?php if (sizeof($post_stages) > 0) : ?>
+                                    <p>Phases of Competition:<br />
+                                        <?php
+                                        foreach ($post_stages as $index=>$stage) :
+                                        if ($index != 0) { echo ', '; }
+                                        ?>
+                                        <a href="<?php echo esc_url(get_term_link($stage)); ?>"><?php echo $stage->name; ?></a>
+                                        <?php endforeach; ?>
+                                    </p>
+                                <?php endif; ?>
+
+                                <?php if (sizeof($post_ages) > 0) : ?>
+                                    <p>Age Divisions:<br />
+                                        <?php
+                                        foreach ($post_ages as $index=>$age) :
+                                        if ($index != 0) { echo ', '; }
+                                        ?>
+                                        <a href="<?php echo esc_url(get_term_link($age)); ?>"><?php echo $age->name; ?></a>
+                                        <?php endforeach; ?>
+                                    </p>
+                                <?php endif; ?>
+
+                                <?php if (sizeof($post->winner) > 0) : ?>
+                                    <p>Pageant Winner:<br />
+                                        <?php foreach ($post->winner as $post) : setup_postdata($post); ?>
+                                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                        <?php endforeach; ?>
+                                        <?php wp_reset_postdata(); ?>
+                                    </p>
+                                <?php endif; ?>
                             </div>
-                            <div class="col-md-6" style="text-align: right;">
-                                <?php
-                                foreach ($post->winner as $post) : setup_postdata($post); ?>
-                                    Winner: <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                                    <?php break;
-                                endforeach;
-                                wp_reset_postdata();
-                                ?>
+                            <div class="col-xs-8">
+                                <div class="entry-content"><?php echo $content; ?></div>
                             </div>
                         </li>
                     <?php
@@ -325,7 +346,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         ?>
 
 
-        <div id="competitors" class="panel panel-default">
+        <div id="news" class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">Pageant News</h4>
             </div>

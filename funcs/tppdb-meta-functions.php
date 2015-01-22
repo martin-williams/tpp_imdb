@@ -10,7 +10,7 @@ if (!function_exists('tppdb_getPageantFacts')) :
         $html = '';
         if ($facts != '') {
             $html .= '<div class="fun-facts">';
-            $html .= '<h6 class="post-meta-key">Fun Facts</h6>';
+            $html .= '<h6 class="post-meta-key">Interesting Facts</h6>';
             $html .= '<ul class="facts">';
 
             foreach($facts as $fact) {
