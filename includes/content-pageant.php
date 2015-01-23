@@ -143,14 +143,14 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                     ?>
 
                     <?php
-                    $date = get_post_meta($post->ID, "wpcf-pageant-date", true);
+                    $date = get_post_meta($post->ID, "tppdb_pageant_date", true);
                     if ( $date ) {
-                            echo '<li><span class="post-meta-key">Date</span>' . date("l, F jS Y", $date) . '</li>';
+                            echo '<li><span class="post-meta-key">Date</span>' . $date . '</li>';
                     }
                     ?>
 
                     <?php
-                    $venue = get_post_meta($post->ID, "wpcf-pageant-venue", true);
+                    $venue = get_post_meta($post->ID, "tppdb_pageant_venue", true);
                     if ( $venue ) {
                             echo '<li><span class="post-meta-key">Venue</span>' . $venue . '</li>';
                     }
@@ -193,8 +193,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         ));
     ?>
 
-
-
     <div id="competitors" class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">Competitors</h4>
@@ -207,10 +205,27 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 <div class="col-md-8" style="font-size: 1.2em;"><?php the_title(); ?></div></a></li>
                 <?php endwhile; ?>
             </ul>
-            </ul>
         </div>
     </div>
 
+    <?php wp_reset_postdata(); ?>
+
+    <?php
+    $news = new WP_Query( array(
+        'connected_type' => 'news_to_pageant',
+        'connected_items' => get_queried_object()
+    ));
+    ?>
+    <div id="news" class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Recent News</h4>
+        </div>
+        <ul class="list-group">
+            <?php while ( $news->have_posts() ) : $news->the_post(); ?>
+            <li class="list-group-item"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+            <?php endwhile; ?>
+        </ul>
+    </div>
     <?php wp_reset_postdata(); ?>
 
     <?php

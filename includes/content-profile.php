@@ -40,49 +40,49 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
 
-    <?php the_content(); ?>
+    <div class="entry-content">
+        <?php the_content(); ?>
+        <div class="clearfix"></div>
 
-    <div class="clearfix"></div>
+        <?php
+        $dob = get_post_meta(get_the_ID(), 'tppdb_dob', true);
+        $city = get_post_meta(get_the_ID(), 'tppdb_city', true);
+        $state = get_post_meta(get_the_ID(), 'tppdb_state', true);
+        $country = get_post_meta(get_the_ID(), 'tppdb_country', true);
 
-    <?php
-    $dob = get_post_meta(get_the_ID(), 'tppdb_dob', true);
-    $city = get_post_meta(get_the_ID(), 'tppdb_city', true);
-    $state = get_post_meta(get_the_ID(), 'tppdb_state', true);
-    $country = get_post_meta(get_the_ID(), 'tppdb_country', true);
+        $fb_url = get_post_meta(get_the_ID(), 'tppdb_facebook', true);
+        $twitter_url = get_post_meta(get_the_ID(), 'tppdb_twitter', true);
+        $insta_url = get_post_meta(get_the_ID(), 'tppdb_instagram', true);
+        $website_url = get_post_meta(get_the_ID(), 'tppdb_website', true);
 
-    $fb_url = get_post_meta(get_the_ID(), 'tppdb_facebook', true);
-    $twitter_url = get_post_meta(get_the_ID(), 'tppdb_twitter', true);
-    $insta_url = get_post_meta(get_the_ID(), 'tppdb_instagram', true);
-    $website_url = get_post_meta(get_the_ID(), 'tppdb_website', true);
+        $height = get_post_meta(get_the_ID(), 'tppdb_height', true);
+        $weight = get_post_meta(get_the_ID(), 'tppdb_weight', true);
+        $sign = get_post_meta(get_the_ID(), 'tppdb_zodiac-sign', true);
+        $platform = get_post_meta(get_the_ID(), 'tppdb_pageant-platform', true);
+        $talent = get_post_meta(get_the_ID(), 'tppdb_talent', true);
+        $major = get_post_meta(get_the_ID(), 'tppdb_college-major', true);
 
-    $height = get_post_meta(get_the_ID(), 'tppdb_height', true);
-    $weight = get_post_meta(get_the_ID(), 'tppdb_weight', true);
-    $sign = get_post_meta(get_the_ID(), 'tppdb_zodiac-sign', true);
-    $platform = get_post_meta(get_the_ID(), 'tppdb_pageant-platform', true);
-    $talent = get_post_meta(get_the_ID(), 'tppdb_talent', true);
-    $major = get_post_meta(get_the_ID(), 'tppdb_college-major', true);
+        $facts = get_post_meta(get_the_ID(), 'tppdb_interesting_facts', true);
+        ?>
 
-    $facts = get_post_meta(get_the_ID(), 'tppdb_interesting_facts', true);
-    ?>
+        <?php if ($facts != "") : ?>
+            <div class="fun-facts">
+                <h6 class="post-meta-key">Interesting Facts</h6>
+                <ul class="facts">
+                <?php
+                    foreach($facts as $fact) :
 
-        <?php if ($facts != "") :
-                        ?>
-        <div class="fun-facts">
-            <h6 class="post-meta-key">Fun Facts</h6>
-            <ul class="facts">
-            <?php
-                foreach($facts as $fact) :
+                        echo "<li>$fact[tppdb_int_facts]</li>";
 
-                    echo "<li>$fact[tppdb_int_facts]</li>";
+                    endforeach;
 
-                endforeach;
+                ?>
+                </ul>
+            </div>
+        <?php endif;  ?>
 
-            ?>
-            </ul>
-        </div>
         <hr/>
-
-    <?php endif;  ?>
+    </div>
 
     <?php if ($fb_url || $twitter_url || $insta_url) : ?>
     <ul class="pageant-social-links">
@@ -137,13 +137,11 @@ if ($pageants_won->have_posts()) :
     <div class="panel-heading">
         <h4 class="panel-title">Pageants Won</h4>
     </div>
-    <div class="panel-body">
-        <ul>
-            <?php while ($pageants_won->have_posts() ) : $pageants_won->the_post(); ?>
-                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-            <?php endwhile; ?>
-        </ul>
-    </div>
+    <ul class="list-group">
+        <?php while ($pageants_won->have_posts() ) : $pageants_won->the_post(); ?>
+            <li class="list-group-item"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+        <?php endwhile; ?>
+    </ul>
 </div>
 
 <?php
@@ -164,13 +162,11 @@ if ($directors->have_posts()) :
     <div class="panel-heading">
         <h4 class="panel-title">Director</h4>
     </div>
-    <div class="panel-body">
-        <ul>
-            <?php while ($directors->have_posts() ) : $directors->the_post(); ?>
-                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-            <?php endwhile; ?>
-        </ul>
-    </div>
+    <ul class=list-group>
+        <?php while ($directors->have_posts() ) : $directors->the_post(); ?>
+            <li class="list-group-item"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+        <?php endwhile; ?>
+    </ul>
 </div>
 
 <?php
@@ -191,17 +187,40 @@ if ($competitors->have_posts()) :
     <div class="panel-heading">
         <h4 class="panel-title">Competed in:</h4>
     </div>
-    <div class="panel-body">
-        <ul>
-            <?php while ($competitors->have_posts() ) : $competitors->the_post(); ?>
-                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-            <?php endwhile; ?>
-        </ul>
-    </div>
+    <ul class="list-group">
+        <?php while ($competitors->have_posts() ) : $competitors->the_post(); ?>
+            <li class="list-group-item"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+        <?php endwhile; ?>
+    </ul>
 </div>
 
 <?php
 wp_reset_postdata();
+endif;
+?>
+
+<?php
+$news = new WP_Query( array(
+    'connected_type' => 'news_to_profile',
+    'connected_items' => get_queried_object()
+));
+
+if ($news->have_posts()) :
+    ?>
+
+    <div id="news" class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">News</h4>
+        </div>
+        <ul class="list-group">
+            <?php while ($news->have_posts() ) : $news->the_post(); ?>
+                <li class="list-group-item"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+            <?php endwhile; ?>
+        </ul>
+    </div>
+
+    <?php
+    wp_reset_postdata();
 endif;
 ?>
 
@@ -228,34 +247,6 @@ if ($attachments->exist()) :
         </div>
     </div>
 <?php endif; ?>
-
-<?php
-$news = new WP_Query( array(
-    'connected_type' => 'recent_news_profiles',
-    'connected_items' => get_queried_object()
-));
-
-if ($news->have_posts()) :
-?>
-
-<div id="competitors" class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">News</h4>
-    </div>
-    <div class="panel-body">
-        <ul>
-            <?php while ($news->have_posts() ) : $news->the_post(); ?>
-                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-            <?php endwhile; ?>
-        </ul>
-    </div>
-</div>
-
-<?php
-wp_reset_postdata();
-endif;
-?>
-
 
 <?php
 

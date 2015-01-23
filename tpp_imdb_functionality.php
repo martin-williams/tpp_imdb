@@ -79,3 +79,11 @@ function tppdb_pageant_content_hook ($content) {
     return $content;
 }
 add_filter( 'the_content', 'tppdb_pageant_content_hook', 9);
+
+function restrict_to_system() {
+    //And any other checks
+    if (!is_admin() && is_tax( array('age-divisions', 'stages') )) {
+        set_query_var('post_type','pageants');
+    }
+}
+add_action( 'pre_get_posts', 'restrict_to_system' );

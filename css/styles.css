@@ -59,6 +59,8 @@
 }
 .tppdb-header-image h1 {color: #fff; position: absolute; bottom: 0; left: 30px; padding-bottom: 20px; text-shadow: 0 0 5px rgba(0,0,0,.75);}
 
+.tppdb-gallery > div { margin-bottom: 15px; padding-left: 8px; padding-right: 8px; }
+
 #reviewBtn { width: 100%; font-size: 1.2em; padding: 10px 12px; }
 
 #reviews ol.commentlist { list-style: none; }
