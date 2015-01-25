@@ -130,7 +130,8 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                             'connected_items' => get_queried_object(),
                             'nopaging' => true,
                             'posts_per_page' => 1,
-                            'suppress_filters' => false
+                            'suppress_filters' => false,
+                            'orderby' => 'years'
                         ));
 
                         foreach ($winner as $post) : setup_postdata($post);
@@ -140,7 +141,9 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                             $winner_id = $post->winner[0]->ID;
                             $winner_name = $post->winner[0]->post_title;
 
-                            break;
+                            if ($winner_id != null) {
+                                break;
+                            }
 
                         endforeach;
                         wp_reset_postdata();
