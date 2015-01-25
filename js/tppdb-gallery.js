@@ -26,6 +26,10 @@
     modalHtml += '</div>';
     modalHtml += '<form id="reportForm">';
     modalHtml += '<div class="modal-body" style="overflow: auto;">';
+    modalHtml += '<div class="alert alert-success alert-dismissible" role="alert" style="display: none;">';
+    modalHtml += '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+    modalHtml += 'The image will be reviewed by the site administrator. Thanks.';
+    modalHtml += '</div>';
     modalHtml += '<input type="hidden" id="imageSrc" name="imageSrc" value="" />';
     modalHtml += '<div class="col-md-4">';
     modalHtml += '<div class="checkbox"><label><input type="checkbox" name="poorQuality" /> Poor quality</label></div>';
@@ -38,7 +42,7 @@
     modalHtml += '</div>';
     modalHtml += '<div class="modal-footer">';
     modalHtml += '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
-    modalHtml += '<button type="submit" class="btn btn-danger">Report Image</button>';
+    modalHtml += '<button id="submitBtn" type="submit" class="btn btn-danger"><i class="fa fa-ban"></i> Report Image</button>';
     modalHtml += '</div>';
     modalHtml += '</form>';
     modalHtml += '</div><!-- /.modal-content -->';
@@ -55,6 +59,7 @@
 
     var submitReport = function (e) {
         e.preventDefault();
+        $('#submitBtn').prop('disabled', true).find('.fa').removeClass('fa-ban').addClass('fa-spin fa-spinner');
         var $form = $(this);
         $.post(
             '/wp-admin/admin-ajax.php',
@@ -62,11 +67,13 @@
                 action: 'tppdb_image_report',
                 data: $form.serialize()
             },
-            function (resData) {
-            $form.find('.modal-body').html('<p>' + resData + '</p>');
-            setTimeout(function () {
-                $('#reportImageModal').modal('hide');
-            }, 3000);
-        });
+            function () {
+                $form.find('.modal-body .alert').show();
+                $('#submitBtn').prop('disabled', false).find('.fa').removeClass('fa-spin fa-spinner').addClass('fa-ban');
+                setTimeout(function () {
+                    $('#reportImageModal').modal('hide');
+                }, 3000);
+            }
+        );
     };
 })(jQuery);

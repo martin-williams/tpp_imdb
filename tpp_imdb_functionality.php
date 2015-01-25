@@ -113,16 +113,17 @@ function tppdb_notify_image_report () {
     get_currentuserinfo();
 
     //if (!current_user_can( 'administrator' )){// avoid sending emails when admin is reporting images
-        $to = 'willm.mw@gmail.com';
+        $to = 'willm.mw@gmail.com,jay@weingage.com';
         $subject = 'poor image';
         $message = "the user : " .$current_user->display_name . " has reported an image.\n";
-        foreach($_POST['data'] as $key => $value){
-            $message .= $key . ": ". $value ."\n";
+        $params = explode('&', $_POST['data']);
+        foreach($params as $param){
+            $pair = explode('=', $param);
+            $message .= $pair[0] . ": ". urldecode($pair[1]) ."\n";
         }
         wp_mail( $to, $subject, $message);
     //}
 
-    echo 'This image will be reviewed by the site administrator. Thanks.';
     die();
 }
 add_action( 'wp_ajax_tppdb_image_report', 'tppdb_notify_image_report' );
