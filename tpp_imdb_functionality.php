@@ -107,3 +107,23 @@ SQL;
     return $clauses;
 }
 add_filter('posts_clauses', 'orderby_tax_clauses', 10, 2 );
+
+function tppdb_notify_image_report () {
+    global $current_user;
+    get_currentuserinfo();
+
+    //if (!current_user_can( 'administrator' )){// avoid sending emails when admin is reporting images
+        $to = 'willm.mw@gmail.com';
+        $subject = 'poor image';
+        $message = "the user : " .$current_user->display_name . " has reported an image.\n";
+        foreach($_POST['data'] as $key => $value){
+            $message .= $key . ": ". $value ."\n";
+        }
+        wp_mail( $to, $subject, $message);
+    //}
+
+    echo 'This image will be reviewed by the site administrator. Thanks.';
+    die();
+}
+add_action( 'wp_ajax_tppdb_image_report', 'tppdb_notify_image_report' );
+add_action( 'wp_ajax_nopriv_tppdb_image_report', 'tppdb_notify_image_report' );
