@@ -54,7 +54,7 @@
     var setImageSrc = function (e) {
         $.magnificPopup.close();
         document.getElementById('imageSrc').value = e.relatedTarget.dataset.src;
-        $('#reportForm').on('submit', submitReport);
+        $('#reportForm').off().on('submit', submitReport);
     };
 
     var submitReport = function (e) {
