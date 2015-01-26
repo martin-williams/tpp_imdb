@@ -187,6 +187,30 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <hr />
 
     <?php
+        $specialAwards = new WP_Query( array(
+            'connected_type' => 'special_awards',
+            'connected_items' => get_queried_object()
+        ));
+    ?>
+
+    <?php if (!empty($winners) && !empty($specialAwards)) : ?>
+        <div id="awardWinners" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">Award Winners</h4>
+            </div>
+            <ul class="list-group">
+                <?php while ($winners->have_posts()) : $winners->the_post(); ?>
+                    <li class="list-group-item">Pageant Winner: <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                <?php endwhile; ?>
+                <?php while ($specialAwards->have_posts()) : $specialAwards->the_post(); ?>
+                    <li class="list-group-item"><?php echo p2p_get_meta( get_post()->p2p_id, 'count', true ); ?>: <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                <?php endwhile; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+    <?php wp_reset_postdata(); ?>
+
+    <?php
         $competitors = new WP_Query( array(
             'connected_type' => 'pageant_competitors',
             'connected_items' => get_queried_object()
