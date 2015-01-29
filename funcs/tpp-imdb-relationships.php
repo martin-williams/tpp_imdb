@@ -9,6 +9,7 @@ add_action('init', 'tppdb_create_relationships');
 function tppdb_create_relationships () {
     create_competitor_relationship();
     create_director_relationship();
+    create_special_award_winners_to_pageants_relationship();
     create_post_pageant_relationship();
     create_post_profile_relationship();
     create_system_relationship();
@@ -37,6 +38,22 @@ function create_director_relationship () {
         'fields' => array(
             'count' => array(
                 'title' => 'Since',
+                'type' => 'text',
+            )
+        )
+    ));
+}
+
+function create_special_award_winners_to_pageants_relationship () {
+    p2p_register_connection_type( array(
+        'name' => 'special_awards',
+        'from' => 'pageant-years',
+        'to'   => 'tpp_profiles',
+        'sortable' => 'any',
+        'title' => array( 'from' => 'Special Award Winners', 'to' => 'Special Awards Won' ),
+        'fields' => array(
+            'count' => array(
+                'title' => 'Award Name',
                 'type' => 'text',
             )
         )

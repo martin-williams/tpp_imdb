@@ -83,6 +83,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                         'connected_type' => 'organization',
                         'connected_items' => get_queried_object(),
                         'nopaging' => true,
+                        'orderby' => 'years'
                     ));
 
                     $up_votes = 0;
@@ -130,7 +131,8 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                             'connected_items' => get_queried_object(),
                             'nopaging' => true,
                             'posts_per_page' => 1,
-                            'suppress_filters' => false
+                            'suppress_filters' => false,
+                            'orderby' => 'years'
                         ));
 
                         foreach ($winner as $post) : setup_postdata($post);
@@ -140,7 +142,9 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                             $winner_id = $post->winner[0]->ID;
                             $winner_name = $post->winner[0]->post_title;
 
-                            break;
+                            if ($winner_id != null) {
+                                break;
+                            }
 
                         endforeach;
                         wp_reset_postdata();
@@ -158,9 +162,23 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                                 <?php if ($fb_url) echo '<li><a href="' . $fb_url . '"><i class="fa fa-facebook-square"></i></a></li>'; ?>
                                 <?php if ($twitter_url) echo '<li><a href="' . $twitter_url . '"><i class="fa fa-twitter-square"></i></a></li>'; ?>
                                 <?php if ($insta_url) echo '<li><a href="' . $insta_url . '"><i class="fa fa-instagram-square"></i></a></li>'; ?>
-
                             </ul>
                         <?php endif; ?>
+
+                        <?php
+                        $orgs = wp_get_post_terms(get_the_ID(), 'organizations');
+                        if (!empty($orgs)) :
+                        ?>
+                        <li>
+                            <span class="post-meta-key">Pageant Organizations</span>
+                            <ul>
+                                <?php foreach ($orgs as $org) : ?>
+                                    <li><a href="<?php echo get_term_link($org); ?>"><?php echo $org->name; ?></a></li>
+                                <? endforeach; ?>
+                            </ul>
+                        </li>
+                        <? endif; // organizations loop ?>
+
                         <?php
                         $types = wp_get_post_terms(get_the_ID(), 'age-divisions');
                         if (!empty($types)) :

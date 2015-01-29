@@ -87,3 +87,44 @@ function restrict_to_system() {
     }
 }
 add_action( 'pre_get_posts', 'restrict_to_system' );
+
+function orderby_tax_clauses( $clauses, $wp_query ) {
+    global $wpdb;
+    $taxonomies = get_taxonomies();
+    foreach ($taxonomies as $taxonomy) {
+        if ( isset( $wp_query->query['orderby'] ) && $taxonomy == $wp_query->query['orderby'] ) {
+            $clauses['join'] .=<<<SQL
+LEFT OUTER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID={$wpdb->term_relationships}.object_id
+LEFT OUTER JOIN {$wpdb->term_taxonomy} USING (term_taxonomy_id)
+LEFT OUTER JOIN {$wpdb->terms} USING (term_id)
+SQL;
+            $clauses['where'] .= " AND (taxonomy = '{$taxonomy}' OR taxonomy IS NULL)";
+            $clauses['groupby'] = "object_id";
+            $clauses['orderby'] = "GROUP_CONCAT({$wpdb->terms}.name ORDER BY name ASC) ";
+            $clauses['orderby'] .= ( 'ASC' == strtoupper( $wp_query->get('order') ) ) ? 'ASC' : 'DESC';
+        }
+    }
+    return $clauses;
+}
+add_filter('posts_clauses', 'orderby_tax_clauses', 10, 2 );
+
+function tppdb_notify_image_report () {
+    global $current_user;
+    get_currentuserinfo();
+
+    //if (!current_user_can( 'administrator' )){// avoid sending emails when admin is reporting images
+        $to = 'willm.mw@gmail.com,jay@weingage.com';
+        $subject = 'poor image';
+        $message = "the user : " .$current_user->display_name . " has reported an image.\n";
+        $params = explode('&', $_POST['data']);
+        foreach($params as $param){
+            $pair = explode('=', $param);
+            $message .= $pair[0] . ": ". urldecode($pair[1]) ."\n";
+        }
+        wp_mail( $to, $subject, $message);
+    //}
+
+    die();
+}
+add_action( 'wp_ajax_tppdb_image_report', 'tppdb_notify_image_report' );
+add_action( 'wp_ajax_nopriv_tppdb_image_report', 'tppdb_notify_image_report' );
