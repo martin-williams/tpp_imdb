@@ -31,3 +31,34 @@ function tppdb_edit_pageant_func() {
 
 
 }
+
+add_shortcode("tppdb_edit_profile", "tppdb_edit_profile_func");
+
+function tppdb_edit_profile_func() {
+
+	ob_start();
+
+	if(isset($_GET['gform_post_id'])) {
+
+
+		$profile = $_GET['gform_post_id'];
+
+		$link = get_permalink($profile);
+		echo "<hr />";
+		echo '<a href="'.$link.'">Back to Profile</a>';
+		echo "<hr />";
+
+
+		echo do_shortcode('[gravityform id="3" name="Profile Edit Form" title="false" description="false" update='.$profile.']');
+
+	} else {
+
+		echo "There was an error editing this item.";
+	}
+
+	$content = ob_get_contents();
+    ob_end_clean();
+    return $content;
+
+
+}

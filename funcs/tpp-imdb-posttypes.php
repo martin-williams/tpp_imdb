@@ -19,7 +19,8 @@ function tppdb_create_pageants_type() {
       ),
       'public' => true,
       'has_archive' => true,
-      'show_in_menu' => 'tppdb_home'
+      'show_in_menu' => 'tppdb_home',
+      'supports' => array('title', 'editor', 'thumbnail','revisions',  'custom-fields')
 
     )
   );
@@ -35,7 +36,7 @@ function tppdb_create_pageant_type() {
       'public' => true,
       'has_archive' => false,
       'rewrite' => array('slug' => 'pageant'),
-      'supports' => array('title', 'editor', 'comments'),
+      'supports' => array('title', 'editor',  'thumbnail', 'comments','revisions', 'custom-fields'),
       'show_in_menu' => 'tppdb_home'
      //  'menu_position' => "0"
     )
@@ -57,7 +58,7 @@ function tppdb_create_profile_type() {
      // 'rewrite' => array(
      //   'permastruct' => '/profile/%post_id%/'
      // ),
-      'supports' => array('title', 'editor', 'thumbnail')
+      'supports' => array('title', 'editor', 'thumbnail','revisions', 'custom-fields')
     )
   );
 }

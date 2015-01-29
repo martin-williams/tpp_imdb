@@ -109,35 +109,35 @@ function tppdb_profile_meta_boxes() {
     /*
      * Interesting Facts meta box
      */
-    $profiles_interesting_facts_config = array (
-        'id' => 'tppdb_profile_interesting',
-        'title' => 'Profile Interesting Facts',
-        'pages' => array ('tpp_profiles'),
-        'context' => 'normal',
-        'priority' => 'high',
-        'fields' => array(),
-        'local_images' => false,
-        'use_with_theme' => false
-    );
+    // $profiles_interesting_facts_config = array (
+    //     'id' => 'tppdb_profile_interesting',
+    //     'title' => 'Profile Interesting Facts',
+    //     'pages' => array ('tpp_profiles'),
+    //     'context' => 'normal',
+    //     'priority' => 'high',
+    //     'fields' => array(),
+    //     'local_images' => false,
+    //     'use_with_theme' => false
+    // );
 
-    /*
-     * Initialize meta box
-     */
-    $profile_interesting = new AT_Meta_Box($profiles_interesting_facts_config);
-
-
-    $repeater_fields_pi[] = $profile_interesting->addText($prefix.'int_facts',array('name'=> 'Fact: '),true);
+    // /*
+    //  * Initialize meta box
+    //  */
+    // $profile_interesting = new AT_Meta_Box($profiles_interesting_facts_config);
 
 
-    $profile_interesting->addRepeaterBlock($prefix.'interesting_facts',array(
-      'inline'   => true, 
-      'name'     => 'Interesting Facts',
-      'fields'   => $repeater_fields_pi, 
-      'sortable' => true
-    ));
+    // $repeater_fields_pi[] = $profile_interesting->addText($prefix.'int_facts',array('name'=> 'Fact: '),true);
 
 
-    $profile_interesting->Finish();
+    // $profile_interesting->addRepeaterBlock($prefix.'interesting_facts',array(
+    //   'inline'   => true, 
+    //   'name'     => 'Interesting Facts',
+    //   'fields'   => $repeater_fields_pi, 
+    //   'sortable' => true
+    // ));
+
+
+    // $profile_interesting->Finish();
 
     /*
      * Personal info meta box

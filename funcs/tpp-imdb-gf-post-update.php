@@ -9,15 +9,11 @@ $plug_url = $path . '../../gravity-forms-post-updates/gravityforms-update-post.p
 require_once $plug_url;
 
 
-add_action('init', 'remove_gf_init', 99);
-
-function remove_gf_init(){
-		remove_action( 'init', array('gform_update_post', 'init') );
-}
 
 if(!class_exists('tppdb_gform_update_post')) :
 
-add_action( 'init', array('tppdb_gform_update_post', 'init'), 100 );
+//remove_action( 'init', array('gform_update_post', 'init'), 10 );
+add_action( 'init', array('tppdb_gform_update_post', 'init'), 5);
 
 class tppdb_gform_update_post extends gform_update_post {
 	

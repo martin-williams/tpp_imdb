@@ -5,7 +5,10 @@ if (!function_exists('tppdb_getPageantFacts')) :
         $post_ID = intval(sanitize_text_field( $post_ID ));
         if ($post_ID == '') $post_ID = get_the_ID();
 
-        $facts = get_post_meta($post_ID, 'tppdb_re_facts', true);
+       // $facts = get_post_meta($post_ID, 'tppdb_re_facts', true);
+
+        $facts = get_post_meta(get_the_ID(), 'tppdb_system_facts', false);
+
 
         $html = '';
         if ($facts != '') {
@@ -14,7 +17,7 @@ if (!function_exists('tppdb_getPageantFacts')) :
             $html .= '<ul class="facts">';
 
             foreach($facts as $fact) {
-                $html .= '<li>' . $fact[tppdb_fun_facts] . '</li>';
+                $html .= '<li>' . $fact . '</li>';
             }
 
             $html .= '</ul>';
