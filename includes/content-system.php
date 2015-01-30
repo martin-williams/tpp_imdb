@@ -337,7 +337,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
                             <div class="col-xs-8">
                                 <div class="entry-content"><?php echo $content; ?></div>
-                                <a href="<?php echo $link; ?>">Read More</a>
+                                <a href="<?php echo $link; ?>">Read Pageant Reviews, See Who Competed and More...</a>
                             </div>
                         </div>
                     </div>
