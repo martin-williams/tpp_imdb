@@ -26,7 +26,7 @@ function tppdb_create_stages_tax() {
 	register_taxonomy( 'stages', array('pageants','pageant-years'),
 		array(
 			'label' => __( 'Stages' ),
-			'rewrite' => array( 'slug' => 'phases' ),
+			'rewrite' => array( 'slug' => 'competition' ),
 			'hierarchical' => false,
 		)
 	);

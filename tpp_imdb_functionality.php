@@ -19,11 +19,13 @@ require TPP_IMDB_PLUGIN_DIR . 'class-tpp-imdb-template-loader.php';
 // Include our files
 // require_once(TPP_IMDB_PLUGIN_DIR . 'lib/wp-permastructure/wp-permastructure.php');
 
+require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-shortcodes.php');
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-posttypes.php');
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-taxonomies.php');
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-relationships.php');
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-comments.php');
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-search.php');
+require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-gf-post-update.php');
 
 require TPP_IMDB_PLUGIN_DIR . 'funcs/tppdb-meta-functions.php';
 
@@ -128,3 +130,24 @@ function tppdb_notify_image_report () {
 }
 add_action( 'wp_ajax_tppdb_image_report', 'tppdb_notify_image_report' );
 add_action( 'wp_ajax_nopriv_tppdb_image_report', 'tppdb_notify_image_report' );
+
+function tppdb_override_tax_template($template){
+    // is a specific custom taxonomy being shown?
+    $taxonomy_array = array('age-divisions','tax2');
+    foreach ($taxonomy_array as $taxonomy_single) {
+        if ( is_tax($taxonomy_single) ) {
+            // allow the theme to override
+            if(file_exists(trailingslashit(get_stylesheet_directory()) . 'tppdb/taxonomy-'.$taxonomy_single.'.php')) {
+                $template = trailingslashit(get_stylesheet_directory()) . 'tppdb/taxonomy-'.$taxonomy_single.'.php';
+            }
+            // otherwise, use ours
+            else {
+                $template = plugin_dir_path(__FILE__) . 'templates/taxonomy-'.$taxonomy_single.'.php';
+            }
+            break;
+        }
+    }
+    return $template;
+}
+add_filter('template_include','tppdb_override_tax_template');
+
