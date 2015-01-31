@@ -14,6 +14,7 @@ function tppdb_create_relationships () {
     create_post_profile_relationship();
     create_system_relationship();
     create_winner_relationship();
+    create_profile_user_relationship();
 }
 
 
@@ -52,10 +53,16 @@ function create_special_award_winners_to_pageants_relationship () {
         'sortable' => 'any',
         'title' => array( 'from' => 'Special Award Winners', 'to' => 'Special Awards Won' ),
         'fields' => array(
-            'count' => array(
-                'title' => 'Award Name',
-                'type' => 'text',
-            )
+            'category_won' => array( 
+                'title' => 'Category Won',
+                'type' => 'select',
+                'values' => array(
+                    'overall'=>__('Overall Winner'), 
+                    'talent'=>__('Talent'), 
+                    'swimsuit'=>__('Swimsuit'), 
+                    'interview'=>__('Interview'),
+                    )
+            ),
         )
     ));
 }
@@ -92,7 +99,31 @@ function create_winner_relationship () {
         'name'  => 'winner',
         'from'  => 'pageant-years',
         'to'    => 'tpp_profiles',
-        'title' => array( 'from' => 'Winning Competitors', 'to' => 'Pageants Won' ),
+        'title' => array( 'from' => 'Winning Competitors', 'to' => 'Pageants Won' ),        
     ));
+}
+
+
+function create_profile_user_relationship() {
+
+    p2p_register_connection_type( array(
+        'name' => 'profile_to_user',
+        'from' => 'tpp_profiles',
+        'to' => 'user',
+        'title' => 'Claims',        
+        'fields' => array(
+            'status' => array( 
+                'title' => 'Status',
+                'type' => 'select',
+                'values' => array(
+                    'approved'=>__('Approved'), 
+                    'pending'=>__('Pending'),
+                    'denied'=>__('Denied'),
+                    'revoked'=>__('Revoked')
+                    )
+            ),
+        )
+    ) );
+
 }
 

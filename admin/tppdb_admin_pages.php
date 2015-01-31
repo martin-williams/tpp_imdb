@@ -12,6 +12,12 @@ function tppdb_main_menu_page(){
     /* Systems */
 	add_submenu_page( 'tppdb_home', "", '<span style="display:block; margin:1px 0 1px -5px; padding:0; height:1px; line-height:1px;background:#eee;"></span>', "manage_options", "#");
 
+
+    add_submenu_page( 'tppdb_home', 'Requests', 'Requests', 'manage_options', 'tppdb_requests', 'tppdb_requests_func' );
+
+    add_submenu_page( 'tppdb_home', "", '<span style="display:block; margin:1px 0 1px -5px; padding:0; height:1px; line-height:1px;background:#eee;"></span>', "manage_options", "#");
+
+
     add_submenu_page( 'tppdb_home', 'Profile Roles', 'Profile Roles', 'manage_options', 'edit-tags.php?taxonomy=roles&post_type=tpp_profiles', '' );
     add_submenu_page( 'tppdb_home', 'Areas of Expertise', 'Areas of Expertise', 'manage_options', 'edit-tags.php?taxonomy=areas-of-expertise&post_type=tpp_profiles', '' );
     add_submenu_page( 'tppdb_home', 'Pageant Years', 'Pageant Years', 'manage_options', 'edit-tags.php?taxonomy=pageant-year&post_type=pageant-years', '' );
@@ -34,13 +40,145 @@ function tppdb_home_func(){
 	        <h2>The Pageant Planet Database</h2> 
 
 
-	        <p>This page currently has no function. Check back soon!</p>
+       
+
+
+
 
         </div><!-- wrap -->
 
         <?php
 }
 
+function tppdb_admin_request_tabs( $current = 'profiles' ) {
+    $tabs = array( 'profiles' => 'Profile Requests', 'pageants' => 'Pageant Requests', 'systems' => 'System Requests' );
+    echo '<div id="icon-themes" class="icon32"><br></div>';
+    echo '<h2 class="nav-tab-wrapper">';
+    foreach( $tabs as $tab => $name ){
+        $class = ( $tab == $current ) ? ' nav-tab-active' : '';
+        echo "<a class='nav-tab$class' href='".admin_url("admin.php?page=tppdb_requests&tab=$tab")."'>$name</a>";
+
+    }
+    echo '</h2>';
+}
+
+function tppdb_requests_func(){
+     if (!current_user_can('manage_options')) {  
+            wp_die('You do not have sufficient permissions to access this page.');  
+        } ?> 
+        
+         <div class="wrap">
+                       <h2>Pending Requests</h2> 
+
+
+         <?php
+           if ( isset ( $_GET['tab'] ) ) tppdb_admin_request_tabs($_GET['tab']);
+           else tppdb_admin_request_tabs('profiles');
+
+           ?>
+
+            <table class="widefat" style="margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>Request</th>
+                       <th>Approve</th>   
+                    <th>Deny</th>        
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Request</th>
+                    <th>Approve</th>   
+                    <th>Deny</th>       
+    
+                </tr>
+            </tfoot>
+            <tbody>
+
+           <?php
+
+            if(isset($_GET['tab'])) {
+                $tab = $_GET['tab'];
+                if($tab == "profiles") {
+                    $post_type = "tpp_profiles";
+                } elseif($tab == "pageants") {
+                    $post_type = "pageant";
+                } elseif($tab == "systems") {
+                    $post_type = "pageants";
+                }
+
+            }
+
+            $my_query = new WP_Query( array(
+                'post_type' => $post_type
+            ));
+
+           // p2p_type( 'profile_to_user' )->each_connected( $my_query, array(), 'editors' );
+
+            $items = 0;
+            while ( $my_query->have_posts() ) : $my_query->the_post(); ?>
+
+
+                <?php
+                        $profile_title = get_the_title();
+                        // echo $profile_title;
+
+                        $editors = p2p_type( 'profile_to_user')->get_connected( $post->ID );
+                       // echo "<pre>";
+                        //print_r($editors);
+                        if(!empty($editors->results)){
+                            foreach ($editors->results as $user) {
+                            // $name = $editors->query_vars->connected_items
+                                $status = p2p_get_meta( $user->p2p_id, 'status', true );
+                                if($status == "pending") { 
+                                    $items = 1;
+                                    ?>
+                                <tr>
+                                     <td><?php echo $user->display_name . " is requesting to claim the profile $profile_title."; ?></td>
+                                     <td><?php echo  "Approve"; ?></td>
+                                     <td><?php echo "Deny"; ?></td>
+                               </tr>
+                                <?php   }
+                            }
+                        } 
+                        //echo "</pre>";
+
+                // foreach ( $post->editors as $user ) :
+                    
+                //     $status = p2p_get_meta( $user->p2p_id, 'status', true );
+
+                //     if($status == "pending") {
+
+                //         echo $user->display_name . " is requesting to claim the profile $profile_title." ;
+
+                //     }
+
+                
+                // endforeach;
+
+
+                wp_reset_postdata();
+
+                ?>
+
+            <?php endwhile; 
+
+            if($items == 0) { ?>
+
+                <tr>
+                    <td colspan="3"><?php echo "No pending requests."; ?></td>
+                </tr>
+
+            <?php }
+
+            ?>
+            </tbody>
+            </table>
+
+        </div><!-- wrap -->
+
+        <?php
+}
 
 if(!function_exists('mbe_set_current_menu')){
 

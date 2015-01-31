@@ -1,5 +1,6 @@
 <?php 
 
+/// SYSTEMS
 
 add_shortcode("tppdb_edit_pageant", "tppdb_edit_pageant_func");
 
@@ -7,7 +8,7 @@ function tppdb_edit_pageant_func() {
 
 	ob_start();
 
-	if(isset($_GET['gform_post_id'])) {
+	if(isset($_GET['gform_post_id']) && get_post_type($_GET['gform_post_id']) == "pageants"){
 
 
 		$pageant = $_GET['gform_post_id'];
@@ -32,13 +33,16 @@ function tppdb_edit_pageant_func() {
 
 }
 
+/// PROFILES
+
+
 add_shortcode("tppdb_edit_profile", "tppdb_edit_profile_func");
 
 function tppdb_edit_profile_func() {
 
 	ob_start();
 
-	if(isset($_GET['gform_post_id'])) {
+	if(isset($_GET['gform_post_id']) && get_post_type($_GET['gform_post_id']) == "tpp_profiles"){
 
 
 		$profile = $_GET['gform_post_id'];
