@@ -63,6 +63,8 @@ function tppdb_admin_request_tabs( $current = 'profiles' ) {
 }
 
 function tppdb_requests_func(){
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'tppdb_requests';
      if (!current_user_can('manage_options')) {  
             wp_die('You do not have sufficient permissions to access this page.');  
         } ?> 
@@ -108,6 +110,16 @@ function tppdb_requests_func(){
                 }
 
             }
+
+           $myrows = $wpdb->get_results( "SELECT * FROM $table_name" );
+
+           foreach ( $myrows as $row ) {
+               echo '<tr>';
+               echo '<td>Post: ' . $row->post_id . ', User: ' . $row->user_id . ', Post type: ' . $row->type . '</td>';
+               echo '<td></td>';
+               echo '<td></td>';
+               echo '</tr>';
+           }
 
             $my_query = new WP_Query( array(
                 'post_type' => $post_type

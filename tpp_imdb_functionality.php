@@ -3,7 +3,7 @@
 Plugin Name: TPP IMDB-esk functionality
 Plugin URI: https://github.com/martin-williams/tpp_imdb
 Description: Functionality for ordering users and pageants in IMDB fashion
-Version: 1.0
+Version: 1.2
 Author: Ingage
 Author URI: http://weingage.com
 */
@@ -19,6 +19,7 @@ require TPP_IMDB_PLUGIN_DIR . 'class-tpp-imdb-template-loader.php';
 // Include our files
 // require_once(TPP_IMDB_PLUGIN_DIR . 'lib/wp-permastructure/wp-permastructure.php');
 
+require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-db-interactions.php');
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-shortcodes.php');
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-posttypes.php');
 require_once(TPP_IMDB_PLUGIN_DIR . 'funcs/tpp-imdb-taxonomies.php');
@@ -151,3 +152,67 @@ function tppdb_override_tax_template($template){
 }
 add_filter('template_include','tppdb_override_tax_template');
 
+
+
+
+
+
+function tppdb_install() {
+    global $wpdb;
+    global $tppdb_version;
+    $installed_ver = get_option("tppdb_version");
+
+    $table_name = $wpdb->prefix . "tppdb_requests";
+
+    $wpdb->query( "CREATE TABLE IF NOT EXISTS $table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        requested datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        post_id mediumint(9) NOT NULL,
+        user_id mediumint(9) NOT NULL,
+        status text NOT NULL,
+        type text NOT NULL,
+        UNIQUE KEY id (id)
+    )" );
+
+    /*
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name
+        || $installed_ver != $tppdb_version) {
+
+        $charset_collate = $wpdb->get_charset_collate();
+
+        $sql = "CREATE TABLE " .$table_name." (
+            id mediumint(9) NOT NULL AUTO_INCREMENT,
+            requested datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+            post_id mediumint(9) NOT NULL,
+            user_id mediumint(9) NOT NULL,
+            status text NOT NULL,
+            type text NOT NULL,
+            UNIQUE KEY id (id)
+        )";
+
+        require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
+        //dbDelta( $sql );
+        //$wpdb->query($sql);
+        maybe_create_table($table_name, $sql);
+
+        update_option('tppdb_version', $tppdb_version);
+    }
+    */
+
+    add_option("tppdb_version", $tppdb_version);
+}
+register_activation_hook( __FILE__, 'tppdb_install' );
+
+function tppdb_update_db_check() {
+    global $tppdb_version;
+    if (get_site_option('tppdb_version') != $tppdb_version) {
+        tppdb_install();
+    }
+}
+add_action('plugins_loaded', 'tppdb_update_db_check');
+
+function register_custom_db_table() {
+    global $wpdb;
+    $wpdb->tppdb_requests = $wpdb->prefix . 'tppdb_requests';
+}
+add_action('init', 'register_custom_db_table');

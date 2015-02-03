@@ -253,12 +253,11 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <?php wp_reset_postdata(); ?>
 
     <?php
-    wp_enqueue_script('magnific-popup-js', plugins_url( '/lib/magnific-popup/jquery.magnific-popup.min.js', dirname(__FILE__) ), array( 'jquery' ));
-    wp_enqueue_script('tppdb-gallery', plugins_url( '/js/tppdb-gallery.js', dirname(__FILE__) ), array( 'jquery', 'magnific-popup-js' ));
-    wp_enqueue_style('magnific-popup-css', plugins_url( '/lib/magnific-popup/magnific-popup.css', dirname(__FILE__) ));
-
     $attachments = new Attachments( 'gallery_attachments' );
     if ($attachments->exist()) :
+        wp_enqueue_script('magnific-popup-js', plugins_url( '/lib/magnific-popup/jquery.magnific-popup.min.js', dirname(__FILE__) ), array( 'jquery' ));
+        wp_enqueue_script('tppdb-gallery', plugins_url( '/js/tppdb-gallery.js', dirname(__FILE__) ), array( 'jquery', 'magnific-popup-js' ));
+        wp_enqueue_style('magnific-popup-css', plugins_url( '/lib/magnific-popup/magnific-popup.css', dirname(__FILE__) ));
     ?>
     <div id="pageant-gallery" class="panel panel-default">
         <div class="panel-heading">

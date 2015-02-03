@@ -46,9 +46,9 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
         <?php
         $dob = get_post_meta(get_the_ID(), 'tppdb_dob', true);
-        $city = get_post_meta(get_the_ID(), 'tppdb_city', true);
-        $state = get_post_meta(get_the_ID(), 'tppdb_state', true);
-        $country = get_post_meta(get_the_ID(), 'tppdb_country', true);
+        $city = get_post_meta(get_the_ID(), 'tppdb_profile_birthcity', true);
+        $state = get_post_meta(get_the_ID(), 'tppdb_profile_birthstate', true);
+        $country = get_post_meta(get_the_ID(), 'tppdb_profile_birthcountry', true);
 
         $fb_url = get_post_meta(get_the_ID(), 'tppdb_facebook', true);
         $twitter_url = get_post_meta(get_the_ID(), 'tppdb_twitter', true);
@@ -62,7 +62,8 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         $talent = get_post_meta(get_the_ID(), 'tppdb_talent', true);
         $major = get_post_meta(get_the_ID(), 'tppdb_college-major', true);
 
-        $facts = get_post_meta(get_the_ID(), 'tppdb_interesting_facts', true);
+        $facts = get_post_meta(get_the_ID(), 'tppdb_profile_facts', false);
+
         ?>
 
         <?php if ($facts != "") : ?>
@@ -72,7 +73,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 <?php
                     foreach($facts as $fact) :
 
-                        echo "<li>$fact[tppdb_int_facts]</li>";
+                        echo "<li>$fact</li>";
 
                     endforeach;
 
@@ -286,3 +287,23 @@ if ( $tag_list ) :
 <?php do_action( 'yt_after_single_post_entry_footer' );?>
 
 </article><!-- #post-<?php the_ID(); ?>## -->
+
+<?php
+
+global $post, $current_user;
+if(current_user_can('manage_options' )) {
+    do_action('gform_update_post/edit_link', array(
+        'post_id' => $post->ID,
+        'url'     => home_url('/edit-profile/'),
+        'text'    => 'Edit this Profile',
+    ) );
+}
+?>
+
+<?php wp_enqueue_script('tppdb-claim', plugins_url( '/js/tppdb-claim.js', dirname(__FILE__) ), array( 'jquery' )); ?>
+<p><a href="#requestModal" data-toggle="modal" data-target="#requestModal" data-post-id="<?php echo $post->ID; ?>" data-user-id="<?php echo $current_user->ID; ?>" data-post-type="<?php echo get_post_type(); ?>">Is this you? Claim this profile.</a></p>
+
+<?php
+global $wpdb;
+print_r($wpdb->tables);
+?>
