@@ -290,20 +290,21 @@ if ( $tag_list ) :
 
 <?php
 
-global $post, $current_user;
-if(current_user_can('manage_options' )) {
-    do_action('gform_update_post/edit_link', array(
-        'post_id' => $post->ID,
-        'url'     => home_url('/edit-profile/'),
-        'text'    => 'Edit this Profile',
-    ) );
-}
-?>
+global $wpdb, $post, $current_user;
+$connection = $wpdb->get_row("SELECT * FROM $wpdb->tppdb_requests WHERE post_id = $post->ID AND user_id = $current_user->ID");
 
-<?php wp_enqueue_script('tppdb-claim', plugins_url( '/js/tppdb-claim.js', dirname(__FILE__) ), array( 'jquery' )); ?>
+if ($connection != null) :
+    if ($connection->status == 'approved') :
+        do_action('gform_update_post/edit_link', array(
+            'post_id' => $post->ID,
+            'url' => home_url('/edit-profile/'),
+            'text' => 'Edit this Profile',
+        ));
+    elseif ($connection->status == 'pending') :
+        echo '<p>Pending Review</p>';
+    endif;
+else :
+wp_enqueue_script('tppdb-claim', plugins_url( '/js/tppdb-claim.js', dirname(__FILE__) ), array( 'jquery' ));
+?>
 <p><a href="#requestModal" data-toggle="modal" data-target="#requestModal" data-post-id="<?php echo $post->ID; ?>" data-user-id="<?php echo $current_user->ID; ?>" data-post-type="<?php echo get_post_type(); ?>">Is this you? Claim this profile.</a></p>
-
-<?php
-global $wpdb;
-print_r($wpdb->tables);
-?>
+<?php endif; ?>

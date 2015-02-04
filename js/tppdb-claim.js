@@ -61,10 +61,15 @@
         form.elements['userId'].value = e.relatedTarget.dataset.userId;
         form.elements['postType'].value = e.relatedTarget.dataset.postType;
 
-        $('#confirmRequest').on('click', submitRequest);
+        $('#confirmRequest').on('click', function () {
+            this.disabled = true;
+            submitRequest(function () {
+                e.relatedTarget.parentNode.innerHTML = 'Pending Review';
+            });
+        });
     });
 
-    var submitRequest = function (e) {
+    var submitRequest = function (cb) {
         $(this).prop('disabled', true).find('.fa').removeClass('fa-user-plus').addClass('fa-spinner fa-spin');
 
         var $form = $('#requestForm');
@@ -74,11 +79,11 @@
                 action: 'tppdb_claim_request',
                 data: $form.serialize()
             },
-            function (res) {
-                console.log(res);
+            function () {
                 $modal.find('.modal-body')
                     .html('<p>Thank you for your message. We will review your request and respond shortly.</p>');
                 $('#submitBtn').find('.fa').removeClass('fa-spin fa-spinner').addClass('fa-user-plus');
+                if (cb && typeof cb == 'function') cb();
             }
         );
     }
