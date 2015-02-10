@@ -42,6 +42,7 @@
             .addClass('btn btn-default')
             .attr({
                 'type:': 'button',
+                'id': 'cancelClaimBtn',
                 'data-dismiss': 'modal'
             })
             .html('<i class="fa fa-times"></i> Cancel')
@@ -82,6 +83,7 @@
             function () {
                 $modal.find('.modal-body')
                     .html('<p>Thank you for your message. We will review your request and respond shortly.</p>');
+                $('#cancelClaimBtn').text('Close Window');
                 $('#submitBtn').find('.fa').removeClass('fa-spin fa-spinner').addClass('fa-user-plus');
                 if (cb && typeof cb == 'function') cb();
             }

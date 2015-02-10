@@ -177,12 +177,13 @@ function tppdb_submit_request () {
     $params = array();
     parse_str($_POST['data'], $params);
 
-    $return = p2p_type( 'profile_to_user' )->connect( $params[postId], $params[userId], array('status' => $params[status]) );
+    $connection_id = p2p_type( 'profile_to_user' )->get_p2p_id( $params[postId], $params[userId] );
+    p2p_update_meta( $connection_id, 'status', $params[status] );
 
     global $wpdb;
     $table_name = $wpdb->prefix . 'tppdb_requests';
-    $wpdb->update($table_name, array('status' => $params[status]), array( 'ID' => $params[id]));
-    die($return);
+    $wpdb->delete($table_name, array( 'ID' => $params[id]));
+    die();
 }
 add_action( 'wp_ajax_tppdb_submit_request', 'tppdb_submit_request' );
 add_action( 'wp_ajax_nopriv_tppdb_submit_request', 'tppdb_submit_request' );

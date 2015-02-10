@@ -289,22 +289,26 @@ if ( $tag_list ) :
 </article><!-- #post-<?php the_ID(); ?>## -->
 
 <?php
+if (is_user_logged_in()) :
 
-global $wpdb, $post, $current_user;
-$connection = $wpdb->get_row("SELECT * FROM $wpdb->tppdb_requests WHERE post_id = $post->ID AND user_id = $current_user->ID");
+    global $wpdb, $post, $current_user;
+    //$connection = $wpdb->get_row("SELECT * FROM $wpdb->tppdb_requests WHERE post_id = $post->ID AND user_id = $current_user->ID");
+    $connection_id = p2p_type( 'profile_to_user' )->get_p2p_id( $post, $current_user );
 
-if ($connection != null) :
-    if ($connection->status == 'approved') :
-        do_action('gform_update_post/edit_link', array(
-            'post_id' => $post->ID,
-            'url' => home_url('/edit-profile/'),
-            'text' => 'Edit this Profile',
-        ));
-    elseif ($connection->status == 'pending') :
-        echo '<p>Pending Review</p>';
-    endif;
-else :
-wp_enqueue_script('tppdb-claim', plugins_url( '/js/tppdb-claim.js', dirname(__FILE__) ), array( 'jquery' ));
-?>
-<p><a href="#requestModal" data-toggle="modal" data-target="#requestModal" data-post-id="<?php echo $post->ID; ?>" data-user-id="<?php echo $current_user->ID; ?>" data-post-type="<?php echo get_post_type(); ?>">Is this you? Claim this profile.</a></p>
+    if ( $connection_id ) :
+        $status = p2p_get_meta( $connection_id, 'status', true );
+        if ($status == 'approved') :
+            do_action('gform_update_post/edit_link', array(
+                'post_id' => $post->ID,
+                'url' => home_url('/edit-profile/'),
+                'text' => 'Edit this Profile',
+            ));
+        elseif ($status == 'pending') :
+            echo '<p>Pending Review</p>';
+        endif;
+    else :
+        wp_enqueue_script('tppdb-claim', plugins_url( '/js/tppdb-claim.js', dirname(__FILE__) ), array( 'jquery' ));
+        ?>
+        <p><a href="#requestModal" data-toggle="modal" data-target="#requestModal" data-post-id="<?php echo $post->ID; ?>" data-user-id="<?php echo $current_user->ID; ?>" data-post-type="<?php echo get_post_type(); ?>">Is this you? Claim this profile.</a></p>
+    <?php endif; ?>
 <?php endif; ?>

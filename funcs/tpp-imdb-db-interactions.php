@@ -14,7 +14,9 @@ function tppdb_claim_request() {
     $userId = explode('=', $params[1]);
     $postType = explode('=', $params[2]);
 
-    $return = $wpdb->insert(
+    p2p_type( 'profile_to_user' )->connect( $postId[1], $userId[1], array('status' => 'pending') );
+
+    $wpdb->insert(
         $table_name,
         array(
             'requested' => current_time('mysql'),
@@ -32,8 +34,7 @@ function tppdb_claim_request() {
         )
     );
 
-    die($return);
-//    die($postId[1]);
+    die();
 }
 add_action( 'wp_ajax_tppdb_claim_request', 'tppdb_claim_request' );
 add_action( 'wp_ajax_nopriv_tppdb_claim_request', 'tppdb_claim_request' );
