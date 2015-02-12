@@ -5,7 +5,7 @@ add_action('admin_menu', 'tppdb_main_menu_page');
 
 function tppdb_main_menu_page()
 {
-    add_menu_page('The Pageant Planet Database', 'TPP Database', 'manage_options', 'tppdb_home', 'tppdb_home_func', '', 10);
+    add_menu_page('The Pageant Planet Database', 'TPP Database', 'manage_options', 'tppdb_home', 'tppdb_home_func', '', 8);
 
 
     /* Pageants */
