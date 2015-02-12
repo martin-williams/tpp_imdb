@@ -65,14 +65,17 @@
 
 #reviewBtn { width: 100%; font-size: 1.2em; padding: 10px 12px; }
 
-#reviews ol.commentlist { list-style: none; }
-#reviews ol.commentlist li {list-style: none;}
-#reviews .comment-body {line-height: 1.5em; padding-top: 10px;}
-#reviews .comment-body .comment-meta {height: auto;padding: 10px 0; padding-top: 20px;}
-#reviews .comment-body p {line-height: 1.5em;}
+ol.commentlist { list-style: none; }
+ol.commentlist li {list-style: none; height: auto;}
+.comment-body {line-height: 1.5em; padding-top: 10px;}
+.comment-body .comment-meta {height: auto;padding: 10px 0; padding-top: 20px;}
+.comment-body p {line-height: 1.5em;}
 
 .single-pageant-years .thumbs-rating-container {clear: both; width: 100%;}
 .single-pageants .thumbs-rating-container.total-aggregate span.thumbs-rating-up, .single-pageants .thumbs-rating-container.total-aggregate span.thumbs-rating-down {clear: both; width: 100%;}
+
+.single-pageants .entry-content img.attachment-post-thumbnail,
+.single-pageant-years .entry-content img.attachment-post-thumbnail { width: 100%; max-width: none; height: auto; margin-bottom: 15px; }
 
 
 .additional-info, .additional-info li {list-style: none;}

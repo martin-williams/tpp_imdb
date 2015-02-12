@@ -70,6 +70,13 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <div class="entry-content col-sm-12">
         <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
         <div class="row">
+            <?php
+            if (has_post_thumbnail()) {
+                the_post_thumbnail();
+            }
+            ?>
+        </div>
+        <div class="row">
             <div class="col-sm-8">
                 <?php wp_enqueue_script('tppdb-bio-expander', plugins_url( '/js/tppdb-bio-expander.js', dirname(__FILE__) ), array( 'jquery' )); ?>
                 <?php the_content(); ?>
