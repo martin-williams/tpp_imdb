@@ -88,4 +88,11 @@ ol.commentlist li {list-style: none; height: auto;}
 
 @media (max-width: 767px) {
 	.meta-wrapper { padding-top: 0; padding-bottom: 0; border: none; }
+
+	.stages .checkbox,
+	.ages .checkbox { width: 100%; margin: 5px 0; }
+
+	legend { font-size: 18px; }
+
+	.tpp_profiles .entry-header img { float: left; margin: 0; width: 100%; height: auto; }
 }

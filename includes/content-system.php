@@ -308,7 +308,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                     </div>
                     <div id="post-<?php the_ID(); ?>" class="panel-collapse collapse <?php if ($pageants->current_post == 0) { echo 'in'; } ?>">
                         <div class="panel-body">
-                            <div class="col-xs-4">
+                            <div class="col-sm-4">
                                 <?php if (sizeof($post->winner) > 0) : ?>
                                     <p>Pageant Winner:<br />
                                         <?php foreach ($post->winner as $post) : setup_postdata($post); ?>
@@ -321,7 +321,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                                 <?php endif; ?>
                             </div>
 
-                            <div class="col-xs-8">
+                            <div class="col-sm-8">
                                 <ol class="commentlist">
                                     <?php
                                     $reviews = get_comments(array(
