@@ -70,13 +70,6 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     <div class="entry-content col-sm-12">
         <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
         <div class="row">
-            <?php
-            if (has_post_thumbnail()) {
-                the_post_thumbnail();
-            }
-            ?>
-        </div>
-        <div class="row">
             <div class="col-sm-8">
                 <?php wp_enqueue_script('tppdb-bio-expander', plugins_url( '/js/tppdb-bio-expander.js', dirname(__FILE__) ), array( 'jquery' )); ?>
                 <?php the_content(); ?>
@@ -228,14 +221,10 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <div class="panel-heading">
             <h4 class="panel-title">Competitors</h4>
         </div>
-        <div class="panel-body">
-            <ul>
-                <?php while ($competitors->have_posts() ) : $competitors->the_post(); ?>
-               <li class="col-md-6 profile-link"><a href="<?php the_permalink(); ?>">
-                <div class="col-md-4" style="padding-top: 5px; margin-bottom: 5px;"><?php the_post_thumbnail('thumb');?></div>
-                <div class="col-md-8" style="font-size: 1.2em;"><?php the_title(); ?></div></a></li>
-                <?php endwhile; ?>
-            </ul>
+        <div class="list-group">
+            <?php while ($competitors->have_posts() ) : $competitors->the_post(); ?>
+                <a class="list-group-item" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+            <?php endwhile; ?>
         </div>
     </div>
 

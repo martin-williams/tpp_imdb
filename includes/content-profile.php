@@ -36,9 +36,9 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
 <header class="entry-header">
 
-    <?php echo get_the_post_thumbnail(get_the_ID(), array(215,320)); ?>
-
     <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
+
+    <?php echo get_the_post_thumbnail(get_the_ID(), array(215,320)); ?>
 
     <div class="entry-content">
         <?php the_content(); ?>
