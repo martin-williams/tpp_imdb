@@ -5,35 +5,34 @@ add_action('admin_menu', 'tppdb_main_menu_page');
 
 function tppdb_main_menu_page()
 {
-    add_menu_page('The Pageant Planet Database', 'TPP Database', 'manage_options', 'tppdb_home', 'tppdb_home_func', '', 8);
+    add_menu_page('The Pageant Planet Database', 'TPP Database', 'edit_pages', 'tppdb_home', 'tppdb_home_func', '', 8);
 
 
     /* Pageants */
 
     /* Systems */
-    add_submenu_page('tppdb_home', "", '<span style="display:block; margin:1px 0 1px -5px; padding:0; height:1px; line-height:1px;background:#eee;"></span>', "manage_options", "#");
+    add_submenu_page('tppdb_home', "", '<span style="display:block; margin:1px 0 1px -5px; padding:0; height:1px; line-height:1px;background:#eee;"></span>', "edit_pages", "#");
+
+    add_submenu_page('tppdb_home', 'Requests', 'Requests', 'edit_pages', 'tppdb_requests', 'tppdb_requests_func');
+
+    add_submenu_page('tppdb_home', "", '<span style="display:block; margin:1px 0 1px -5px; padding:0; height:1px; line-height:1px;background:#eee;"></span>', "edit_pages", "#");
 
 
-    add_submenu_page('tppdb_home', 'Requests', 'Requests', 'manage_options', 'tppdb_requests', 'tppdb_requests_func');
+    add_submenu_page('tppdb_home', 'Profile Roles', 'Profile Roles', 'edit_pages', 'edit-tags.php?taxonomy=roles&post_type=tpp_profiles', '');
+    add_submenu_page('tppdb_home', 'Areas of Expertise', 'Areas of Expertise', 'edit_pages', 'edit-tags.php?taxonomy=areas-of-expertise&post_type=tpp_profiles', '');
+    add_submenu_page('tppdb_home', 'Pageant Years', 'Pageant Years', 'edit_pages', 'edit-tags.php?taxonomy=pageant-year&post_type=pageant-years', '');
 
-    add_submenu_page('tppdb_home', "", '<span style="display:block; margin:1px 0 1px -5px; padding:0; height:1px; line-height:1px;background:#eee;"></span>', "manage_options", "#");
+    add_submenu_page('tppdb_home', 'Organizations', 'Organizations', 'edit_pages', 'edit-tags.php?taxonomy=organizations&post_type=pageants', '');
 
-
-    add_submenu_page('tppdb_home', 'Profile Roles', 'Profile Roles', 'manage_options', 'edit-tags.php?taxonomy=roles&post_type=tpp_profiles', '');
-    add_submenu_page('tppdb_home', 'Areas of Expertise', 'Areas of Expertise', 'manage_options', 'edit-tags.php?taxonomy=areas-of-expertise&post_type=tpp_profiles', '');
-    add_submenu_page('tppdb_home', 'Pageant Years', 'Pageant Years', 'manage_options', 'edit-tags.php?taxonomy=pageant-year&post_type=pageant-years', '');
-
-    add_submenu_page('tppdb_home', 'Organizations', 'Organizations', 'manage_options', 'edit-tags.php?taxonomy=organizations&post_type=pageants', '');
-
-    add_submenu_page('tppdb_home', 'Age Divisions', 'Age Divisions', 'manage_options', 'edit-tags.php?taxonomy=age-divisions&post_type=pageant-years', '');
-    add_submenu_page('tppdb_home', 'Stages', 'Stages', 'manage_options', 'edit-tags.php?taxonomy=stages&post_type=pageants', '');
+    add_submenu_page('tppdb_home', 'Age Divisions', 'Age Divisions', 'edit_pages', 'edit-tags.php?taxonomy=age-divisions&post_type=pageant-years', '');
+    add_submenu_page('tppdb_home', 'Stages', 'Stages', 'edit_pages', 'edit-tags.php?taxonomy=stages&post_type=pageants', '');
 
 
 }
 
 function tppdb_home_func()
 {
-    if (!current_user_can('manage_options')) {
+    if (!current_user_can('edit_pages')) {
         wp_die('You do not have sufficient permissions to access this page.');
     } ?>
 
@@ -66,7 +65,7 @@ function tppdb_requests_func()
 
     global $wpdb;
     $table_name = $wpdb->prefix . 'tppdb_requests';
-    if (!current_user_can('manage_options')) {
+    if (!current_user_can('edit_pages')) {
         wp_die('You do not have sufficient permissions to access this page.');
     } ?>
 
