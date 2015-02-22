@@ -63,6 +63,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         $major = get_post_meta(get_the_ID(), 'tppdb_college-major', true);
 
         $facts = get_post_meta(get_the_ID(), 'tppdb_profile_facts', false);
+        $buzzArticles = get_post_meta(get_the_ID(), 'tpp_profile_buzz_articles', false);
 
         ?>
 
@@ -266,6 +267,20 @@ if ($attachments->exist()) :
                 </a>
             </div>
             <?php endwhile; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($buzzArticles) && count($buzzArticles) != 0) : ?>
+    <div id="buzz-articles" class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Buzz Around The Web</h4>
+        </div>
+        <div class="list-group">
+            <?php foreach ($buzzArticles as $buzz) {
+                $array = explode("|", $buzz);
+                echo '<a class="list-group-item" target="_blank" href="' . $array[1] . '">' . $array[0] . '</a>';
+            } ?>
         </div>
     </div>
 <?php endif; ?>
