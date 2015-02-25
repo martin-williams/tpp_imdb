@@ -238,7 +238,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
     ?>
     <div id="news" class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="panel-title">Recent News</h4>
+            <h4 class="panel-title"><?php echo $entry_title; ?> in the news</h4>
         </div>
         <ul class="list-group">
             <?php while ( $news->have_posts() ) : $news->the_post(); ?>
@@ -267,6 +267,21 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
             <?php endwhile; ?>
         </div>
     </div>
+    <?php endif; ?>
+
+    <?php $buzzArticles = get_post_meta(get_the_ID(), 'tpp_pageant_buzz_articles', false); ?>
+    <?php if (isset($buzzArticles) && count($buzzArticles) != 0) : ?>
+        <div id="buzz-articles" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">Buzz Around The Web</h4>
+            </div>
+            <div class="list-group">
+                <?php foreach ($buzzArticles as $buzz) {
+                    $array = explode("|", $buzz);
+                    echo '<a class="list-group-item" target="_blank" href="' . $array[1] . '">' . $array[0] . '</a>';
+                } ?>
+            </div>
+        </div>
     <?php endif; ?>
 
     <div id="reviews" class="panel panel-default">

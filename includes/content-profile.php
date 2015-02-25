@@ -186,7 +186,7 @@ if ($awards->have_posts()) :
 ?>
     <div id="awards" class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="panel-title">Awards Won</h4>
+            <h4 class="panel-title">Awards <?php echo $entry_title; ?> Won</h4>
         </div>
         <ul class="list-group">
             <?php while ($awards->have_posts()) : $awards->the_post(); ?>
@@ -233,7 +233,7 @@ if ($news->have_posts()) :
 
     <div id="news" class="panel panel-default">
         <div class="panel-heading">
-            <h4 class="panel-title">News</h4>
+            <h4 class="panel-title"><?php echo $entry_title; ?> in the news</h4>
         </div>
         <ul class="list-group">
             <?php while ($news->have_posts() ) : $news->the_post(); ?>

@@ -88,7 +88,7 @@ function additional_fields() {
     echo '<p class="comment-form-rating col-xs-12">'.
         '<label>'. __('Rating') . '</label><br />'.
         '<input type="hidden" id="rating" name="rating" value="0" />'.
-        '<span>';
+        '<span class="text-primary">';
 
     for ($i = 1; $i <= 5; $i++) {
         echo '<i class="fa fa-star-o"></i>';

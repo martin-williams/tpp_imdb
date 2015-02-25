@@ -54,6 +54,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         $insta_url = get_post_meta(get_the_ID(), 'tpp_instagram', true);
 
         $website = get_post_meta(get_the_ID(), 'tpp_website', true);
+        $buzzArticles = get_post_meta(get_the_ID(), 'tpp_system_buzz_articles', false);
 
         ?>
 
@@ -346,6 +347,22 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
             </div>
         </div>
     </div>
+    <?php endif; ?>
+
+    <?php if (isset($buzzArticles) && count($buzzArticles) != 0) : ?>
+        <div class="row">
+            <div id="buzz-articles" class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Buzz Around The Web</h4>
+                </div>
+                <div class="list-group">
+                    <?php foreach ($buzzArticles as $buzz) {
+                        $array = explode("|", $buzz);
+                        echo '<a class="list-group-item" target="_blank" href="' . $array[1] . '">' . $array[0] . '</a>';
+                    } ?>
+                </div>
+            </div>
+        </div>
     <?php endif; ?>
 
     <?php do_action('yt_before_single_post_entry_footer'); ?>
