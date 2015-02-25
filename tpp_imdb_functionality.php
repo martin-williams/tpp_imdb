@@ -216,3 +216,9 @@ function register_custom_db_table() {
     $wpdb->tppdb_requests = $wpdb->prefix . 'tppdb_requests';
 }
 add_action('init', 'register_custom_db_table');
+
+
+function init_scripts() {
+    return true;
+}
+add_filter("gform_init_scripts_footer", "init_scripts");
