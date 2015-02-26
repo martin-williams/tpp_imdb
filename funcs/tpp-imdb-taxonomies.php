@@ -35,7 +35,7 @@ function tppdb_create_stages_tax() {
 		array(
 			'label' => __( 'Stages' ),
 			'rewrite' => array( 'slug' => 'competition' ),
-			'hierarchical' => false,
+			'hierarchical' => true,
 //			'capabilities' => $capabilities,
 
 		)
@@ -61,7 +61,7 @@ function tppdb_create_years_tax() {
 		array(
 			'label' => __( 'Year' ),
 			'rewrite' => array( 'slug' => 'year' ),
-			'hierarchical' => false,
+			'hierarchical' => true,
 //			'capabilities' => $capabilities,
 
 		)
@@ -73,7 +73,7 @@ function tppdb_create_roles_tax() {
 		array(
 			'label' => __( 'Roles' ),
 			'rewrite' => array( 'slug' => 'roles' ),
-			'hierarchical' => false,
+			'hierarchical' => true,
 			//			'capabilities' => $capabilities,
 
 		)
@@ -85,7 +85,7 @@ function tppdb_create_expertise_tax() {
 		array(
 			'label' => __( 'Areas of Expertise' ),
 			'rewrite' => array( 'slug' => 'expertise' ),
-			'hierarchical' => false,
+			'hierarchical' => true,
 			//			'capabilities' => $capabilities,
 
 		)

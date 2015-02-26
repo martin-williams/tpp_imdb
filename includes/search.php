@@ -1,6 +1,6 @@
 <div class="panel-group" id="accordion">
     <div class="panel panel-primary">
-        <div class="panel-heading" id=searchHeading">
+        <div class="panel-heading" id="searchHeading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#searchCollapse">Find a Pageant</a>
             </h4></div>
@@ -9,8 +9,8 @@
             <form role="form" id="pageant-search" action="<?php echo admin_url('admin-ajax.php'); ?>">
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#pageant" aria-controls="pageant" role="tab" data-toggle="tab">Pageant</a></li>
-                    <li role="presentation"><a href="#coach" aria-controls="coach" role="tab" data-toggle="tab">Coach</a></li>
-                </ul>
+<!--                     <li role="presentation"><a href="#coach" aria-controls="coach" role="tab" data-toggle="tab">Coach</a></li>
+ -->                </ul>
                 <div class="panel-body tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="pageant">
                         <fieldset class="stages">
@@ -55,8 +55,8 @@
                         </fieldset>
                     </div>
 
-                    <div role="tabpanel" class="tab-pane fade" id="director"><p>Director pane</p></div>
-
+<!--                     <div role="tabpanel" class="tab-pane fade" id="director"><p>Director pane</p></div>
+ -->
                 </div>
                 <div class="panel-footer">
 

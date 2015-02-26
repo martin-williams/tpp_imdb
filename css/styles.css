@@ -84,6 +84,9 @@ ol.commentlist li {list-style: none; height: auto;}
 .ages .checkbox:first-of-type { margin-left: 0; }
 .ages .checkbox:last-child { margin-right: 0; }
 
+
+#pageants-won {margin-top: 10px;}
+
 @media (max-width: 767px) {
 	.meta-wrapper { padding-top: 0; padding-bottom: 0; border: none; }
 
