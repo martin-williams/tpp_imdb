@@ -39,7 +39,7 @@ if ( 'pingback' == $comment->comment_type || 'trackback' == $comment->comment_ty
             </div><!-- .comment-metadata -->
             <?php if ($commentrating = get_comment_meta(get_comment_ID(), 'tppdb_review_rating', true)) : ?>
                 <div class="comment-rating col-xs-12">
-                    <span>
+                    <span class="text-primary">
                         <?php
                         for ($i = 0; $i < 5; $i++) {
                             $class = ($i <= $commentrating) ? 'fa fa-star' : 'fa fa-star-o';

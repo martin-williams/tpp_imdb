@@ -25,6 +25,15 @@ function pageant_search_submit () {
 add_action( 'wp_ajax_tppdb_pageant_search', 'pageant_search_submit' );
 add_action( 'wp_ajax_nopriv_tppdb_pageant_search', 'pageant_search_submit' );
 
+function profile_search_submit () {
+    ob_start();
+    $template = new TPP_IMDB_Template_Loader;
+    $template->get_template_part('profile_search_results');
+    die(ob_get_clean());
+}
+add_action( 'wp_ajax_tppdb_profile_search', 'profile_search_submit' );
+add_action( 'wp_ajax_nopriv_tppdb_profile_search', 'profile_search_submit' );
+
 function coach_search_submit () {
     ob_start();
     $template = new TPP_IMDB_Template_Loader;

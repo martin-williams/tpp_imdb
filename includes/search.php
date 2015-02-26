@@ -9,6 +9,7 @@
             <form role="form" id="pageant-search" action="<?php echo admin_url('admin-ajax.php'); ?>">
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#pageant" aria-controls="pageant" role="tab" data-toggle="tab">Pageant</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
 <!--                     <li role="presentation"><a href="#coach" aria-controls="coach" role="tab" data-toggle="tab">Coach</a></li>
  -->                </ul>
                 <div class="panel-body tab-content">
@@ -40,20 +41,44 @@
                         </fieldset>
                     </div>
 
+                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                        <fieldset class="roles">
+                            <legend>Roles</legend>
+                            <?php $roles = get_terms('roles', array('hide_empty' => false)); ?>
+                            <?php foreach ($roles as $role) : ?>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="<?php echo $role->slug; ?>" /><?php echo $role->name; ?></label>
+                                </div>
+                            <?php endforeach; ?>
+                        </fieldset>
+
+                        <fieldset class="expertise">
+                            <legend>Areas of Expertise</legend>
+                            <?php $areas = get_terms('areas-of-expertise', array('hide_empty' => false)); ?>
+                            <?php foreach ($areas as $area) : ?>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="<?php echo $area->slug; ?>" /><?php echo $area->name; ?></label>
+                                </div>
+                            <?php endforeach; ?>
+                        </fieldset>
+                    </div>
+
+                    <!--
                     <div role="tabpanel" class="tab-pane fade" id="coach">
                         <fieldset class="expertise">
                             <legend>Areas of Expertise</legend>
 
                             <?php
-                            $areas = get_terms('areas-of-expertise', array('hide_empty' => false));
-                            foreach ($areas as $area) :
+//                            $areas = get_terms('areas-of-expertise', array('hide_empty' => false));
+//                            foreach ($areas as $area) :
                             ?>
                             <div class="checkbox">
-                                <label><input type="checkbox" name="<?php echo $area->slug; ?>" /><?php echo $area->name; ?></label>
+                                <label><input type="checkbox" name="<?php //echo $area->slug; ?>" /><?php //echo $area->name; ?></label>
                             </div>
-                            <?php endforeach; ?>
+                            <?php //endforeach; ?>
                         </fieldset>
                     </div>
+                    -->
 
 <!--                     <div role="tabpanel" class="tab-pane fade" id="director"><p>Director pane</p></div>
  -->

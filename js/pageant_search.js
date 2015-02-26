@@ -23,6 +23,27 @@
         return 'stages=' + obj.stages.toString() + '&ages=' + obj.ages.toString();
     };
 
+    var getProfileData = function () {
+        var obj = {
+            roles: [],
+            areas: []
+        };
+
+        $('fieldset.roles').find('input[type=checkbox]').each(function () {
+            if ($(this).is(':checked')) {
+                obj.roles.push(this.name);
+            }
+        });
+
+        $('fieldset.expertise').find('input[type=checkbox]').each(function () {
+            if ($(this).is(':checked')) {
+                obj.areas.push(this.name);
+            }
+        });
+
+        return 'roles=' + obj.roles.toString() + '&areas=' + obj.areas.toString();
+    };
+
     var getCoachData = function () {
         var areas = [];
 
@@ -52,6 +73,9 @@
         switch (activeTab) {
             case 'pageant':
                 data = getPageantData();
+                break;
+            case 'profile':
+                data = getProfileData();
                 break;
             case 'coach':
                 data = getCoachData();

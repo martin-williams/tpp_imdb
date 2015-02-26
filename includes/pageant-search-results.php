@@ -10,7 +10,9 @@ $ages = explode(',', $ages_arr[1]);
 $args = array(
     'post_type' => 'pageants',
     'stages' => $stages,
-    'age-divisions' => $ages
+    'age-divisions' => $ages,
+    'orderby' => 'title',
+    'order'   => 'ASC',
 );
 
 $pageants = new WP_Query($args);
