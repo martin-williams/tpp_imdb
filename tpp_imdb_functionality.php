@@ -75,9 +75,9 @@ function tppdb_pageant_content_hook ($content) {
         $content .= '<button type="button" id="expanderBtn" class="btn btn-default">Read More</button>';
         $content .= tppdb_getPageantFacts();
 
-        if (!is_singular( 'pageants' )) {
-            $content .= thumbs_rating_getlink();
-        }
+        // if (!is_singular( 'pageants' )) {
+        //     $content .= thumbs_rating_getlink();
+        // }
     }
     return $content;
 }

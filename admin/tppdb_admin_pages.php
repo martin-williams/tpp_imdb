@@ -20,7 +20,7 @@ function tppdb_main_menu_page()
 
     add_submenu_page('tppdb_home', 'Profile Roles', 'Profile Roles', 'edit_pages', 'edit-tags.php?taxonomy=roles&post_type=tpp_profiles', '');
     add_submenu_page('tppdb_home', 'Areas of Expertise', 'Areas of Expertise', 'edit_pages', 'edit-tags.php?taxonomy=areas-of-expertise&post_type=tpp_profiles', '');
-    add_submenu_page('tppdb_home', 'Pageant Years', 'Pageant Years', 'edit_pages', 'edit-tags.php?taxonomy=pageant-year&post_type=pageant-years', '');
+    add_submenu_page('tppdb_home', 'Pageant Years', 'Pageant Years', 'edit_pages', 'edit-tags.php?taxonomy=years&post_type=pageant-years', '');
 
     add_submenu_page('tppdb_home', 'Organizations', 'Organizations', 'edit_pages', 'edit-tags.php?taxonomy=organizations&post_type=pageants', '');
 

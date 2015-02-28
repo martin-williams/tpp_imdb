@@ -71,10 +71,20 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
         <div class="row">
             <div class="col-sm-8">
+
+                <h6 class="post-meta-key">Pageant Rating</h6>
+                <?php if(tppdb_getPageantRating(get_the_ID())){ ?>
+                    <i class="fa fa-star star-rating-main"></i><?php echo tppdb_getPageantRating(get_the_ID());?>/5 Stars
+                <?php } else { ?>
+                    <i class="fa fa-star star-rating-main"></i> Not Yet Rated
+                <?php } ?>
+
+                <hr />
                 <?php wp_enqueue_script('tppdb-bio-expander', plugins_url( '/js/tppdb-bio-expander.js', dirname(__FILE__) ), array( 'jquery' )); ?>
                 <?php the_content(); ?>
 
                 <hr />
+              
 
                 <a id="reviewBtn" class="btn btn-primary" href="#reviews">Read Reviews on <?php echo $entry_title; ?></a>
 
@@ -291,7 +301,8 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
         <ol class="commentlist">
             <?php
             $reviews = get_comments(array(
-                'post_id' => get_the_ID()
+                'post_id' => get_the_ID(),
+                'status' => 'approve'
             ));
 
             wp_list_comments(array(
@@ -307,12 +318,24 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 'title_reply' => __( 'Write a Review' ),
                 'cancel_reply_link' => __( 'Cancel Review' ),
                 'label_submit' => __( 'Post Review' ),
-                'comment_field' => '<p class="comment-form-comment col-xs-12"><label for="comment">' . _x( 'Review', 'noun' ) . '<span class="required">*</span></label><textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true">' . '</textarea></p>'
+                'comment_field' => '<p class="comment-form-comment col-xs-12"><label for="comment">' . _x( 'Review', 'noun' ) . '<span class="required">*</span></label><textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true">' . '</textarea></p>',
+                'comment_notes_after' => ''
             );
 
             comment_form($args);
             ?>
         </div>
+    </div>
+<?php 
+       $permalink = get_permalink(get_the_ID() );
+
+     ?>
+
+    <div class="actions-footer row">
+    <div class="col-xs-12">
+            <a href="<?php echo get_bloginfo("url");?>/suggest-a-correction/?item=<?php echo $permalink; ?>" style="color: #eee;margin: 0; padding: 0;">Suggest a correction</a>
+    </div>
+
     </div>
 
     <?php do_action( 'yt_before_single_post_entry_footer' );?>

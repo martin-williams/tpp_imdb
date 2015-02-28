@@ -69,9 +69,9 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
             <h1 class="entry-title <?php echo $entry_title_class; ?>"><?php echo $entry_title; ?></h1>
             <div class="row">
                 <?php
-                if (has_post_thumbnail()) {
-                    the_post_thumbnail();
-                }
+                // if (has_post_thumbnail()) {
+                //     the_post_thumbnail();
+                // }
                 ?>
             </div>
 
@@ -85,6 +85,11 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
                     <hr/>
 
+<!--                     <div class="overall-hitmiss">
+                        <h6 class="post-meta-key">Pageant Rating</h6>
+                        
+                    </div> -->
+
                     <?php
 
                     $pageants = new WP_Query(array(
@@ -94,23 +99,23 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                         'orderby' => 'years'
                     ));
 
-                    $up_votes = 0;
-                    $down_votes = 0;
+                    // $up_votes = 0;
+                    // $down_votes = 0;
 
-                    $totalPageants = 0;
-                    if ($pageants->have_posts()) :
-                        $totalPageants = $pageants->found_posts;
-                        while ($pageants->have_posts()): $pageants->the_post();
-                            if (get_post_meta(get_the_ID(), '_thumbs_rating_up', true)) {
-                                $up_votes = $up_votes + get_post_meta(get_the_ID(), '_thumbs_rating_up', true);
-                            }
+                    // $totalPageants = 0;
+                    // if ($pageants->have_posts()) :
+                    //     $totalPageants = $pageants->found_posts;
+                    //     while ($pageants->have_posts()): $pageants->the_post();
+                    //         if (get_post_meta(get_the_ID(), '_thumbs_rating_up', true)) {
+                    //             $up_votes = $up_votes + get_post_meta(get_the_ID(), '_thumbs_rating_up', true);
+                    //         }
 
-                            if (get_post_meta(get_the_ID(), '_thumbs_rating_down', true)) {
-                                $down_votes = $down_votes + get_post_meta(get_the_ID(), '_thumbs_rating_down', true);
-                            }
-                        endwhile;
-                    endif;
-
+                    //         if (get_post_meta(get_the_ID(), '_thumbs_rating_down', true)) {
+                    //             $down_votes = $down_votes + get_post_meta(get_the_ID(), '_thumbs_rating_down', true);
+                    //         }
+                    //     endwhile;
+                    // endif;
+                    /*
                     ?>
                     <div class="overall-hitmiss">
                         <h6 class="post-meta-key">Pageant Rating</h6>
@@ -127,9 +132,10 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                             votes: <?php echo $down_votes; ?>
                         </div>
                     </div>
-
+                    */ ?>
                     <hr class="visible-xs" />
                 </div>
+            
                 <div class="meta-wrapper col-sm-4">
                     <ul class="post-meta">
 
@@ -181,8 +187,11 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                             <span class="post-meta-key">Pageant Organizations</span>
                             <ul>
                                 <?php foreach ($orgs as $org) : ?>
-                                    <li><a href="<?php echo get_term_link($org); ?>"><?php echo $org->name; ?></a></li>
-                                <? endforeach; ?>
+<!--                                     <li><a href="<?php echo get_term_link($org); ?>"><?php echo $org->name; ?></a></li>
+ -->                                
+                                <li><?php echo $org->name; ?></li>
+
+<? endforeach; ?>
                             </ul>
                         </li>
                         <? endif; // organizations loop ?>
@@ -301,6 +310,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 while ($pageants->have_posts()) : $pageants->the_post();
                     $pageant_id = get_the_ID();
                     $link = get_the_permalink();
+                    $excerpt = get_the_excerpt();
                     p2p_type('winner')->each_connected($pageants, array(), 'winner');
                 ?>
                 <div class="panel panel-default">
@@ -323,6 +333,28 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                             </div>
 
                             <div class="col-sm-8">
+                            <div class="pageant-description row">
+                                <?php echo $excerpt . '...';?>
+                            </div>
+                            <div class="pageant-rating-more row" style="margin-top:10px;">
+                                <div class="col-sm-8">
+                                    <?php
+      
+                                    $avg = tppdb_getPageantRating($pageant_id);
+
+                                    if($avg){
+
+                                        echo '<strong><i class="fa fa-star rating-star"></i> Pageant Rating: </strong>'. $avg . '/5 Stars';
+
+                                    } else {
+                                        echo '<strong><i class="fa fa-star rating-star"></i> Pageant Rating: </strong>Not yet rated';
+                                    }
+
+
+                                    ?>
+
+                                </div>
+                            <?php /*
                                 <ol class="commentlist">
                                     <?php
                                     $reviews = get_comments(array(
@@ -337,7 +369,11 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                                     ), $reviews);
                                     ?>
                                 </ol>
-                                <a href="<?php echo $link; ?>">See Contestants</a>
+                                */?>
+                                <div class="col-sm-2">
+                                    <a href="<?php echo $link; ?>" class="btn btn-primary">See Contestants</a>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -363,7 +399,21 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
                 </div>
             </div>
         </div>
-    <?php endif; ?>
+    <?php endif;
+
+
+
+    $permalink = get_permalink(get_the_ID() );
+
+     ?>
+
+    <div class="actions-footer row">
+    <div class="col-xs-12">
+            <a href="<?php echo get_bloginfo("url");?>/suggest-a-correction/?item=<?php echo $permalink; ?>" style="color: #eee;margin: 0; padding: 0;">Suggest a correction</a>
+    </div>
+
+    </div>
+
 
     <?php do_action('yt_before_single_post_entry_footer'); ?>
 

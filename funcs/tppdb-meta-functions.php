@@ -11,7 +11,7 @@ if (!function_exists('tppdb_getPageantFacts')) :
 
 
         $html = '';
-        if ($facts != '') {
+        if ($facts != '' && count($facts) > 0) {
             $html .= '<div class="fun-facts">';
             $html .= '<h6 class="post-meta-key">Interesting Facts</h6>';
             $html .= '<ul class="facts">';
@@ -26,4 +26,37 @@ if (!function_exists('tppdb_getPageantFacts')) :
 
         return $html;
     }
+endif;
+
+
+
+if(!function_exists('tppdb_getPageantRating')):
+function tppdb_getPageantRating($pageantID) {
+
+    $reviews = get_comments(array(
+        'post_id' => $pageantID,
+        'status' => 'approve'
+    ));
+
+    $totalavg = array(); 
+
+    foreach($reviews as $review){
+        $id = $review->comment_ID;
+
+        if(get_comment_meta($id, 'tppdb_review_rating_total', true)){
+            $totalavg[] = get_comment_meta($id, 'tppdb_review_rating_total', true);
+        }
+    }
+
+    if(count($totalavg) > 0){
+
+        return array_sum($totalavg) / count($totalavg);
+
+    } else {
+
+        return false;
+
+    }
+
+}
 endif;
