@@ -50,7 +50,7 @@ function tppdb_getPageantRating($pageantID) {
 
     if(count($totalavg) > 0){
 
-        return array_sum($totalavg) / count($totalavg);
+        return round( array_sum($totalavg) / count($totalavg) );
 
     } else {
 
