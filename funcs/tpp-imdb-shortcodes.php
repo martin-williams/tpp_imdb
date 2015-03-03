@@ -66,3 +66,20 @@ function tppdb_edit_profile_func() {
 
 
 }
+
+
+add_shortcode("tppdb_add_system", "tppdb_add_system_func");
+
+function tppdb_add_system_func() {
+	ob_start();
+
+	if (is_user_logged_in()) {
+		echo do_shortcode('[gravityform id="6"]');
+	} else {
+		echo '<p>You must sign in before submitting a pageant.</p>';
+	}
+
+	$content = ob_get_contents();
+	ob_end_clean();
+	return $content;
+}
