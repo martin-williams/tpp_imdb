@@ -9,6 +9,7 @@ $ages = explode(',', $ages_arr[1]);
 
 $args = array(
     'post_type' => 'pageants',
+    'post_status' => 'publish',
     'stages' => $stages,
     'age-divisions' => $ages,
     'orderby' => 'title',
@@ -28,34 +29,33 @@ while ($pageants->have_posts()) : $pageants->the_post();
             <div class="row">
                 <div class="col-xs-4">
                     <?php if (sizeof($post_stages) > 0) : ?>
-                        <p>Phases of Competition:<br/>
-
-                            <?php
-                            foreach ($post_stages as $index => $stage) :
-                                if ($index != 0) {
-                                    echo ', ';
-                                }
-                                ?>
-                                <a href="<?php echo esc_url(get_term_link($stage)); ?>"><?php echo $stage->name; ?></a>
+                        <p style="margin: 0;">Phases of Competition:</p>
+                        <ul>
+                            <?php foreach ($post_stages as $index => $stage) : ?>
+                                <li><a href="<?php echo esc_url(get_term_link($stage)); ?>"><?php echo $stage->name; ?></a></li>
                             <?php endforeach; ?>
-
-                        </p>
+                        </ul>
                     <?php endif; ?>
 
-                    <?php if (sizeof($post_ages) > 0) : ?>
-                        <p>Age divisions:<br/>
+                    <?php
+                        $avg = tppdb_getPageantRating(get_the_ID());
 
-                            <?php
-                            foreach ($post_ages as $index => $age) :
-                                if ($index != 0) {
-                                    echo ', ';
-                                }
-                                ?>
-                                <a href="<?php echo esc_url(get_term_link($age)); ?>"><?php echo $age->name; ?></a>
-                            <?php endforeach; ?>
+                        if($avg){
+                            echo '<strong>Pageant Rating: </strong>'. $avg . '/5 Stars';
+                        } else {
+                            echo '<strong>Pageant Rating: </strong>Not yet rated';
+                        }
 
-                        </p>
-                    <?php endif; ?>
+                        echo '<br/><span class="text-primary">';
+
+                        for ($i = 0; $i < 5; $i++) {
+                            $class = 'fa-star-o';
+                            if ($i < $avg) $class = 'fa-star';
+                            echo '<i class="fa ' . $class . '"></i>';
+                        }
+
+                        echo '</span>';
+                    ?>
 
                 </div>
                 <div class="col-xs-8">

@@ -10,6 +10,8 @@
 
 .search-results .panel.panel-default { border: 1px solid; }
 .search-results > p { margin-top: 15px; }
+.search-results .panel-body ul { margin: 0 0 5px; }
+.search-results .panel-body li { border: none; height: auto; line-height: normal; margin: 0; padding: 0; }
 
 #snippet-box { display: none; }
 
@@ -78,20 +80,14 @@ ol.commentlist li {list-style: none; height: auto;}
 
 .additional-info, .additional-info li {list-style: none;}
 
-.stages .checkbox { width: 33.33%; float: left; margin: 5px 0; }
-.expertise .checkbox { width: 25%; float: left; margin: 5px 0; }
-.ages .checkbox { float: left; margin: 5px 23px; }
-.ages .checkbox:first-of-type { margin-left: 0; }
-.ages .checkbox:last-child { margin-right: 0; }
-
+#pageant-search .checkbox { width: 33.33%; float: left; margin: 5px 0; }
 
 #pageants-won {margin-top: 10px;}
 
 @media (max-width: 767px) {
 	.meta-wrapper { padding-top: 0; padding-bottom: 0; border: none; }
 
-	.stages .checkbox,
-	.ages .checkbox { width: 100%; margin: 5px 0; }
+	#pageant-search .checkbox { width: 100%; margin: 5px 0; }
 
 	legend { font-size: 18px; }
 
