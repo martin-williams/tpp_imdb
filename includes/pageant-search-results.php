@@ -1,21 +1,58 @@
 <?php
-$terms = explode('&', $_POST['data']);
+$options = array();
+parse_str($_POST['data'], $options);
 
-$stages_arr = explode('=', $terms[0]);
-$ages_arr = explode('=', $terms[1]);
+$stages = ($options['stages'] != "") ? explode(',', $options['stages']) : array();
+$ages = ($options['ages'] != "") ? explode(',', $options['ages']) : array();
 
-$stages = explode(',', $stages_arr[1]);
-$ages = explode(',', $ages_arr[1]);
+if (count($stages) > 0 && count($ages) > 0) {
+    $taxQuery = array(
+        'relation' => 'OR',
+        array(
+            'taxonomy' => 'stages',
+            'field' => 'slug',
+            'terms' => $stages,
+        ),
+        array(
+            'taxonomy' => 'age-divisions',
+            'field' => 'slug',
+            'terms' => $ages,
+        ),
+    );
+} elseif (count($stages) > 0 || count($ages) > 0) {
+    if (count($stages) > 0) {
+        $taxQuery = array(
+            'relation' => 'OR',
+            array(
+                'taxonomy' => 'stages',
+                'field' => 'slug',
+                'terms' => $stages,
+            ),
+        );
+    } elseif (count($ages) > 0) {
+        $taxQuery = array(
+            'relation' => 'OR',
+            array(
+                'taxonomy' => 'age-divisions',
+                'field' => 'slug',
+                'terms' => $ages,
+            ),
+        );
+    }
+} else {
+    $taxQuery = array();
+}
 
 $args = array(
     'post_type' => 'pageants',
     'post_status' => 'publish',
-    'stages' => $stages,
-    'age-divisions' => $ages,
+    'tax_query' => $taxQuery,
     'orderby' => 'title',
-    'order'   => 'ASC',
+    'order' => 'ASC',
 );
+?>
 
+<?php
 $pageants = new WP_Query($args);
 while ($pageants->have_posts()) : $pageants->the_post();
     $post_stages = wp_get_post_terms(get_the_ID(), 'stages');
@@ -29,10 +66,19 @@ while ($pageants->have_posts()) : $pageants->the_post();
             <div class="row">
                 <div class="col-xs-4">
                     <?php if (sizeof($post_stages) > 0) : ?>
-                        <p style="margin: 0;">Phases of Competition:</p>
+                        <p style="margin: 0;"><strong>Phases of Competition:</strong></p>
                         <ul>
                             <?php foreach ($post_stages as $index => $stage) : ?>
                                 <li><a href="<?php echo esc_url(get_term_link($stage)); ?>"><?php echo $stage->name; ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+
+                    <?php if (sizeof($post_ages) > 0) : ?>
+                        <p style="margin: 0;"><strong>Age Divisions:</strong></p>
+                        <ul>
+                            <?php foreach ($post_ages as $age) : ?>
+                                <li><a href="<?php echo esc_url(get_term_link($age)); ?>"><?php echo $age->name; ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                     <?php endif; ?>
