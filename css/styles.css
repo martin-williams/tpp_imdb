@@ -1,8 +1,22 @@
+.panel-heading a[data-toggle=collapse]:after {
+	font-family: "FontAwesome";
+	content: "\f054";
+	float: right;
+}
+
+.panel-heading a[data-toggle=collapse].collapsed:after {
+	content: "\f078";
+}
+
+.search-results .panel.panel-default { border: 1px solid; }
+.search-results > p { margin-top: 15px; }
+.search-results .panel-body ul { margin: 0 0 5px; }
+.search-results .panel-body li { border: none; height: auto; line-height: normal; margin: 0; padding: 0; }
+
 #snippet-box { display: none; }
 
 #directors, #competitors { clear: both; }
 .panel-heading { margin-bottom: 0; }
-.panel .panel-body {padding: 15px 0;}
 .panel-body ul { list-style: none; }
 .panel-body li { border: 1px solid rgba(100,100,100,0.05); height: 50px; line-height: 50px; margin: 5px 0; padding: 0 10px; }
 
@@ -11,20 +25,25 @@
 .tppdb h1, .tppdb h3 { margin: 0; }
 .profiles .entry-title { margin: 0; }
 
+.panel-body li.profile-link { overflow: auto; height: auto; }
+
 .tpp_profiles .entry-header img { float: left; margin: 0 10px 10px 0; }
-.site-content article.tpp_profiles .entry-title { clear: none; }
-.tpp_profiles .entry-header h5 { margin-bottom: 0; }
 
 .pageant-social-links { list-style: none; }
 .pageant-social-links li { display: inline-block; }
 .pageant-social-links li .fa { font-size: 30px; }
 
-.meta-wrapper { padding-top: 15px; padding-bottom: 15px; border: 1px solid rgba(0,0,0,0.1); float: right !important; margin: 0 0 15px 15px; }
+.meta-wrapper { padding-top: 15px; padding-bottom: 15px; border: 1px solid rgba(0,0,0,0.1); }
 .entry-content .meta-wrapper ul { list-style: none; margin: 0; }
-.meta-wrapper li { margin: 10px 0; }
-.meta-wrapper li:first-child { margin-top: 0; }
-.meta-wrapper li:last-child { margin-bottom: 0; }
+.meta-wrapper .post-meta > li { margin: 10px 0; }
+.meta-wrapper .post-meta > li:first-child { margin-top: 0; }
+.meta-wrapper .post-meta > li:last-child { margin-bottom: 0; }
+.meta-wrapper .post-meta img { width: 100%; height: auto; }
 .post-meta-key { display: block; font-weight: bold; }
+
+#bio-wrapper { overflow: hidden; }
+#bio-wrapper.opened { max-height: none; }
+#bio-wrapper.closed { max-height: 297px; }
 
 .panel.panel-default {border: none; -webkit-box-shadow: none; box-shadow: none;}
 .panel-default > .panel-heading { border: none;}
@@ -40,13 +59,37 @@
 }
 .tppdb-header-image h1 {color: #fff; position: absolute; bottom: 0; left: 30px; padding-bottom: 20px; text-shadow: 0 0 5px rgba(0,0,0,.75);}
 
+.tppdb-gallery > div { margin-bottom: 15px; padding-left: 8px; padding-right: 8px; }
+.report-btn { position: absolute; top: 50px; left: 10px; }
+.report-btn i.fa { margin: 0; }
+
+#reviewBtn { width: 100%; font-size: 1.2em; padding: 10px 12px; }
+
+ol.commentlist { list-style: none; }
+ol.commentlist li {list-style: none; height: auto;}
+.comment-body {line-height: 1.5em; padding-top: 10px;}
+.comment-body .comment-meta {height: auto;padding: 10px 0; padding-top: 20px;}
+.comment-body p {line-height: 1.5em;}
+
+.single-pageant-years .thumbs-rating-container {clear: both; width: 100%;}
+.single-pageants .thumbs-rating-container.total-aggregate span.thumbs-rating-up, .single-pageants .thumbs-rating-container.total-aggregate span.thumbs-rating-down {clear: both; width: 100%;}
+
+.single-pageants .entry-content img.attachment-post-thumbnail,
+.single-pageant-years .entry-content img.attachment-post-thumbnail { width: 100%; max-width: none; height: auto; margin-bottom: 15px; }
 
 
-#reviews ol.commentlist {
-	list-style: none;
+.additional-info, .additional-info li {list-style: none;}
+
+#pageant-search .checkbox { width: 33.33%; float: left; margin: 5px 0; }
+
+#pageants-won {margin-top: 10px;}
+
+@media (max-width: 767px) {
+	.meta-wrapper { padding-top: 0; padding-bottom: 0; border: none; }
+
+	#pageant-search .checkbox { width: 100%; margin: 5px 0; }
+
+	legend { font-size: 18px; }
+
+	.tpp_profiles .entry-header img { float: left; margin: 0; width: 100%; height: auto; }
 }
-
-#reviews ol.commentlist li {list-style: none;}
-#reviews .comment-body {line-height: 1.5em; padding-top: 10px;}
-#reviews .comment-body .comment-meta {height: auto;padding: 10px 0; padding-top: 20px;}
-#reviews .comment-body p {line-height: 1.5em;}

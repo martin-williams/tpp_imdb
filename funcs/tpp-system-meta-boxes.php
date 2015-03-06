@@ -32,6 +32,19 @@ function tppdb_system_meta_box() {
   
   $system_general->addText($prefix.'twitter',array('name'=> 'Twitter '));
 
+  // $repeater_fields_gen[] = $system_general->addText($prefix.'fun_facts',array('name'=> 'Fact: '),true);
+
+
+  // $system_general->addRepeaterBlock($prefix.'re_facts',array(
+  //   'inline'   => true, 
+  //   'name'     => 'Fun Facts',
+  //   'fields'   => $repeater_fields_gen, 
+  //   'sortable' => true
+  // ));
+
+  //$system_general->addWysiwyg($prefix.'facts',array('name'=> 'Fun Facts '));
+
+
 
   $system_general->Finish();
 

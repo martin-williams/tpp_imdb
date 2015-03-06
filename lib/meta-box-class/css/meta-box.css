@@ -57,6 +57,12 @@ text-shadow: rgba(255, 255, 255, 1) 0 1px 0; width: auto;*/ }
 .at-inline label{font-size: 12px !important;}
 .at-inline textarea{height: 130px;width: 200px;}
 
+.repeater-table {width: 100%;}
+.at-inline input.at-text {display: block; width: auto!important;}
+
+.at-repeat > img {margin-top: 20px;}
+.at-repater-block {padding-left: 10px;}
+.at-repater-block > img {float: right;margin-right: 40px; margin-top: -38px;}
 /* code Editor */
 .CodeMirror{
 	background-color: #fff;

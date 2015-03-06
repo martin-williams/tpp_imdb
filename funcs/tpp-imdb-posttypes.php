@@ -19,6 +19,21 @@ function tppdb_create_pageants_type() {
       ),
       'public' => true,
       'has_archive' => true,
+      'show_in_menu' => 'tppdb_home',
+      'supports' => array('title', 'editor', 'thumbnail','revisions',  'custom-fields'),
+      // 'capability_type' => 'pageant',
+      // 'capabilities' => array(
+      //   'publish_posts' => 'publish_pageants',
+      //   'edit_posts' => 'edit_pageants',
+      //   'edit_others_posts' => 'edit_others_pageants',
+      //   'delete_posts' => 'delete_pageants',
+      //   'delete_others_posts' => 'delete_others_pageants',
+      //   'read_private_posts' => 'read_private_pageants',
+      //   'edit_post' => 'edit_pageant',
+      //   'delete_post' => 'delete_pageant',
+      //   'read_post' => 'read_pageant',
+      // ),
+
     )
   );
 }
@@ -33,7 +48,20 @@ function tppdb_create_pageant_type() {
       'public' => true,
       'has_archive' => false,
       'rewrite' => array('slug' => 'pageant'),
-     // 'show_in_menu' => 'edit.php?post_type=pageants',
+      'supports' => array('title', 'editor',  'thumbnail', 'comments','revisions', 'custom-fields'),
+      'show_in_menu' => 'tppdb_home',
+      // 'capability_type' => 'year',
+      // 'capabilities' => array(
+      //   'publish_posts' => 'publish_years',
+      //   'edit_posts' => 'edit_years',
+      //   'edit_others_posts' => 'edit_others_years',
+      //   'delete_posts' => 'delete_years',
+      //   'delete_others_posts' => 'delete_others_years',
+      //   'read_private_posts' => 'read_private_years',
+      //   'edit_post' => 'edit_year',
+      //   'delete_post' => 'delete_year',
+      //   'read_post' => 'read_year',
+      // ),
      //  'menu_position' => "0"
     )
   );
@@ -48,11 +76,25 @@ function tppdb_create_profile_type() {
       ),
       'public' => true,
       'has_archive' => true,
-      // 'rewrite' => array('slug' => 'profiles')
-//      'rewrite' => array(
-//        'permastruct' => '/profiles/%post_id%/'
-//      ),
-      'supports' => array('title', 'editor', 'thumbnail')
+      'rewrite' => array('slug' => 'profiles'),
+      'show_in_menu' => 'tppdb_home',
+
+     // 'rewrite' => array(
+     //   'permastruct' => '/profile/%post_id%/'
+     // ),
+      'supports' => array('title', 'editor', 'thumbnail','revisions', 'custom-fields'),
+      // 'capability_type' => 'profile',
+      // 'capabilities' => array(
+      //   'publish_posts' => 'publish_profiles',
+      //   'edit_posts' => 'edit_profiles',
+      //   'edit_others_posts' => 'edit_others_profiles',
+      //   'delete_posts' => 'delete_profiles',
+      //   'delete_others_posts' => 'delete_others_profiles',
+      //   'read_private_posts' => 'read_private_profiles',
+      //   'edit_post' => 'edit_profile',
+      //   'delete_post' => 'delete_profile',
+      //   'read_post' => 'read_profile',
+      // ),
     )
   );
 }

@@ -35,6 +35,17 @@ function tppdb_pageant_meta_box() {
   
   $pageant_general->addText($prefix.'pageant_venue',array('name'=> 'Pageant Venue '));
 
+  // $repeater_fields_gen[] = $pageant_general->addText($prefix.'fun_facts', array('name' => 'Fact: '), true);
+
+  // $pageant_general->addRepeaterBlock($prefix.'re_facts', array(
+  //     'inline'      => true,
+  //     'name'        => 'Fun Facts',
+  //     'fields'      => $repeater_fields_gen,
+  //     'sortable'    => true
+  // ));
+
+  //$pageant_general->addWysiwyg($prefix.'pageant_fun_facts',array('name'=> 'Fun Facts '));
+
 
   $pageant_general->Finish();
 
