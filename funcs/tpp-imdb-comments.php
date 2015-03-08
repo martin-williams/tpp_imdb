@@ -151,7 +151,7 @@ endif;
 } // ends check for tppdb_comment()
 
 function additional_fields() {
-    if (is_singular('pageant-years')) :
+    if (is_singular('pageants')) :
     wp_enqueue_script('tppdb-stars', plugins_url( '/js/stars.js', dirname(__FILE__) ), array( 'jquery' ));
 
     echo '<p class="comment-form-rating col-xs-3">'.

@@ -333,7 +333,7 @@ if (is_user_logged_in()) :
 
     <div class="actions-footer row">
     <div class="col-xs-12">
-            <a href="<?php echo get_bloginfo("url");?>/suggest-a-correction/?item=<?php echo $permalink; ?>" style="color: #999; margin: 0; padding: 0;">Suggest a correction</a>
+            <a href="<?php echo get_bloginfo("url");?>/suggest-a-correction/?item=<?php echo $permalink; ?>" style="color: #eee;margin: 0; padding: 0;">Suggest a correction</a>
     </div>
 
     </div>

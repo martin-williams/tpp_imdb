@@ -288,7 +288,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
             <div class="list-group">
                 <?php foreach ($buzzArticles as $buzz) {
                     $array = explode("|", $buzz);
-                    echo '<a class="list-group-item" rel="nofollow" target="_blank" href="' . $array[1] . '">' . $array[0] . '</a>';
+                    echo '<a class="list-group-item" target="_blank" href="' . $array[1] . '">' . $array[0] . '</a>';
                 } ?>
             </div>
         </div>
@@ -333,7 +333,7 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
     <div class="actions-footer row">
     <div class="col-xs-12">
-            <a href="<?php echo get_bloginfo("url");?>/suggest-a-correction/?item=<?php echo $permalink; ?>" style="color: #999; margin: 0; padding: 0;">Suggest a correction</a>
+            <a href="<?php echo get_bloginfo("url");?>/suggest-a-correction/?item=<?php echo $permalink; ?>" style="color: #eee;margin: 0; padding: 0;">Suggest a correction</a>
     </div>
 
     </div>
