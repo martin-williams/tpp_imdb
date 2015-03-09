@@ -60,10 +60,11 @@ while ($pageants->have_posts()) : $pageants->the_post();
     ?>
 
     <div id="post-<?php echo get_the_ID(); ?>" class="panel panel-default">
-        <div class="panel-body">
+        <div class="panel-body" style="position: relative;">
             <h4><a href="<?php echo get_permalink(); ?>" rel="bookmark"><?php echo get_the_title(); ?></a></h4>
-
+            <a href="/suggest-a-correction/?item=<?php echo urlencode(get_permalink());?>" style="position: absolute; top: 10px; right: 10px; color:#ccc;font-size: 10px;">Suggest a correction</a>
             <div class="row">
+
                 <div class="col-xs-4">
                     <?php if (sizeof($post_stages) > 0) : ?>
                         <p style="margin: 0;"><strong>Phases of Competition:</strong></p>
