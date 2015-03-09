@@ -78,7 +78,12 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
             <div class="row">
                 <div class="col-sm-8">
 
+                    <h6 class="post-meta-key">Pageant Rating</h6>
+                    <i class="fa fa-star star-rating-main"></i>&nbsp;
                     <?php
+                    $rating = tppdb_getSystemRating(get_the_ID());
+                    echo ($rating && $rating > 0) ? $rating . '/5 Stars' : 'Not Yet Rated';
+
                     wp_enqueue_script('tppdb-bio-expander', plugins_url( '/js/tppdb-bio-expander.js', dirname(__FILE__) ), array( 'jquery' ));
                     the_content();
                     ?>
