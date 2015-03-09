@@ -113,7 +113,7 @@ while ($pageants->have_posts()) : $pageants->the_post();
     </div>
 <?php endwhile; ?>
 
-    <p>Is your pageant not listed? <a href="#">Click to submit your pageant to our database.</a></p>
+    <p>Is your pageant not listed? <a href="/submit-your-pageant">Click to submit your pageant to our database.</a></p>
 
 <?php
 wp_reset_query();

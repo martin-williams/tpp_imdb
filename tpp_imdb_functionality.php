@@ -150,7 +150,7 @@ function tppdb_override_tax_template($template){
     }
     return $template;
 }
-add_filter('template_include','tppdb_override_tax_template');
+//add_filter('template_include','tppdb_override_tax_template');
 
 
 
@@ -282,11 +282,17 @@ function yt_site_archive_header(){
             elseif ( is_tax( 'post_format', 'post-format-link' ) ) :
                 _e( 'Links', 'yeahthemes' );
 
-            elseif ( is_tax()) :
+            elseif ( is_tax( 'stages' )) :
                 global $wp_query;
                 $term = $wp_query->get_queried_object();
                 $title = $term->name;
-                _e( $title , 'tppdb' );
+                _e( 'Pageants With '.$title, 'tppdb' );
+
+            elseif ( is_tax( 'age-divisions' ) ) :
+                global $wp_query;
+                $term = $wp_query->get_queried_object();
+                $title = $term->name;
+                _e( $title. ' Pageants', 'tppdb' );
 
             else :
                 _e( 'Archives', 'yeahthemes' );

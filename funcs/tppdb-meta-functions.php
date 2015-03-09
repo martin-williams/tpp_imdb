@@ -60,3 +60,27 @@ function tppdb_getPageantRating($pageantID) {
 
 }
 endif;
+
+
+if (!function_exists('tppdb_getSystemRating')) :
+    function tppdb_getSystemRating($systemID) {
+        $pageants = new WP_Query( array(
+            'connected_type' => 'organization',
+            'connected_items' => $systemID,
+            'nopaging' => true,
+        ));
+
+        if ($pageants->have_posts()) {
+            $ratings = array();
+            while ($pageants->have_posts()) : $pageants->the_post();
+                $rating = tppdb_getPageantRating(get_the_ID());
+                if ($rating) {
+                    $ratings[] = tppdb_getPageantRating(get_the_ID());
+                }
+            endwhile;
+            return round( array_sum($ratings) / count($ratings) );
+        } else {
+            return false;
+        }
+    }
+endif;
