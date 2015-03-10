@@ -339,21 +339,17 @@ $feature_image = yt_get_options('blog_single_post_featured_image');
 
                             <div class="col-sm-8">
                             <div class="pageant-description row">
-                                <?php echo $excerpt . '...';?>
+                                <p class="col-sm-12">
+                                    <?php echo $excerpt . '...';?>
+                                </p>
                             </div>
                             <div class="pageant-rating-more row" style="margin-top:10px;">
                                 <div class="col-sm-8">
                                     <?php
       
                                     $avg = tppdb_getPageantRating($pageant_id);
-
-                                    if($avg){
-
-                                        echo '<strong>Pageant Rating: </strong>'. $avg . '/5 Stars';
-
-                                    } else {
-                                        echo '<strong><i class="fa fa-star rating-star"></i> Pageant Rating: </strong>Not yet rated';
-                                    }
+                                    echo '<strong>Pageant Rating: </strong>';
+                                    echo $avg ? $avg . '/5 Stars' : 'Not yet rated';
 
                                     echo '<br/><span class="text-primary">';
 

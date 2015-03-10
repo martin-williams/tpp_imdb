@@ -85,7 +85,7 @@ while ($pageants->have_posts()) : $pageants->the_post();
                     <?php endif; ?>
 
                     <?php
-                        $avg = tppdb_getPageantRating(get_the_ID());
+                        $avg = tppdb_getSystemRating(get_the_ID());
 
                         if($avg){
                             echo '<strong>Pageant Rating: </strong>'. $avg . '/5 Stars';
